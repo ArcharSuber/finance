@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no"/>
+<title>首页</title>
+<link rel="stylesheet" type="text/css" href="css/common.css" />
+<script type="text/javascript" src="script/jquery.js"></script>
+</head>
+<body>
+<!-- 页面头部 -->
+<section>
+  <div class="navigation-bar"> <a href="#" class="z-01"></a> <span>注册</span> <a href="#" class="z-02"></a> </div>
+</section>
+<!-- 中间内容 -->
+<div class="register">
+  <div class="wrapper-reg">
+    <div class="page-header">
+        <a href="/">
+            <img src="images/findpwd.png">
+        </a>
+    </div>
+    <div class="page-main">
+<form id="registerForm" name="registerForm" method="post" action="" class="reg-form" >
+<input type="hidden" name="registerForm" value="registerForm">
+
+	  <div class="m-field">
+	   	   <div class="iconphone"></div><input id="registerForm:password2" type="text" name="registerForm:password2" value="请输入新密码（6-20位字符）" class="c-txt" maxlength="20" style="display: none;" placeholder="请输入新密码（6-20位字符）"><input id="registerForm:password" type="password" name="registerForm:password" value="" maxlength="20" style="color: rgb(74, 74, 74);" class="c-txt" placeholder="请输入新密码（6-20位字符）">	
+			<p id="passwordErrorDiv" class="validateNew"></p>
+	   </div>
+	   <div class="m-field">
+	   	    <div class="iconphone"></div><input id="registerForm:rpassword2" type="text" name="registerForm:rpassword2" value="确认密码" class="c-txt" maxlength="20" placeholder="确认密码"><input id="registerForm:rpassword" type="password" name="registerForm:rpassword" value="" maxlength="20" style="display:none;" class="c-txt" placeholder="确认密码">	
+			<p id="rpasswordErrorDiv" class="validateNew"></p>
+	   </div><input id="registerForm:submitButton" type="submit" name="registerForm:submitButton" value="重置密码" style="border:none;" class="btn-submit mt20" onClick="return checkAll();"><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="" autocomplete="off">
+</form>
+    </div>
+
+    <script language="JavaScript" type="text/javascript"> 
+ 		 $("#registerForm\\:password").focusout(function(){
+ 		 	if($("#registerForm\\:password").val() == ""){
+ 		 		$("#registerForm\\:password").css("display", "none");
+ 		 		$("#registerForm\\:password2").css("display", "");
+ 		 		$("#registerForm\\:password2").val("请输入新密码（6-20位字符）");
+ 		 	}
+ 		 });
+         $("#registerForm\\:password2").focusin(function(){
+         	$("#registerForm\\:password2").css("display", "none");
+         	$("#registerForm\\:password").css("display", "");
+         	$("#registerForm\\:password").css("color","#4a4a4a");
+         	$("#registerForm\\:password").focus();
+         });
+		 $("#registerForm\\:rpassword").focusout(function(){
+		 	if($("#registerForm\\:rpassword").val() == ""){
+		 		$("#registerForm\\:rpassword").css("display", "none");
+		 		$("#registerForm\\:rpassword2").css("display", "");
+		 		$("#registerForm\\:rpassword2").val("确认密码");
+		 	}
+		 });
+         $("#registerForm\\:rpassword2").focusin(function(){
+         	$("#registerForm\\:rpassword2").css("display", "none");
+         	$("#registerForm\\:rpassword").css("display", "");
+         	$("#registerForm\\:rpassword").css("color","#4a4a4a");
+         	$("#registerForm\\:rpassword").focus();
+         });
+	</script>
+</div>
+</div>
+<script type="text/javascript">
+		//<![CDATA[
+		           
+		    function checkPassword()
+		    {
+		    	var passwordValue=$("#registerForm\\:password").val();
+		    	var nullPasswordFlag=(passwordValue=="")||(passwordValue=="请输入新密码（6-20位字符）");
+				var passwordRegex="^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$";
+				var passwordPattern=new RegExp(passwordRegex);
+				var passwordFlag=passwordPattern.test(passwordValue);
+		    	if(nullPasswordFlag)
+		    	{
+					$("#passwordErrorDiv").empty();
+					$("#passwordErrorDiv").append("请输入密码");
+					return false;
+		    	}
+		    	else
+		    	{
+		    		$("#passwordErrorDiv").empty();
+		    	}
+		    	if(!passwordFlag)
+		    	{
+		    		$("#passwordErrorDiv").empty();
+					$("#passwordErrorDiv").append("请输入6-20位的数字字母组合");
+					return false;
+		    	}
+		    	else
+		    	{
+		    		$("#passwordErrorDiv").empty();
+		    	}
+		    	return true;
+		    }
+		           
+		    
+			function checkRPassWord(){
+			 	$("#rpasswordErrorDiv").removeClass("msg-wrapper");
+				var passwordValue=$("#registerForm\\:password").val();
+				var repasswordValue=$("#registerForm\\:rpassword").val();
+				var nullFlag=(repasswordValue=="");
+				if(nullFlag==true){
+					$("#rpasswordErrorDiv").empty();
+					$("#rpasswordErrorDiv").append("请输入确认密码");
+					return false;
+				}else{
+					$("#rpasswordErrorDiv").empty();
+				}
+				var flag=(passwordValue==repasswordValue);
+				if(!flag){
+					$("#rpasswordErrorDiv").empty();
+					$("#rpasswordErrorDiv").append("两次密码不一致");
+				}else{
+					$("#repasswordErrorDiv").empty();
+				}
+				return flag;
+			}
+			
+			
+			function checkAll()
+			{
+				var passwordFlag=checkPassword();
+				var rePasswordFlag=checkRPassWord();
+				var allFlag=passwordFlag&&rePasswordFlag;
+				return allFlag;
+			}
+	//]]>
+	</script>
+	<script language="JavaScript" type="text/javascript"> 
+ 		 $("#registerForm\\:password").focusout(function(){
+ 		 	if($("#registerForm\\:password").val() == ""){
+ 		 		$("#registerForm\\:password").css("display", "none");
+ 		 		$("#registerForm\\:password2").css("display", "");
+ 		 		$("#registerForm\\:password2").val("请输入新密码（6-20位字符）");
+ 		 	}
+ 		 });
+         $("#registerForm\\:password2").focusin(function(){
+         	$("#registerForm\\:password2").css("display", "none");
+         	$("#registerForm\\:password").css("display", "");
+         	$("#registerForm\\:password").css("color","#4a4a4a");
+         	$("#registerForm\\:password").focus();
+         });
+		 $("#registerForm\\:rpassword").focusout(function(){
+		 	if($("#registerForm\\:rpassword").val() == ""){
+		 		$("#registerForm\\:rpassword").css("display", "none");
+		 		$("#registerForm\\:rpassword2").css("display", "");
+		 		$("#registerForm\\:rpassword2").val("确认密码");
+		 	}
+		 });
+         $("#registerForm\\:rpassword2").focusin(function(){
+         	$("#registerForm\\:rpassword2").css("display", "none");
+         	$("#registerForm\\:rpassword").css("display", "");
+         	$("#registerForm\\:rpassword").css("color","#4a4a4a");
+         	$("#registerForm\\:rpassword").focus();
+         });
+	</script>
+<script type="text/javascript" src="script/jsf.js.htm"></script>
+
+</body>
+</html>
