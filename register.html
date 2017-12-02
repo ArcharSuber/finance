@@ -87,21 +87,12 @@ body[0].removeChild(mybg);
         </div>
         <div class="m-field" style="position: relative;">
           <div class="iconpwd"></div>
-          <input id="registerForm:password2" type="text" name="registerForm:password2" class="c-txt" maxlength="20" style="display: none;" placeholder="确认密码">
+          <input id="registerForm:password2" type="text" name="registerForm:password2" class="c-txt" maxlength="20" style="display: none;" placeholder="请确认密码">
           <input id="registerForm:password" type="password" name="registerForm:password" value="" maxlength="20"  style="color: rgb(74, 74, 74);" class="c-txt" placeholder="请确认密码">
           <span class="pwdviewoff" onClick="changePasswordShow(this)"></span>
           <p id="passwordErrorDiv" class="validateNew"></p>
         </div>
-        <div class="m-field m-yzm" id="imageCode" >
-          <div class="m-code">
-            <div class="iconyzm"></div>
-            <input id="j_needauth" type="hidden" name="j_needauth" value="false">
-            <input id="_spring_security_remember_me" type="hidden" name="_spring_security_remember_me" value="true">
-            <input id="authCode" type="text" name="authCode" value="请输入验证码" class="c-txt c-code" maxlength="4"  placeholder="请输入验证码">
-          </div>
-          <span class="c-yzm"><img style="height: 100%;" src="images/code.jpg"></span>
-          <p id="j_yzmErrorDiv"></p>
-        </div>
+        
         <div class="m-field m-yzm">
           <div class="m-code">
             <div class="iconyzm"></div>
@@ -110,86 +101,16 @@ body[0].removeChild(mybg);
           <span class="c-yzm c-hqyzm">获取验证码</span> <span id="sendCode" class="c-yzm c-hqyzm"><a id="registerForm:sendAuthCodeBtn" href="#" style="color: white;" class="hqyzm">发送验证码</a> </span> <span id="sendCodeGrey" style="display:none;" class="c-yzm c-hqyzming"> <a href="javascript:void(0);" id="sendAuthCodeBtn1" class="hqyzmAfter" style="cursor:default;color: white;">免费获取校验码</a> </span>
           <p id="authCodeErrorDiv" class="validateNew"></p>
         </div>
-        <div class="m-field" style="display:block;">
-          <div class="iconyqm"></div>
-          <input type="text" class="c-txt" style="color: rgb(195, 195, 195);" placeholder="分站/服务机构选择 (选填)"  id="allmm">
-          <p id="referrerErrorDiv"></p>
-        </div>
+        
         <div class="agreement"> 我已阅读并同意阳光易贷的<a href="useragree.html" class="reg-xy">《隐私条款》</a>和 <a href="useragree1.html" class="reg-xy">《服务条款》</a> </div>
         <input id="registerForm:submitButton" type="submit" name="registerForm:submitButton" value="同意并继续" style="border:none;cursor:pointer;" class="btn-submit mt20" onClick="return checkAll();">
       </form>
-      <div class="m-ljzc"> 已有账号　<a href="/phone/plogin">立即登录</a> </div>
+      <div class="m-ljzc"> 已有账号　<a href="login.html">立即登录</a> </div>
     </div>
   </div>
 </div>
 <!--合作机构-->
-<div id="allmenu" style="display:none;">
-  <div class="pt45" style="margin-top: 0px;">
-    <div class="cityadd" style="position:relative"> <i><img src="images/addr.png" width="100%"></i><a href="/nj.html">南京</a> <a href="javascript:void(0)" onClick="closeDiv('allmenu')" style=" position:absolute; right:5px; top:15px;"><img src="images/xxx.png" width="18" height="18"></a></div>
-    <div class="clearfix cityabc">
-      <div class="citywap">
-        <p class="f14">热门城市</p>
-        <div class="citycon clearfix"> <a href="#">南京</a> <a href="#">合肥</a> <a href="#">芜湖</a> <a href="#">昆明</a> <a href="#">苏州</a> <a href="#">杭州</a> <a href="#">无锡</a> <a href="#">西安</a> <a href="#">长春</a> <a href="#">沈阳</a> <a href="#">武汉</a> <a href="#">天津</a> <a href="#">石家庄</a> <a href="#">哈尔滨</a> </div>
-      </div>
-      <div class="clear"></div>
-      <div class="p12 abc botl">
-        <p class="f14">全部城市</p>
-        <div class="orange cityabc"> <a class="ciabc" href="#A">A</a> <a class="ciabc" href="#B">B</a> <a class="ciabc" href="#C">C</a> <a class="ciabc" href="#D">D</a> <a class="ciabc" href="#E">E</a> <a class="ciabc" href="#F">F</a> <a class="ciabc" href="#G">G</a> <a class="ciabc" href="#H">H</a> <a class="ciabc" href="#J">J</a> <a class="ciabc" href="#K">K</a> <a class="ciabc" href="#L">L</a> <a class="ciabc" href="#M">M</a> <a class="ciabc" href="#N">N</a> <a class="ciabc" href="#Q">Q</a> <a class="ciabc" href="#S">S</a> <a class="ciabc" href="#T">T</a> <a class="ciabc" href="#W">W</a> <a class="ciabc" href="#X">X</a> <a class="ciabc" href="#Y">Y</a> <a class="ciabc" href="#Z">Z</a> </div>
-      </div>
-      <div class="citylist">
-        <p class="bg_grey botl pre"><span id="A" class="citypo"></span> A</p>
-        <div class="citysite clearfix"> <a href="#">安庆</a> <a>&nbsp;</a><a>&nbsp;</a><a style="background-image: none; background-position: initial initial; background-repeat: initial initial;">&nbsp;</a></div>
-        <p class="bg_grey botl pre"><span id="B" class="citypo"></span> B</p>
-        <div class="citysite clearfix"> <a href="#">蚌埠</a> <a href="#">保定</a> <a>&nbsp;</a><a style="background-image: none; background-position: initial initial; background-repeat: initial initial;">&nbsp;</a></div>
-        <p class="bg_grey botl pre"><span id="C" class="citypo"></span> C</p>
-        <div class="citysite clearfix"> <a href="#">长春</a> <a href="#">成都</a> <a href="#">潮州</a> <a href="#" style="background-image: none; background-position: initial initial; background-repeat: initial initial;">滁州</a> <a href="#">重庆</a> <a href="#">常熟</a> <a href="#">常州</a> <a style="background-image: none; background-position: initial initial; background-repeat: initial initial;">&nbsp;</a></div>
-        <p class="bg_grey botl pre"><span id="D" class="citypo"></span> D</p>
-        <div class="citysite clearfix"> <a href="#">大连</a> <a href="#">德州</a> <a>&nbsp;</a><a style="background-image: none; background-position: initial initial; background-repeat: initial initial;">&nbsp;</a></div>
-        <p class="bg_grey botl pre"><span id="E" class="citypo"></span> E</p>
-        <div class="citysite clearfix"> <a href="#">恩施</a> <a>&nbsp;</a><a>&nbsp;</a><a style="background-image: none; background-position: initial initial; background-repeat: initial initial;">&nbsp;</a></div>
-        <p class="bg_grey botl pre"><span id="F" class="citypo"></span> F</p>
-        <div class="citysite clearfix"> <a href="#">阜阳</a> <a>&nbsp;</a><a>&nbsp;</a><a style="background-image: none; background-position: initial initial; background-repeat: initial initial;">&nbsp;</a></div>
-        <p class="bg_grey botl pre"><span id="G" class="citypo"></span> G</p>
-        <div class="citysite clearfix"> <a href="#">高淳</a> <a>&nbsp;</a><a>&nbsp;</a><a style="background-image: none; background-position: initial initial; background-repeat: initial initial;">&nbsp;</a></div>
-        <p class="bg_grey botl pre"><span id="H" class="citypo"></span> H</p>
-        <div class="citysite clearfix"> <a href="#">淮北</a> <a href="#">淮南</a> <a href="#">邯郸</a> <a href="#" style="background-image: none; background-position: initial initial; background-repeat: initial initial;">合肥</a> <a href="#">黄山</a> <a href="#">哈尔滨</a> <a href="#">衡水</a> <a href="#" style="background-image: none; background-position: initial initial; background-repeat: initial initial;">淮安</a> <a href="#">杭州</a> <a>&nbsp;</a><a>&nbsp;</a><a style="background-image: none; background-position: initial initial; background-repeat: initial initial;">&nbsp;</a></div>
-        <p class="bg_grey botl pre"><span id="J" class="citypo"></span> J</p>
-        <div class="citysite clearfix"> <a href="#">金华</a> <a href="#">嘉兴</a> <a href="#">江阴</a> <a href="#" style="background-image: none; background-position: initial initial; background-repeat: initial initial;">晋中</a> </div>
-        <p class="bg_grey botl pre"><span id="K" class="citypo"></span> K</p>
-        <div class="citysite clearfix"> <a href="#">昆明</a> <a href="#">昆山</a> <a>&nbsp;</a><a style="background-image: none; background-position: initial initial; background-repeat: initial initial;">&nbsp;</a></div>
-        <p class="bg_grey botl pre"><span id="L" class="citypo"></span> L</p>
-        <div class="citysite clearfix"> <a href="#">六安</a> <a href="#">六合</a> <a href="#">溧水</a> <a href="#" style="background-image: none; background-position: initial initial; background-repeat: initial initial;">临沂</a> <a href="#">连云港</a> <a href="#">兰州</a> <a>&nbsp;</a><a style="background-image: none; background-position: initial initial; background-repeat: initial initial;">&nbsp;</a></div>
-        <p class="bg_grey botl pre"><span id="M" class="citypo"></span> M</p>
-        <div class="citysite clearfix"> <a href="#">马鞍山</a> <a>&nbsp;</a><a>&nbsp;</a><a style="background-image: none; background-position: initial initial; background-repeat: initial initial;">&nbsp;</a></div>
-        <p class="bg_grey botl pre"><span id="N" class="citypo"></span> N</p>
-        <div class="citysite clearfix"> <a href="#">宁波</a> <a href="#">南京</a> <a href="#">南通</a> <a style="background-image: none; background-position: initial initial; background-repeat: initial initial;">&nbsp;</a></div>
-        <p class="bg_grey botl pre"><span id="Q" class="citypo"></span> Q</p>
-        <div class="citysite clearfix"> <a href="#">青岛</a> <a href="#">泉州</a> <a>&nbsp;</a><a style="background-image: none; background-position: initial initial; background-repeat: initial initial;">&nbsp;</a></div>
-        <p class="bg_grey botl pre"><span id="S" class="citypo"></span> S</p>
-        <div class="citysite clearfix"> <a href="#">上海</a> <a href="#">石家庄</a> <a href="#">宿迁</a> <a href="#" style="background-image: none; background-position: initial initial; background-repeat: initial initial;">汕头</a> <a href="#">宿州</a> <a href="#">绍兴</a> <a href="#">沈阳</a> <a href="#" style="background-image: none; background-position: initial initial; background-repeat: initial initial;">苏州</a> </div>
-        <p class="bg_grey botl pre"><span id="T" class="citypo"></span> T</p>
-        <div class="citysite clearfix"> <a href="#">天津</a> <a href="#">太原</a> <a href="#">泰州</a> <a style="background-image: none; background-position: initial initial; background-repeat: initial initial;">&nbsp;</a></div>
-        <p class="bg_grey botl pre"><span id="W" class="citypo"></span> W</p>
-        <div class="citysite clearfix"> <a href="#">芜湖</a> <a href="#">武汉</a> <a href="#">无锡</a> <a href="#" style="background-image: none; background-position: initial initial; background-repeat: initial initial;">温州</a> </div>
-        <p class="bg_grey botl pre"><span id="X" class="citypo"></span> X</p>
-        <div class="citysite clearfix"> <a href="#">西安</a> <a href="#">邢台</a> <a href="#">新乡</a> <a href="#" style="background-image: none; background-position: initial initial; background-repeat: initial initial;">徐州</a> </div>
-        <p class="bg_grey botl pre"><span id="Y" class="citypo"></span> Y</p>
-        <div class="citysite clearfix"> <a href="#">盐城</a> <a href="#">烟台</a> <a href="#">宜兴</a> <a href="#" style="background-image: none; background-position: initial initial; background-repeat: initial initial;">扬州</a> </div>
-        <p class="bg_grey botl pre"><span id="Z" class="citypo"></span> Z</p>
-        <div class="citysite clearfix"> <a href="#">漳州</a> <a href="#">珠海</a> <a href="#">株洲</a> <a href="#" style="background-image: none; background-position: initial initial; background-repeat: initial initial;">镇江</a> <a href="#">中山</a> <a href="#">遵义</a> <a href="#">郑州</a> <a style="background-image: none; background-position: initial initial; background-repeat: initial initial;">&nbsp;</a></div>
-      </div>
-    </div>
-  </div>
-</div>
-<script type="text/javascript">
-$("#allmm").bind("click",function(){
-	if($("#allmenu").css("display")=="none"){
-		$("#allmenu").slideDown(300);
-	}else{
-		$("#allmenu").slideUp(200);
-	}
-});
-</script>
+
 <script type="text/javascript">
 		//<![CDATA[
 			
