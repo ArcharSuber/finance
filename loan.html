@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>借贷</title>
+     <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css"/>
+   		 <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body style="background-color: #f2f2f2;">
+	<div class="loading"><img src="images/ajax-loader.gif"/></div>
+	<div data-role="page" class="index self" id="self">
+		<header data-role="header">
+			<h3>借贷</h3>
+		</header>
+		<div class="ui-content" data-role="content"> 
+			<section class="self-header">
+				<p>当前帐户：139****2252</p>
+			<!-- 	<h5>总资产</h5>
+				<h2>￥122579.17</h2> -->
+				<ul>
+					<li>可随时还<br>利率万4.5</li>
+					<li>累计借钱<br>579.17元</li>
+				</ul>
+			</section>
+			<!-- <div class="self-tixian">
+				<a href="chongzhi.html" data-role="none" data-transition="slide" class="chong">充值</a>
+				<a href="tixian.html" data-role="none" data-transition="slide" class="tixian">提现</a>
+			</div>
+			<dl>
+				<dd>
+					<a href="jilu.html" data-transition="slide" class="ui-btn ui-btn-icon-right ui-icon-appright ui-nodisc-icon">交易记录</a>
+				<a>自动投资<input type="checkbox" data-role="flipswitch" name="switch"  data-on-text="开" data-off-text="关"></a>
+				</dd>
+				<dt><a href="set.html" data-ajax="false" class="ui-btn ui-btn-icon-right ui-icon-appright ui-nodisc-icon">设置</a></dt>
+			</dl>
+		</div> -->
+		<footer data-role="footer" padding-button="20px">  
+			<ul>
+				<li><a href="repay.html"  rel="external">去还钱</a></li>
+				<li><a href="borrow_money.html"  rel="external">去借钱</a></li>
+			</ul>
+		</footer>
+		 <script src="script/jquery.min.js"></script>
+     	<script src="script/jquery.mobile-1.4.5.min.js"></script>
+	    <script type="text/javascript">
+					$(window).load(function(){
+						$(".loading").fadeOut();
+					})
+	    </script>
+	</div>
+	
+</body>
+</html>
