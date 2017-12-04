@@ -7,6 +7,7 @@
 <title>首页</title>
 <link rel="stylesheet" type="text/css" href="css/common.css" />
 <script type="text/javascript" src="script/jquery.js"></script>
+<script src="script/gVerify.js"></script>
 </head>
 <body>
 <!-- 页面头部 -->
@@ -19,31 +20,37 @@
     <div class="page-header"> <a href="javascript:void(0)"> <img src="images/reg-logo.png"> </a> </div>
     <div class="page-main">
       <form action="" method="post" id="user-login-form" accept-charset="UTF-8" class="reg-form">
+
         <div class="m-field">
           <div class="iconuser"></div>
           <input id="j_username" type="text" name="j_username" value="" class="c-txt" maxlength="26" onBlur="return checkUsername()" placeholder="请输入用户名/手机号/邮箱" style="color: rgb(74, 74, 74);">
           <p id="j_usernameErrorDiv"></p>
         </div>
+
         <div class="m-field">
           <div class="iconpwd"></div>
           <input id="j_password2" type="text" name="j_password2" value="请输入密码" class="c-txt" maxlength="26" style="background-position: 0 -472px;" placeholder="请输入密码">
           <input id="j_password" type="password" name="j_password" value="" maxlength="26" onBlur="checkPassword()" style="display: none;" class="c-txt" placeholder="请输入密码">
           <p id="j_passwordErrorDiv"></p>
         </div>
+
         <div class="m-field m-yzm" id="imageCode" >
           <div class="m-code">
             <div class="iconyzm"></div>
             <input id="j_needauth" type="hidden" name="j_needauth" value="false">
             <input id="_spring_security_remember_me" type="hidden" name="_spring_security_remember_me" value="true">
-            <input id="authCode" type="text" name="authCode" value="请输入验证码" class="c-txt c-code" maxlength="4" onBlur="checkAuthcode();" onKeyUp="this.value=this.value.replace(/\D/g,'')" placeholder="请输入验证码">
+
+            <input id="authCode" type="text" name="authCode" value="请输入验证码" class="c-txt c-code" maxlength="4" onBlur="checkAuthcode();"placeholder="请输入验证码">
           </div>
-          <span class="c-yzm"><img style="height: 100%;" src="images/code.jpg"></span>
+          <span class="c-yzm"><!-- <img style="height: 100%;" src="images/code.jpg"> --><div id="v_container" style="height: 100%;"></div></span>
           <p id="j_yzmErrorDiv"></p>
         </div>
+
         <div class="remember">
-          <input id="ifRemember" class="m-chk" type="checkbox" checked="checked">
-          <span>记住用户名</span><a href="#">忘记密码?</a> </div>
-        <input class="btn-submit" style="border:none; cursor:pointer;" type="button" value="登　录" onClick="">
+          <!-- <input id="ifRemember" class="m-chk" type="checkbox" checked="checked">
+          <span>记住用户名</span> --><a href="#">忘记密码?</a> </div>
+        <input class="btn-submit" style="border:none; cursor:pointer;" type="button" value="登　录" id="my_button">
+
       </form>
       <div class="m-ljzc"> 没有账号？<a href="register.html">立即注册</a> </div>
     </div>
@@ -55,7 +62,29 @@
 		           
 		           var pwdFlag = false;
 		           var codeFlag = false;
-		           
+		           //验证码
+		            var verifyCode = new GVerify("v_container");
+				    document.getElementById("my_button").onclick = function(){
+				        var res = verifyCode.validate(document.getElementById("authCode").value);
+				        if(res){
+				            //alert("验证正确");
+				            $("#j_yzmErrorDiv").html('验证码正确');
+				            var userNameFlag3 = checkUsername();
+		                    var passWordFlag=checkPassword();
+		                   
+				            if(userNameFlag3&&passWordFlag){
+                               alert('发送ajax验证数据');
+				            }else{
+				               alert('用户名或密码有误');
+				            }
+				            
+				        }else{
+				        	
+				        	$("#j_yzmErrorDiv").html('验证码错误');
+				        	return false;
+				            //alert("验证码错误");
+				        }
+				    }
 		          //验证用户名
 				  function checkUsername(){
 
@@ -136,16 +165,17 @@
 		          
 		          
 		          //登录验证
-		          function loginCheckAll(){
-		          	  var userNameFlag3 = checkUsername();
-		        	  var passWordFlag=checkPassword();
-		        	  var authFlag = checkAuthcode();
-					  $("#j_yzmErrorDiv").empty();
-		        	  if(userNameFlag3&&passWordFlag&&authFlag){
-		        		  $("#user-login-form").submit();
-		        	  }
-		        	  remeberName();
-		          }
+		     //      function loginCheckAll(){
+		     //      	  var userNameFlag3 = checkUsername();
+		     //    	  var passWordFlag=checkPassword();
+		     //    	  var authFlag = checkAuthcode();
+					  // $("#j_yzmErrorDiv").empty();
+		     //    	  if(userNameFlag3&&passWordFlag&&authFlag){
+		     //    	  	alert(1);
+		     //    		  //$("#user-login-form").submit();
+		     //    	  }
+		     //    	  remeberName();
+		     //      }
 		          $(function(){
 		        	  //----记住用户名和验证码显示机制，cookie操作-----------
 		        	  showCookieName();
