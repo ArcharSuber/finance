@@ -15,7 +15,7 @@
 </section>
 <!-- 中间内容 -->
 <div class="summary">
-  <div class="head"><img id="photoImage" src="images/avatar1.png" alt="" style="width:80px;height:80px;z-index:0;"> <span class="username">zhuchaoyou</span>
+  <div class="head"><img id="photoImage" src="" alt="" style="width:80px;height:80px;z-index:0;"> <span class="username"></span><span id="nologin"></span>
     <div class="headamount">
       <div class="p-amount"> <i>0.00 </i><br>
         累计收益（元） </div>
@@ -30,9 +30,51 @@
   <div class="personal-list"> <a class="plist" href="recharge.html"> <span class="picon1"></span><span class="ptit">充值</span><span class="iconarrow"></span> </a> <a class="plist" href="financelog.html"> <span class="picon2"></span><span class="ptit">投资记录</span><span class="iconarrow"></span> </a> <a class="plist" href="loan.html"> <span class="picon7"></span><span class="ptit">借贷</span><span class="iconarrow"></span> </a><a class="plist" href="withdraw.html"> <span class="picon3"></span><span class="ptit">提现</span><span class="iconarrow"></span> <a class="plist" href="card.html"> <span class="picon3"></span><span class="ptit">卡包</span><span class="iconarrow"></span> </a> </div>
   <div class="personalout"> <a class="plist" href="#"> <span class="picon5"></span><span class="ptit">系统消息（<i class="pink">0</i> 条未读）</span><span class="iconarrow"></span> </a> </div>
   <div class="personalout"> <a class="plist" href="safeset.html"> <span class="picon4"></span><span class="ptit">安全设置</span><span class="iconarrow"></span> </a> </div>
-  <div class="personalout"> <a class="plist" href="#"> <span class="picon6"></span><span class="ptit">退出账号</span><span class="iconarrow"></span> </a> </div>
+  <div class="personalout"> <a class="plist" href="javascript:void(0)" id="logout"> <span class="picon6"></span><span class="ptit">退出账号</span><span class="iconarrow"></span> </a> </div>
 </div>
 <!-- 页面底部 -->
 <nav class="footer border_t" id="footer"> <a href="index.html" class="" id="jx"><span></span>首页</a> <a href="finance.html" id="lc" class=""><span></span>理财</a> <a href="loan.html" id="jk" class=""><span></span>借款</a> <a href="usercenter.html" id="cf" class="nav_on"><span></span>我的账户</a> </nav>
 </body>
 </html>
+<script>
+$(function(){
+
+  if(!getCookie('username')){
+    $("#photoImage").attr('src',"images/avatar1.png");
+    $("#nologin").html('<a href="./login.html">登录</a> | <a href="./register.html">注册</a>');
+  }else{
+    $("#photoImage").attr('src',"images/avatar1.png");
+    $(".username").html(getCookie('username'));
+  }
+
+  $("#logout").click(function(){
+      delCookie('username');
+      delCookie('user_id');
+      location.href='./login.html';
+  });
+})
+            function setCookie(name,value)//两个参数，一个是cookie的名，一个是值
+              {
+                var Days = 30; //此 cookie 将被保存 30 天
+                var exp   = new Date(); //new Date("December 31, 9998");
+                exp.setTime(exp.getTime() + Days*24*60*60*1000);
+                document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+              }
+              function getCookie(name)//取cookies函数 
+              {
+                  var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+                    if(arr != null) 
+                      return unescape(arr[2]); 
+                    return null;
+
+              }
+
+              function delCookie(name)//删除cookie
+              {
+                var exp = new Date();
+                exp.setTime(exp.getTime() - 1);
+                var cval=getCookie(name);
+                if(cval!=null) 
+                  document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+              } 
+</script>
