@@ -12,7 +12,7 @@ var amount=$('#investmentAmount').val();//输入框数据
 var staticImg=$("#staticImg").val();
 var planSign=$("#planSign").val();
 resetStype();
-$('#submit').on('click',function(){
+$('#submitss').on('click',function(){
 	if(validateForm()){
 		$.ajax({
 			type: "post",
