@@ -15,7 +15,12 @@
 </section>
 <!-- 中间内容 -->
 <div class="summary">
+<<<<<<< HEAD
   <div class="head"><img id="photoImage" src="" alt="" style="width:80px;height:80px;z-index:0;"> <span class="username"></span><span id="nologin"></span>
+=======
+  <div class="head"><img id="photoImage" src="images/avatar1.png" alt="" style="width:80px;height:80px;z-index:0;"> <span class="username" id='username'></span>
+    
+>>>>>>> dd8a9ed4f07e152ffafad12ffc90e9dbba2d8ca4
     <div class="headamount">
       <div class="p-amount"> <i>0.00 </i><br>
         累计收益（元） </div>
@@ -37,6 +42,7 @@
 </body>
 </html>
 <script>
+<<<<<<< HEAD
 $(function(){
 
   if(!getCookie('username')){
@@ -78,3 +84,17 @@ $(function(){
                   document.cookie= name + "="+cval+";expires="+exp.toGMTString();
               } 
 </script>
+=======
+  
+       var tel=document.cookie.split(";")[1].split("=")[1];
+       var b=tel.substring(0,3);
+       var a=tel.substr(7,[4]);
+       var c=b+"****"+a;
+       if(tel.length==0){
+           $("#username").html("游客");
+       }else{
+           $("#username").html(c);
+       }
+    
+</script>
+>>>>>>> dd8a9ed4f07e152ffafad12ffc90e9dbba2d8ca4
