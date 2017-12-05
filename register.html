@@ -152,7 +152,7 @@ body[0].removeChild(mybg);
                     
 				// 	success: function(msg){
 				// 		console.log(msg)
-                       //做一个定时器 倒计时60秒  
+    //                    //做一个定时器 倒计时60秒  
     
 				// 	}
 				// });
@@ -245,14 +245,14 @@ body[0].removeChild(mybg);
 				var allFlag=telFlag&&pwdFlag&&qpwdFlag;
 				var tel=$("#tel").val();
 				var pwd=$("#password").val();
-				console.log(allFlag);
+				//console.log(allFlag);
                 var authCode=$("#authCode").val();
 				var cookcode=document.cookie.split(";")[1].split("=")[1];
-				alert(document.cookie)
+				//alert(document.cookie)
 				if(authCode==cookcode){
                     $("#authCodeErrorDiv").html('验证码正确'); 
                     if(allFlag){
-                    	alert("发送ajax")
+                    	//alert("发送ajax")
                     	$.ajax({
                           type: "post",
                           url:"http://47.94.215.108/finance_tp5/public/index.php/index/register/exec",
