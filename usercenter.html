@@ -15,7 +15,8 @@
 </section>
 <!-- 中间内容 -->
 <div class="summary">
-  <div class="head"><img id="photoImage" src="images/avatar1.png" alt="" style="width:80px;height:80px;z-index:0;"> <span class="username">zhuchaoyou</span>
+  <div class="head"><img id="photoImage" src="images/avatar1.png" alt="" style="width:80px;height:80px;z-index:0;"> <span class="username" id='username'></span>
+    
     <div class="headamount">
       <div class="p-amount"> <i>0.00 </i><br>
         累计收益（元） </div>
@@ -36,3 +37,16 @@
 <nav class="footer border_t" id="footer"> <a href="index.html" class="" id="jx"><span></span>首页</a> <a href="finance.html" id="lc" class=""><span></span>理财</a> <a href="loan.html" id="jk" class=""><span></span>借款</a> <a href="usercenter.html" id="cf" class="nav_on"><span></span>我的账户</a> </nav>
 </body>
 </html>
+<script>
+  
+       var tel=document.cookie.split(";")[1].split("=")[1];
+       var b=tel.substring(0,3);
+       var a=tel.substr(7,[4]);
+       var c=b+"****"+a;
+       if(tel.length==0){
+           $("#username").html("游客");
+       }else{
+           $("#username").html(c);
+       }
+    
+</script>
