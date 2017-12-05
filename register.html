@@ -247,18 +247,20 @@ body[0].removeChild(mybg);
 				var pwd=$("#password").val();
 				console.log(allFlag);
                 var authCode=$("#authCode").val();
-				var cookcode=document.cookie.split(";")[1].split("=")[1];
-				alert(document.cookie)
+				var cookcode=document.cookie.split(";")[2].split("=")[1];
+				//alert(document.cookie)
+				//alert(cookcode)
+                //return false;
 				if(authCode==cookcode){
                     $("#authCodeErrorDiv").html('验证码正确'); 
                     if(allFlag){
-                    	alert("发送ajax")
+                    	alert("发送ajax");
                     	$.ajax({
                           type: "post",
                           url:"http://47.94.215.108/finance_tp5/public/index.php/index/register/exec",
                           data:{'tel':tel,'pwd':pwd},
                           dataType:"json",
-                          success: function(msg){
+                          success:function(msg){
                           	 if(msg['status']==1000){
                                  //注册成功跳首页 将用户电话号码存cookie 时间为30天
                                  setCookie(2592000,"tel",tel); 
