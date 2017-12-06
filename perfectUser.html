@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no"/>
+<title>首页</title>
+<link rel="stylesheet" type="text/css" href="css/setting.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/sweet-alert.css" />
+<script type="text/javascript" src="script/jquery.js"></script>
+<!-- <script src="script/setting.js"></script> -->
+</head>
+<body>
+<!-- 页面头部 -->
+<section>
+  <div class="navigation-bar"> <a onclick="javascript:history.go(-1)" class="z-01"></a> <span>安全设置</span> <a href="index.html" class="z-02"></a> </div>
+</section>
+<!-- 中间内容 -->
+<div class="m-wrapper">
+  <div class="wrapper   ">
+    <div class="login-password">
+      <div class="container-fluid">
+        <form class="set-password" id="set-password" onSubmit="return false;">
+          <div class="form-group item">
+            <input type="text" class="form-control input-lg login-input" id="username" name="username" tabindex="1" placeholder="请输入用户名(昵称)">
+            <span></span>
+            <input type="hidden" class="form-control input-lg login-input" id="old_username" name="old_username" tabindex="1">
+          </div>
+          <div class="item form-group">
+             <input type="text" class="form-control input-lg login-input" id="email" name="email" tabindex="1" placeholder="请输入邮箱">
+            <span></span>
+          </div>
+          <div class="form-group">
+            <button type="button" class="waves-button form-control login-button input-lg waves-effect waves-effect" tabindex="4" data-dismiss="modal" id="sure">确定</button>
+            <!-- Modal -->
+          </div>
+        </form>
+        <div>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 页面底部 -->
+<nav class="footer border_t" id="footer"> <a href="index.html" class="" id="jx"><span></span>首页</a> <a href="finance.html" id="lc" class=""><span></span>理财</a> <a href="loan.html" id="jk" class=""><span></span>借款</a> <a href="usercenter.html" id="cf" class="nav_on"><span></span>我的账户</a> </nav>
+</body>
+</html>
+<script>
+    $(function(){
+      var uid=getCookie('user_id');
+      $.ajax({
+            url:'http://47.94.215.108/finance_tp5/public/index.php/index/Login/getUser',
+            type:'post',
+            data:{uid:uid},
+            dataType:'json',
+            success:function(data){
+                if(data.code==1029){
+                  if(data.user.username==null){
+                      $("#username").val('')
+                  }else{
+                     $("#username").val(data.user.username) 
+                     $("#old_username").val(data.user.username) 
+                  }
+                  if(data.user.email==null){
+                      $("#email").val('')
+                  }else{
+                     $("#email").val(data.user.email) 
+                  }
+                }
+            }
+         });
+      var validata={
+        checkUsername:false,
+        checkEmail:false
+      }
+        $("#username").blur(function(){
+            var username=$(this).val();
+            var old_name=$("#old_username").val();
+            var _this=$(this);
+            if(username.length<1 || username >18){
+               $(this).next().html('昵称为1-18个字符之间');
+               validata.checkUsername=false;
+            }else{
+              if(old_name==""){
+                  $.ajax({
+                      url:'http://47.94.215.108/finance_tp5/public/index.php/index/Login/selectUsername',
+                      type:'post',
+                      data:{username:username},
+                      dataType:'json',
+                      success:function(data){
+                         _this.next().html(data.msg);
+                         if(data.code==1034){
+                             validata.checkUsername=false;
+                         }else{
+                             validata.checkUsername=true;
+                         }
+                      }
+                   });
+              }else{
+                $.ajax({
+                      url:'http://47.94.215.108/finance_tp5/public/index.php/index/Login/checkUsername',
+                      type:'post',
+                      data:{old_name:old_name,username:username},
+                      dataType:'json',
+                      success:function(data){
+                          _this.next().html(data.msg);
+                         if(data.code==1034){
+                             validata.checkUsername=false;
+                         }else{
+                             validata.checkUsername=true;
+                         }
+                      }
+                   });
+              }
+            }
+        });
+      $("#email").blur(function(){
+           var email = $(this).val();
+           var reg = /\w+[@]{1}\w+[.]\w+/;
+           if(reg.test(email)){
+            $(this).next().html("验证通过");
+            validata.checkEmail=true;
+           }else{
+            $(this).next().html("邮箱不合法");
+            validata.checkEmail=false;
+           }
+      });
+      $("#sure").click(function(){
+          $("#username").trigger('blur');
+          $("#email").trigger('blur');
+          if(validata.checkEmail && validata.checkUsername){
+            var username = $("#username").val();
+            var email = $("#email").val();
+            $.ajax({
+                      url:'http://47.94.215.108/finance_tp5/public/index.php/index/Login/changeUser',
+                      type:'post',
+                      data:{uid:uid,username:username,email:email},
+                      dataType:'json',
+                      success:function(data){
+                         alert(data.msg);
+                         if(data.code==1025){
+                            location.href='./index.html';
+                         }
+                      }
+                   });
+          }
+      });
+    });
+            function getCookie(name)//取cookies函数 
+              {
+                  var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+                    if(arr != null) 
+                      return unescape(arr[2]); 
+                    return null;
+              }
+              function delCookie(name)//删除cookie
+              {
+                var exp = new Date();
+                exp.setTime(exp.getTime() - 1);
+                var cval=getCookie(name);
+                if(cval!=null) 
+                  document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+              }
+</script>
