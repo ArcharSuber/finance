@@ -123,7 +123,7 @@ body[0].removeChild(mybg);
 		//<![CDATA[
 		     //随机生成数字
 			 function randomNum(n){
-				  var t='';
+				     var t='';
 					 for(var i=0;i<n;i++){
 					   t+=Math.floor(Math.random()*10);
 					 }
@@ -136,28 +136,56 @@ body[0].removeChild(mybg);
 			   exp.setTime(exp.getTime() + Days*1000);
 			   document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
 			}
+			function getCookie(name)//取cookies函数 
+              {
+                  var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+                    if(arr != null) 
+                      return unescape(arr[2]); 
+                    return null;
 
+              }
 			//验证码
 			$("#sendAuthCode").click(function(){
+				 var authCode=$("#authCode").val();
+				 if ( countDownWait !== 60 ) {
+                    return false;
+                }
+                countDown($(this));
 				var tel=parseInt($("#tel").val());
                 var code=randomNum(4);
                 setCookie(120,"yzm",code);   //cookie存两分钟
-                var authCode=$("#authCode").val();
-				
-				// $.ajax({
-				// 	type:"get",
-				// 	url:"http://47.94.215.108/finance_tp5/public/index.php/index/message/index",
-    // 			    dataType: 'json',
-    // 			    data:{'tel':tel,'code':code},
-                    
-				// 	success: function(msg){
-				// 		console.log(msg)
-    //                    //做一个定时器 倒计时60秒  
-    
-				// 	}
-				// });
+				$.ajax({
+					type:"get",
+					url:"http://47.94.215.108/finance_tp5/public/index.php/index/message/index",
+    			    dataType: 'json',
+    			    data:{'tel':tel,'code':code},
+					success: function(msg){ 
+						alert('消息已发送')
+					}
+				});
 			});
-
+//倒计时
+    var countDownWait = 60;
+    var countDown = function($obj) {
+        if (countDownWait == 0) {
+            $obj.css({
+                'color': '#fff',
+                'background-color': '#e95524',
+                'cursor': 'pointer'
+            }).html('点击获取');
+            countDownWait = 60;
+        } else {
+            $obj.css({
+                'color': '#fff',
+                'background-color': '##e95524',
+                'cursor': 'not-allowed'
+            }).html(countDownWait + "秒后获取");
+            countDownWait--;
+            setTimeout(function() {
+                countDown($obj);
+            }, 1000);
+        }
+    };
 			//验证手机号
             function checktel(){
             	var tel=$("#tel").val();
@@ -247,21 +275,24 @@ body[0].removeChild(mybg);
 				var pwd=$("#password").val();
 				//console.log(allFlag);
                 var authCode=$("#authCode").val();
-				var cookcode=document.cookie.split(";")[1].split("=")[1];
+				var cookcode=getCookie('yzm');
 				//alert(document.cookie)
+				//alert(cookcode)
+                //return false;
 				if(authCode==cookcode){
                     $("#authCodeErrorDiv").html('验证码正确'); 
                     if(allFlag){
-                    	//alert("发送ajax")
+                    	//alert("发送ajax");
                     	$.ajax({
                           type: "post",
                           url:"http://47.94.215.108/finance_tp5/public/index.php/index/register/exec",
                           data:{'tel':tel,'pwd':pwd},
                           dataType:"json",
-                          success: function(msg){
+                          success:function(msg){
                           	 if(msg['status']==1000){
                                  //注册成功跳首页 将用户电话号码存cookie 时间为30天
                                  setCookie(2592000,"tel",tel); 
+                                 setCookie(2592000,'user_id',msg.uid);
                                  window.location.href="index.html";  
 
                           	 }else if(msg['status']==1003){
