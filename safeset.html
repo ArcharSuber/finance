@@ -15,7 +15,7 @@
 </section>
 <!-- 中间内容 -->
 <div class="personal">
-  <div class="personal-list"> <a class="plist" href="turenameauth.html"> <span class="ptit p15">实名认证</span><span class="iconarrow"></span><span class="auto-icon"></span> </a> <a class="plist" href="updpassword.html"> <span class="ptit p15">修改登录密码</span><span class="iconarrow"></span> </a> <a class="plist" href="updtel.html"> <span class="ptit p15">修改手机号码</span><span class="iconarrow"></span> </a> </div>
+  <div class="personal-list"> <a class="plist" href="turenameauth.html" id="uuu"> <span class="ptit p15">实名认证</span><span class="iconarrow"></span><span class="auto-icon"></span> </a> <a class="plist" href="updpassword.html"> <span class="ptit p15">修改登录密码</span><span class="iconarrow"></span> </a> <a class="plist" href="updtel.html"> <span class="ptit p15">修改手机号码</span><span class="iconarrow"></span> </a> <a class="plist" href="perfectUser.html"> <span class="ptit p15">完善资料(昵称、邮箱)</span><span class="iconarrow"></span> </a> </div>
 </div>
 <!-- 页面底部 -->
 <nav class="footer border_t" id="footer"> <a href="index.html" class="" id="jx"><span></span>首页</a> <a href="finance.html" id="lc" class=""><span></span>理财</a> <a href="loan.html" id="jk" class=""><span></span>借款</a> <a href="usercenter.html" id="cf" class="nav_on"><span></span>我的账户</a> </nav>
@@ -26,11 +26,14 @@
 		var uid=getCookie('user_id');
 		//var username=getCookie('username');
 		 $.ajax({
-           		url:'http:47.94.215.108/finance_tp5/public/index.php/index/Login/checkTrue',
+           		url:'http://47.94.215.108/finance_tp5/public/index.php/index/Login/checkTrue',
            		type:'post',
            		data:{uid:uid},
            		dataType:'json',
            		success:function(data){
+                if(data.code==1027){
+                  $("#uuu").attr("href","javascript:void(0)");
+                }
            			$(".auto-icon").html(data.msg)
            		}
            });

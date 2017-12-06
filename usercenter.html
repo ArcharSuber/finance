@@ -17,10 +17,10 @@
 <div class="summary">
   <div class="head"><img id="photoImage" src="" alt="" style="width:80px;height:80px;z-index:0;"> <span class="username"></span><span id="nologin"></span>
     <div class="headamount">
-      <div class="p-amount"> <i>0.00 </i><br>
+      <div class="p-amount"> <i id="winmoney"></i><br>
         累计收益（元） </div>
       <div class="p-amount"> <i>
-        <label> 0.00</label>
+        <label id="mymoney"> </label>
         </i><br>
         可用余额（元） </div>
     </div>
@@ -40,8 +40,13 @@
 $(function(){
 
   if(!getCookie('username')){
-    $("#photoImage").attr('src',"images/avatar1.png");
-    $("#nologin").html('<a href="./login.html">登录</a> | <a href="./register.html">注册</a>');
+    if(!getCookie('tel')){
+        $("#photoImage").attr('src',"images/avatar1.png");
+        $("#nologin").html('<a href="./login.html">登录</a> | <a href="./register.html">注册</a>');
+    }else{
+        $("#photoImage").attr('src',"images/avatar1.png");
+        $(".username").html(getCookie('tel'));
+    }
   }else{
     $("#photoImage").attr('src',"images/avatar1.png");
     $(".username").html(getCookie('username'));
@@ -50,8 +55,21 @@ $(function(){
   $("#logout").click(function(){
       delCookie('username');
       delCookie('user_id');
+      delCookie('tel');
+      delCookie('yzm');
       location.href='./login.html';
   });
+  var uid=getCookie('user_id');
+  $.ajax({
+              url:'http://47.94.215.108/finance_tp5/public/index.php/index/Login/getBalance',
+              type:'post',
+              data:{uid:uid},
+              dataType:'json',
+              success:function(data){
+                $("#mymoney").html(data.balance);
+                $("#winmoney").html(data.winmoney);
+              }
+           });
 });
             function setCookie(name,value)//两个参数，一个是cookie的名，一个是值
               {
@@ -77,4 +95,12 @@ $(function(){
                 if(cval!=null) 
                   document.cookie= name + "="+cval+";expires="+exp.toGMTString();
               } 
+              function getCookie(name)//取cookies函数 
+              {
+                  var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+                    if(arr != null) 
+                      return unescape(arr[2]); 
+                    return null;
+
+              }
 </script>
