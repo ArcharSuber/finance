@@ -145,11 +145,17 @@ body[0].removeChild(mybg);
 //}
 //var uid=getCookie('user_id');
 //alert(uid);
+
+
+//判断登录的人，cookie
+
+
+
 //理财产品展示
 
     $.ajax({
         type: "post",
-        url: "http://www.jinrong.com/index.php/index/index/inFor",
+        url: "http://www.jinrong.com/index.php/index/finance/inFor",
         data:{
             "uid":1
         },
@@ -179,12 +185,12 @@ body[0].removeChild(mybg);
 
     $(document).on("click","#productcft",function(){
         var pid = $(this).attr('aid');
-        if(uid == "")
-        {
-            location.href="infor.html"+"#pid="+pid+"#uid="+uid;
-        }else{
-            location.href="infor4.html"+"#pid="+pid+"#uid="+uid;
-        }
+//        if(uid == "")
+//        {
+//            location.href="infor.html"+"#pid="+pid+"&uid="+uid;
+//        }else{
+            location.href="infor4.html"+"#pid="+pid+"&uid="+1;
+//        }
     });
 
 
