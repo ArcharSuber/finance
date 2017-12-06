@@ -3,27 +3,27 @@
     var $newPass = $('#new-password');
     var $okPass = $('#ok-password');
 
-    function changePass(url,data){
-        $.post(url,data, function(response) {
-            if (response.result && response.result == 'success') {
-                swal({
-                    title: '温馨提示',
-                    text: '恭喜您，密码修改成功！',
-                    type: 'success'
-                }, function() {
-                    window.location.href = '/account'
-                });
-            }
-            if (response.error) {
-                swal({
-                    title: '温馨提示',
-                    text: response.error.message,
-                    type: 'error'
-                });
-                return false;
-            }
-        },'json');
-    }
+    // function changePass(url,data){
+    //     $.post(url,data, function(response) {
+    //         if (response.result && response.result == 'success') {
+    //             swal({
+    //                 title: '温馨提示',
+    //                 text: '恭喜您，密码修改成功！',
+    //                 type: 'success'
+    //             }, function() {
+    //                 window.location.href = '/account'
+    //             });
+    //         }
+    //         if (response.error) {
+    //             swal({
+    //                 title: '温馨提示',
+    //                 text: response.error.message,
+    //                 type: 'error'
+    //             });
+    //             return false;
+    //         }
+    //     },'json');
+    // }
 
     //修改支付密码 登录密码 实名认证 表单校验通用处理函数
     $(window).on('input propertychange',function(ev){
@@ -104,21 +104,21 @@
     });
 
     //修改登陆密码提交
-    $('#set-password').on('click','.btn-submit',function(){
-        if ( $newPass.val() != $okPass.val() ) {
-            $('.error').remove();
-            $okPass.parent().append('<span class="error">设置密码与确认密码不符</span>');
-            return false;
-        }
-        var url = '/account/setting/set-login-pwds';
-        var data = {
-            '_csrf': $('input[name=_csrf]').val(),
-            'old-password': $.trim($loginPass.val()),
-            'new-password': $.trim($newPass.val())
-        };
+    // $('#set-password').on('click','.btn-submit',function(){
+    //     if ( $newPass.val() != $okPass.val() ) {
+    //         $('.error').remove();
+    //         $okPass.parent().append('<span class="error">设置密码与确认密码不符</span>');
+    //         return false;
+    //     }
+    //     var url = '/account/setting/set-login-pwds';
+    //     var data = {
+    //         '_csrf': $('input[name=_csrf]').val(),
+    //         'old-password': $.trim($loginPass.val()),
+    //         'new-password': $.trim($newPass.val())
+    //     };
 
-        changePass(url,data);
-    });
+    //     changePass(url,data);
+    // });
 
     //获取验证码操作
     $('.form-inline').on('click','.sms-button',function(){

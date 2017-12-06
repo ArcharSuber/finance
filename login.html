@@ -7,43 +7,50 @@
 <title>首页</title>
 <link rel="stylesheet" type="text/css" href="css/common.css" />
 <script type="text/javascript" src="script/jquery.js"></script>
+<script src="script/gVerify.js"></script>
 </head>
 <body>
 <!-- 页面头部 -->
 <section>
-  <div class="navigation-bar"> <a href="login.html" class="z-01"></a> <span>登录</span> <a href="index.html" class="z-02"></a> </div>
+  <div class="navigation-bar"> <a onclick="javascript:history.go(-1)" class="z-01"></a> <span>登录</span> <a href="index.html" class="z-02"></a> </div>
 </section>
 <!-- 中间内容 -->
 <div class="register">
   <div class="wrapper-reg">
-    <div class="page-header"> <a href="/"> <img src="images/reg-logo.png"> </a> </div>
+    <div class="page-header"> <a href="javascript:void(0)"> <img src="images/reg-logo.png"> </a> </div>
     <div class="page-main">
       <form action="" method="post" id="user-login-form" accept-charset="UTF-8" class="reg-form">
+
         <div class="m-field">
           <div class="iconuser"></div>
           <input id="j_username" type="text" name="j_username" value="" class="c-txt" maxlength="26" onBlur="return checkUsername()" placeholder="请输入用户名/手机号/邮箱" style="color: rgb(74, 74, 74);">
           <p id="j_usernameErrorDiv"></p>
         </div>
+
         <div class="m-field">
           <div class="iconpwd"></div>
           <input id="j_password2" type="text" name="j_password2" value="请输入密码" class="c-txt" maxlength="26" style="background-position: 0 -472px;" placeholder="请输入密码">
           <input id="j_password" type="password" name="j_password" value="" maxlength="26" onBlur="checkPassword()" style="display: none;" class="c-txt" placeholder="请输入密码">
           <p id="j_passwordErrorDiv"></p>
         </div>
+
         <div class="m-field m-yzm" id="imageCode" >
           <div class="m-code">
             <div class="iconyzm"></div>
             <input id="j_needauth" type="hidden" name="j_needauth" value="false">
             <input id="_spring_security_remember_me" type="hidden" name="_spring_security_remember_me" value="true">
-            <input id="authCode" type="text" name="authCode" value="请输入验证码" class="c-txt c-code" maxlength="4" onBlur="checkAuthcode();" onKeyUp="this.value=this.value.replace(/\D/g,'')" placeholder="请输入验证码">
+
+            <input id="authCode" type="text" name="authCode" value="请输入验证码" class="c-txt c-code" maxlength="4" onBlur="checkVerify()" placeholder="请输入验证码">
           </div>
-          <span class="c-yzm"><img style="height: 100%;" src="images/code.jpg"></span>
+          <span class="c-yzm"><!-- <img style="height: 100%;" src="images/code.jpg"> --><div id="v_container" style="height: 100%;"></div></span>
           <p id="j_yzmErrorDiv"></p>
         </div>
+
         <div class="remember">
-          <input id="ifRemember" class="m-chk" type="checkbox" checked="checked">
-          <span>记住用户名</span><a href="#">忘记密码?</a> </div>
-        <input class="btn-submit" style="border:none; cursor:pointer;" type="button" value="登　录" onClick="">
+          <!-- <input id="ifRemember" class="m-chk" type="checkbox" checked="checked">
+          <span>记住用户名</span> --><a href="#">忘记密码?</a> </div>
+        <input class="btn-submit" style="border:none; cursor:pointer;" type="button" value="登　录" id="my_button">
+
       </form>
       <div class="m-ljzc"> 没有账号？<a href="register.html">立即注册</a> </div>
     </div>
@@ -55,7 +62,46 @@
 		           
 		           var pwdFlag = false;
 		           var codeFlag = false;
-		           
+		          	 //验证码
+		            var verifyCode = new GVerify("v_container");
+				    function checkVerify(){
+				    
+				        var res = verifyCode.validate(document.getElementById("authCode").value);
+				        if(res){
+				            //alert("验证正确");
+				            $("#j_yzmErrorDiv").html('验证码正确');
+				          	return true;
+				        }else{
+				        	
+				        	$("#j_yzmErrorDiv").html('验证码错误');
+				        	return false;
+				            //alert("验证码错误");
+				        }
+				    }
+				     
+				    $("#my_button").click(function(){
+				    	if(checkVerify() && checkUsername() && checkPassword()){
+                               var username=$("#j_username").val();
+                               var password=$("#j_password").val();
+                               $.ajax({
+                               		url:'http://47.94.215.108/finance_tp5/public/index.php/index/Login/checkUser',
+                               		type:'post',
+                               		data:{username:username,password:password},
+                               		dataType:'json',
+                               		success:function(data){
+                               			if(data.code==1021){
+                               				setCookie('username',data.username);
+                               				setCookie('user_id',data.id);
+                               				location.href='./index.html';
+                               			}else{
+                               				alert('账号或密码错误')
+                               			}
+                               		}
+                               })
+				            }else{
+				               alert('请核实用户名或密码或验证码');
+				            }
+				    })
 		          //验证用户名
 				  function checkUsername(){
 
@@ -76,8 +122,13 @@
 					  var usernameFlag=usernamePattern.test(username);
 					  var mobileOrEmailPattern=new RegExp(mobileOrEmailRegex);
 					  var mobileOrEmailFlag=mobileOrEmailPattern.test(username);
-					  var usernameFlag=validateInputLength(username,'请输入用户名/手机号/邮箱','2','1','4','128');
-					  var legalFlag=usernameFlag||mobileOrEmailFlag||usernameFlag;
+					  var usernamelength=username.length;
+					  if(usernamelength<4){
+					  	usernamelength=false;
+					  }else{
+					  	usernamelength=true;
+					  }
+					  var legalFlag=(usernameFlag&&usernamelength)||mobileOrEmailFlag;
 					  if(!legalFlag)
 					  {
 						  $("#j_usernameErrorDiv").html("");
@@ -92,7 +143,6 @@
 				  }
 		          //验证密码
 		          function checkPassword(){
-		        	  var passwordRegex="^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,26}$";
 		        	  var password=$("#j_password").val();
 		        	  var nullFlag=(password==""||password=="请输入密码");
 					  if(nullFlag==true){
@@ -102,50 +152,42 @@
 					  }else{
 						  $("#j_passwordErrorDiv").empty();
 					  }
-		        	  var passwordPattern = new RegExp(passwordRegex);
-		        	  var legalFlag=passwordPattern.test(password);
-		        	  if(legalFlag==false){
-		        		  $("#j_passwordErrorDiv").empty();
-						  $("#j_passwordErrorDiv").html("用户名或者密码输入错误");
-						  return false;		
-		        	  }else{
-		        		  $("#j_passwordErrorDiv").empty();
-		        	  } 
 		        	  return true;
 		          }
 		          
 		        //验证  验证码
-		          function checkAuthcode(){
+		     //      function checkAuthcode(){
 		        	
-		        	  var needAuth = $("#j_needauth").val();	
-		        		if("false"==needAuth){
-		        			return true;
-		        		}
-		        	  var authCode=$("#authCode").val();
-		        	  var nullFlag=(authCode==""||authCode=="请输入验证码");
-					  if(nullFlag==true){
-						  $("#j_yzmErrorDiv").empty();
-						  $("#j_yzmErrorDiv").html("验证码不能为空");
-						  return false;
-					  }else{
-						  $("#j_yzmErrorDiv").empty();
-					  }
+		     //    	  var needAuth = $("#j_needauth").val();	
+		     //    		if("false"==needAuth){
+		     //    			return true;
+		     //    		}
+		     //    	  var authCode=$("#authCode").val();
+		     //    	  var nullFlag=(authCode==""||authCode=="请输入验证码");
+					  // if(nullFlag==true){
+						 //  $("#j_yzmErrorDiv").empty();
+						 //  $("#j_yzmErrorDiv").html("验证码不能为空");
+						 //  return false;
+					  // }else{
+						 //  $("#j_yzmErrorDiv").empty();
+					  // }
 		        	  
-		        	  return true;
-		          }
+		     //    	  return true;
+		     //      }
 		          
 		          
 		          //登录验证
-		          function loginCheckAll(){
-		          	  var userNameFlag3 = checkUsername();
-		        	  var passWordFlag=checkPassword();
-		        	  var authFlag = checkAuthcode();
-					  $("#j_yzmErrorDiv").empty();
-		        	  if(userNameFlag3&&passWordFlag&&authFlag){
-		        		  $("#user-login-form").submit();
-		        	  }
-		        	  remeberName();
-		          }
+		     //      function loginCheckAll(){
+		     //      	  var userNameFlag3 = checkUsername();
+		     //    	  var passWordFlag=checkPassword();
+		     //    	  var authFlag = checkAuthcode();
+					  // $("#j_yzmErrorDiv").empty();
+		     //    	  if(userNameFlag3&&passWordFlag&&authFlag){
+		     //    	  	alert(1);
+		     //    		  //$("#user-login-form").submit();
+		     //    	  }
+		     //    	  remeberName();
+		     //      }
 		          $(function(){
 		        	  //----记住用户名和验证码显示机制，cookie操作-----------
 		        	  showCookieName();
@@ -159,13 +201,8 @@
 		        		}
 						$("#j_yzmErrorDiv").empty();
 					};
-					reloadcode();
 		         });
-		         function reloadcode(){
-					var verify=document.getElementById("authCodeImage");
-					verify.setAttribute('src','/authimg?'+Math.random());
-					
-				 }
+		      
 //----------登陆页记住用户名js部分----------------------------------------------------------------------------------		         
 		       //记住用户名
 		          function remeberName(){
