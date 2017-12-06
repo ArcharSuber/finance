@@ -73,37 +73,45 @@ body[0].removeChild(mybg);
     <div class="page-header"> <a href="javascript:void(0)"> <img src="images/reg-logo.png"> </a> </div>
     <div class="page-main">
       <form id="registerForm" name="registerForm" method="post" action="#" class="reg-form" enctype="application/x-www-form-urlencoded">
+
         <div class="m-field">
           <div class="iconphone"></div>
-          <input id="registerForm:mobileNumber" type="text" name="registerForm:mobileNumber" class="c-txt" maxlength="15"  placeholder="请输入真实手机号码">
+          
+          <input id="tel" type="text" name="tel" class="c-txt" maxlength="15" onblur="checktel()" placeholder="请输入真实手机号码">
           <p id="mobileNumberErrorDiv" class="validateNew"></p>
         </div>
+
         <div class="m-field" style="position: relative;">
           <div class="iconpwd"></div>
-          <input id="registerForm:password2" type="text" name="registerForm:password2" class="c-txt" maxlength="20" style="display: none;" placeholder="请输入密码">
-          <input id="registerForm:password" type="password" name="registerForm:password" value="" maxlength="20"  style="color: rgb(74, 74, 74);" class="c-txt" placeholder="请输入密码">
-          <span class="pwdviewoff" onClick="changePasswordShow(this)"></span>
+          
+          <input id="password" type="password" name="password" class="c-txt" maxlength="20" onblur="checkpwd()" placeholder="请输入密码">
+
           <p id="passwordErrorDiv" class="validateNew"></p>
         </div>
+
         <div class="m-field" style="position: relative;">
           <div class="iconpwd"></div>
-          <input id="registerForm:password2" type="text" name="registerForm:password2" class="c-txt" maxlength="20" style="display: none;" placeholder="请确认密码">
-          <input id="registerForm:password" type="password" name="registerForm:password" value="" maxlength="20"  style="color: rgb(74, 74, 74);" class="c-txt" placeholder="请确认密码">
-          <span class="pwdviewoff" onClick="changePasswordShow(this)"></span>
-          <p id="passwordErrorDiv" class="validateNew"></p>
+         
+          <input id="qpassword" type="password" name="" class="c-txt" maxlength="20" placeholder="请确认密码" onblur="checkqpwd()">
+          
+          <p id="qpasswordErrorDiv" class="validateNew"></p>
         </div>
         
         <div class="m-field m-yzm">
           <div class="m-code">
             <div class="iconyzm"></div>
-            <input id="registerForm:authCode" type="text" name="registerForm:authCode" class="c-txt c-code" maxlength="6" placeholder="请输入验证码">
+            <input id="authCode" type="text" name="authCode" class="c-txt c-code" maxlength="6" placeholder="请输入验证码">
           </div>
-          <span class="c-yzm c-hqyzm">获取验证码</span> <span id="sendCode" class="c-yzm c-hqyzm"><a id="registerForm:sendAuthCodeBtn" href="#" style="color: white;" class="hqyzm">发送验证码</a> </span> <span id="sendCodeGrey" style="display:none;" class="c-yzm c-hqyzming"> <a href="javascript:void(0);" id="sendAuthCodeBtn1" class="hqyzmAfter" style="cursor:default;color: white;">免费获取校验码</a> </span>
+          
+          <span class="c-yzm c-hqyzm">获取验证码</span> <span id="sendCode" class="c-yzm c-hqyzm"><a id="sendAuthCode" href="javascript:void(0)" style="color: white;" class="hqyzm">发送验证码</a> </span>
+
+           
           <p id="authCodeErrorDiv" class="validateNew"></p>
         </div>
         
         <div class="agreement"> 我已阅读并同意阳光易贷的<a href="useragree.html" class="reg-xy">《隐私条款》</a>和 <a href="useragree1.html" class="reg-xy">《服务条款》</a> </div>
-        <input id="registerForm:submitButton" type="submit" name="registerForm:submitButton" value="同意并继续" style="border:none;cursor:pointer;" class="btn-submit mt20" onClick="return checkAll();">
+        <input id="agreeButton" type="button" name="" value="同意并继续" style="border:none;cursor:pointer;" class="btn-submit mt20" onClick="checkAll();">
+
       </form>
       <div class="m-ljzc"> 已有账号　<a href="login.html">立即登录</a> </div>
     </div>
@@ -113,26 +121,169 @@ body[0].removeChild(mybg);
 
 <script type="text/javascript">
 		//<![CDATA[
-			
+		     //随机生成数字
+			 function randomNum(n){
+				  var t='';
+					 for(var i=0;i<n;i++){
+					   t+=Math.floor(Math.random()*10);
+					 }
+					 return t;
+			 } 
+			 //设置cookie
+			 function setCookie(day,name,value){
+			   var Days = day;
+			   var exp = new Date(); 
+			   exp.setTime(exp.getTime() + Days*1000);
+			   document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+			}
+
+			//验证码
+			$("#sendAuthCode").click(function(){
+				var tel=parseInt($("#tel").val());
+                var code=randomNum(4);
+                setCookie(120,"yzm",code);   //cookie存两分钟
+                var authCode=$("#authCode").val();
+				
+				// $.ajax({
+				// 	type:"get",
+				// 	url:"http://47.94.215.108/finance_tp5/public/index.php/index/message/index",
+    // 			    dataType: 'json',
+    // 			    data:{'tel':tel,'code':code},
+                    
+				// 	success: function(msg){
+				// 		console.log(msg)
+                       //做一个定时器 倒计时60秒  
+    
+				// 	}
+				// });
+			});
+
+			//验证手机号
+            function checktel(){
+            	var tel=$("#tel").val();
+            	var telreg="^1[3|4|5|7|8][0-9]{9}$";
+                var telPattern=new RegExp(telreg);
+			    var b=telPattern.test(tel);
+			    
+                if(b.length==0){
+                    $("#mobileNumberErrorDiv").html('手机号不能为空');
+			    	return false;
+                }else if(b){
+                	var flag=1;
+                	//查询数据库看该手机号是否注册过并且查看黑名单然后将数据返回
+                    $.ajax({
+					   type: "get",
+					   url: "http://47.94.215.108/finance_tp5/public/index.php/index/register/checktel",
+					   data: {"tel":tel},
+					   dataType:"json",
+					   success: function(msg){
+					   	   console.log(msg);
+					       if(msg['status']==1000){
+                               $("#mobileNumberErrorDiv").html('手机号正确');
+        
+					       }else if(msg['status']==1001){
+                               $("#mobileNumberErrorDiv").html('该手机号已被注册过');
+                               flag=0; 
+					       }else if(msg['status']==1002){
+					       	   $("#mobileNumberErrorDiv").html('手机号已被拉黑');
+					       	   flag=0;
+					       }
+					   }
+					});
+                   if(flag==0){
+                   	return false;
+                   }else{
+                   	return true;
+                   }
+			    }else{
+			    	$("#mobileNumberErrorDiv").html('手机号输入有误');
+			    	return false;
+			    }
+            }
+            function handleResponse(msg){
+            	console.log(msg);
+            }
+            //验证密码
+            function checkpwd(){
+            	var pwd=$("#password").val();
+            	pwd=pwd.replace(/(^\s*)|(\s*$)/g, "");
+            	
+                if(pwd.length==0){
+                    $("#passwordErrorDiv").html('密码不能空');
+                    return false;
+                }else if(pwd.length<6){
+                    $("#passwordErrorDiv").html('密码最少6位');
+                    return false;
+                }else{
+                	$("#passwordErrorDiv").html('密码格式正确');
+                	return true;
+                }
+            }
+            //确认密码
+            function checkqpwd(){
+            	var pwd=$("#password").val();
+            	var qpwd=$("#qpassword").val();
+            	pwd=pwd.replace(/(^\s*)|(\s*$)/g, "");
+
+            	if(qpwd.length==0){
+                    $("#qpasswordErrorDiv").html('确认密码不能空');
+                    return false;
+            	}else if(pwd!=qpwd){
+                    $("#qpasswordErrorDiv").html('确认密码有误');
+                    return false;
+            	}else{
+            		$("#qpasswordErrorDiv").html('确认密码正确');
+            		return true;
+            	}
+
+            }
 			//验证所有信息
 			function checkAll(){
-				var refferValue=""!="";
-				var mobileNumberFlag=checkMobilenumber();
-				var authCodeFlag=checkAuthCode();
-				var passwordFlag=checkPassword();
-				if(refferValue)
-				{
-					referrerFlag=true;
+				var telFlag=checktel();
+				var pwdFlag=checkpwd();
+				var qpwdFlag=checkqpwd();
+				var allFlag=telFlag&&pwdFlag&&qpwdFlag;
+				var tel=$("#tel").val();
+				var pwd=$("#password").val();
+				console.log(allFlag);
+                var authCode=$("#authCode").val();
+				var cookcode=document.cookie.split(";")[2].split("=")[1];
+				//alert(document.cookie)
+				//alert(cookcode)
+                //return false;
+				if(authCode==cookcode){
+                    $("#authCodeErrorDiv").html('验证码正确'); 
+                    if(allFlag){
+                    	alert("发送ajax");
+                    	$.ajax({
+                          type: "post",
+                          url:"http://47.94.215.108/finance_tp5/public/index.php/index/register/exec",
+                          data:{'tel':tel,'pwd':pwd},
+                          dataType:"json",
+                          success:function(msg){
+                          	 if(msg['status']==1000){
+                                 //注册成功跳首页 将用户电话号码存cookie 时间为30天
+                                 setCookie(2592000,"tel",tel); 
+                                 window.location.href="index.html";  
+
+                          	 }else if(msg['status']==1003){
+                                 $("#mobileNumberErrorDiv").html("注册失败");
+                          	 }
+
+                          }
+
+                       });
+                    }else{
+                    	alert("信息有误")
+                    }
+                    
+				}else{
+					$("#authCodeErrorDiv").html('验证码错误，请点击重新发送');
 				}
-				else
-				{
-					var referrerFlag=checkReferrer();
-				}
-				var allFlag=mobileNumberFlag&&authCodeFlag&&passwordFlag&&referrerFlag;
-				if(!(allFlag)){
-					return false;
-				}
-				return true;
+                
+				// if(allFlag){
+    //                  console.log('');
+				// }
 			}
 			
 		var flag = false;
