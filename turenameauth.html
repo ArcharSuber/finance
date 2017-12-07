@@ -8,7 +8,6 @@
 <link rel="stylesheet" type="text/css" href="css/setting.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 <script type="text/javascript" src="script/jquery.js"></script>
-<script src="script/setting.js"></script>
 </head>
 <body>
 <!-- 页面头部 -->
@@ -23,20 +22,21 @@
         <form class="login-form2" id="set-real-name" onSubmit="return false;">
           <div class="form-group item">
             <input type="text" class="form-control input-lg rel-name login-input" name="real-name" tabindex="1" placeholder="请输入真实姓名" value="">
+            <p id="trueNameCheck"></p>
           </div>
           <div class="form-group item">
-            <input type="text" class="form-control card-id input-lg" name="card-id" tabindex="2" placeholder="请输入身份证号" value="">
+            <input type="text" class="form-control card-id input-lg" name="card-id" tabindex="2" placeholder="身份证号码为15位或者18位" value="">
+            <p id="cardCheck"></p>
           </div>
           <div class="tip-info">
             <p class="text-left ui-fs-12 text-nowrap">请仔细确认，认证后的账号不能修改认证信息</p>
           </div>
           <div class="form-group">
-            <button type="submit" data-toggle="modal" class="waves-button form-control login-button input-lg  default waves-effect waves-effect" tabindex="4" id="btn-real-name">确定</button>
+            <button type="submit" data-toggle="modal" class="waves-button form-control login-button input-lg waves-effect waves-effect" tabindex="4" id="btn-real-name">确定</button>
           </div>
         </form>
 		<div>
-          <p class="text-center ui-fs-12 text-nowrap">若您无法通过该方式重设手机号码，请联系客服电话</p>
-          <p class="text-center ui-fs-12 text-nowrap"><span>400-090-1268</span></p>
+          <p class="text-center ui-fs-12 text-nowrap">实名认证后不能修改该信息</p>
         </div>
       </div>
     </div>
@@ -47,3 +47,217 @@
 <nav class="footer border_t" id="footer"> <a href="index.html" class="" id="jx"><span></span>首页</a> <a href="finance.html" id="lc" class="nav_on"><span></span>理财</a> <a href="loan.html" id="jk" class=""><span></span>借款</a> <a href="usercenter.html" id="cf" class=""><span></span>我的账户</a> </nav>
 </body>
 </html>
+<script>
+      //身份证检验  
+    var vcity={ 11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",  
+        21:"辽宁",22:"吉林",23:"黑龙江",31:"上海",32:"江苏",  
+        33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",  
+        42:"湖北",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",  
+        51:"四川",52:"贵州",53:"云南",54:"西藏",61:"陕西",62:"甘肃",  
+        63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外"  
+    };  
+    var validata={
+        checkTruename:false,
+        checkIdCard:false
+    };
+    function checkCard(card){  
+        //是否为空  
+        if(!card||!isCardNo(card)||!checkProvince(card)||!checkBirthday(card)||!checkParity(card)){      
+            return false;  
+        }  
+        return true;  
+    };  
+      
+      
+    //检查号码是否符合规范，包括长度，类型  
+    function isCardNo(card){  
+        //身份证号码为15位或者18位，15位时全为数字，18位前17位为数字，最后一位是校验位，可能为数字或字符X  
+        var reg = /(^\d{15}$)|(^\d{17}(\d|X)$)/;  
+        if(reg.test(card) === false){ 
+            return false;  
+        }  
+        return true;  
+    };  
+      
+    //取身份证前两位,校验省份  
+    function checkProvince(card){  
+        var province = card.substr(0,2);  
+        if(vcity[province] == undefined) {  
+            return false;  
+        }  
+        return true;  
+    };  
+      
+    //检查生日是否正确  
+    function checkBirthday(card){  
+        var len = card.length;  
+        //身份证15位时，次序为省（3位）市（3位）年（2位）月（2位）日（2位）校验位（3位），皆为数字  
+        if(len == '15'){  
+            var re_fifteen = /^(\d{6})(\d{2})(\d{2})(\d{2})(\d{3})$/;  
+            var arr_data = card.match(re_fifteen);  
+            var year = arr_data[2];  
+            var month = arr_data[3];  
+            var day = arr_data[4];  
+            var birthday = new Date('19'+year+'/'+month+'/'+day);  
+            return verifyBirthday('19'+year,month,day,birthday);  
+        }  
+        //身份证18位时，次序为省（3位）市（3位）年（4位）月（2位）日（2位）校验位（4位），校验位末尾可能为X  
+        if(len == '18'){  
+            var re_eighteen = /^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$/;  
+            var arr_data = card.match(re_eighteen);  
+            var year = arr_data[2];  
+            var month = arr_data[3];  
+            var day = arr_data[4];  
+            var birthday = new Date(year+'/'+month+'/'+day);  
+            return verifyBirthday(year,month,day,birthday);  
+        }  
+        return false;  
+    };  
+      
+    //校验日期  
+    function verifyBirthday(year,month,day,birthday){  
+        var now = new Date();  
+        var now_year = now.getFullYear();  
+        //年月日是否合理  
+        if(birthday.getFullYear() == year && (birthday.getMonth() + 1) == month && birthday.getDate() == day){  
+            //判断年份的范围（3岁到100岁之间)  
+            var time = now_year - year;  
+            if(time >= 3 && time <= 100)  
+            {  
+                return true;  
+            }  
+            return false;  
+        }  
+        return false;  
+    };  
+      
+    //校验位的检测  
+    function checkParity(card){  
+        //15位转18位  
+        card = changeFivteenToEighteen(card);  
+        var len = card.length;  
+        if(len == '18'){  
+            var arrInt = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2);  
+            var arrCh = new Array('1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2');  
+            var cardTemp = 0, i, valnum;  
+            for(i = 0; i < 17; i ++){  
+                cardTemp += card.substr(i, 1) * arrInt[i];  
+            }  
+            valnum = arrCh[cardTemp % 11];  
+            if(valnum == card.substr(17, 1)){  
+                return true;  
+            }  
+            return false;  
+        }  
+        return false;  
+    };  
+      
+    //15位转18位身份证号  
+    function changeFivteenToEighteen(card){  
+        if(card.length == '15'){  
+            var arrInt = new array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2);  
+            var arrCh = new array('1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2');  
+            var cardTemp = 0, i;  
+            card = card.substr(0, 6) + '19' + card.substr(6, card.length - 6);  
+            for(i = 0; i < 17; i ++){  
+                cardTemp += card.substr(i, 1) * arrInt[i];  
+            }  
+            card += arrCh[cardTemp % 11];  
+            return card;  
+        }  
+        return card;  
+    };  
+      function getCookie(name)//取cookies函数 
+      {
+          var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+            if(arr != null) 
+              return unescape(arr[2]); 
+            return null;
+
+      }  
+   $(function(){
+    var uid=getCookie('user_id');
+        $.ajax({
+                url:'http://47.94.215.108/finance_tp5/public/index.php/index/Login/getTrueUser',
+                type:'post',
+                data:{uid:uid},
+                dataType:'json',
+                success:function(data){
+                    if(data.code==1029){
+                        if(!(data.idcard==null)){
+                            $(":input[name='real-name']").val(data.truename);
+                            $(":input[name='real-name']").attr('disabled',true);
+                            $(":input[name='card-id']").val(data.idcard);
+                            $(":input[name='card-id']").attr('disabled',true);
+                            $("#btn-real-name").attr('disabled',true);
+                        }
+                    }
+                }
+             }); 
+        $(":input[name='real-name']").blur(function(){
+              var truename=$(this).val();
+              if(truename.length<2){
+                  $("#trueNameCheck").html('字符长度不能低于2位');
+                  validata.checkTruename=false;
+              }else{
+                  $.ajax({
+                        url:'http://47.94.215.108/finance_tp5/public/index.php/index/Login/checkTruename',
+                        type:'post',
+                        data:{truename:truename},
+                        dataType:'json',
+                        success:function(data){
+                            if(data.code==1033){
+                                validata.checkTruename=true;
+                            }else{
+                                validata.checkTruename=false;
+                            }
+                            $("#trueNameCheck").html(data.msg); 
+                        }
+                     }); 
+              }
+        });
+        $(":input[name='card-id']").blur(function(){
+          var code=$(this).val();
+          var truename=$(":input[name='real-name']").val();
+             if (!checkCard(code)) {  
+                 $("#cardCheck").html("请输入正确的身份证号码");
+                  validata.checkIdCard=false;  
+            }else{
+              $.ajax({
+                        url:'http://47.94.215.108/finance_tp5/public/index.php/index/Login/checkIdCard',
+                        type:'post',
+                        data:{truename:truename,code:code},
+                        dataType:'json',
+                        success:function(data){
+                            if(data.code==1031){
+                                validata.checkIdCard=true;
+                            }else{
+                              validata.checkIdCard=false;
+                            }
+                            $("#cardCheck").html(data.msg); 
+                        }
+                     });   
+            }
+        });
+        $("#btn-real-name").click(function(){
+            $(":input[name='real-name']").trigger('blur');
+            $(":input[name='card-id']").trigger('blur');
+            if(validata.checkTruename && validata.checkIdCard){
+              var code=$(":input[name='card-id']").val();
+               var truename=$(":input[name='real-name']").val();
+                 $.ajax({
+                        url:'http://47.94.215.108/finance_tp5/public/index.php/index/Login/insertTrue',
+                        type:'post',
+                        data:{uid:uid,truename:truename,code:code},
+                        dataType:'json',
+                        success:function(data){
+                          alert(data.msg)
+                            if(data.code==1031){
+                                location.href='./index.html';
+                            }
+                        }
+                     });   
+            }
+        });
+   });
+</script>
