@@ -150,7 +150,7 @@
                   dataType:'json',
                   success:function(data){
                         alert(data.msg);
-                        if(data.code==1031){
+                        if(data.code==1025){
                           setCookie(2592000,"tel",data.tel);
                           location.href='./index.html';
                         }   
