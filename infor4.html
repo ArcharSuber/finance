@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="css/common.css" />
 <script type="text/javascript" src="script/jquery.js"></script>
 <script type="text/javascript" src="script/column.js"></script>
+<script type="text/javascript" src="script/detail.js"></script>
 </head>
 <body>
 <!--浮动-->
@@ -40,7 +41,7 @@
 <script src="script/jquery-ui.min.js"></script>
 <!-- 页面头部 -->
 <section>
-  <div class="navigation-bar"> <a href="#" class="z-01"></a> <span>项目列表</span> <a href="#" class="z-02"></a> </div>
+  <div class="navigation-bar"> <a onclick="javascript:history.go(-1)" class="z-01"></a> <span>项目列表</span> <a href="index.html" class="z-02"></a> </div>
 </section>
 <!-- 中间内容 -->
 <div class="main">
@@ -49,7 +50,7 @@
     <aside class="sec_ce">
       <p class="sec_ce_id">募集进度</p>
       <img src="images/zhuti.png" alt="">
-      <p class="sec_ce_pc ng-binding">12<span class="sec_ce_b">%</span></p>
+      <p class="sec_ce_pc ng-binding"><span id="process">12</span><span class="sec_ce_b">%</span></p>
       <div class="sec_ce_pt"> <span>按月付息，到期还本</span> </div>
     </aside>
   </div>
@@ -69,7 +70,7 @@
         <p class="ui-fs-12">项目金额</p>
       </div>
     </div>
-    <div class="project-left-time ui-fs-12 text-center" id="producttime">剩余时间：2 天 0 小时 25 分钟</div>
+    <div class="project-left-time ui-fs-12 text-center" id="producttime">剩余日期：2天02时15分49秒</div>
   </div>
   <!--具体信息-->
   <div class="c-detailinfo">
@@ -79,19 +80,19 @@
     </dl>
     <dl>
       <dt>项目编码</dt>
-      <dd>车易贷   HBSF-CYD-2015-0022</dd>
+      <dd id="productname">车易贷   HBSF-CYD-2015-0022</dd>
     </dl>
     <dl>
       <dt>可投金额</dt>
-      <dd><font class="ui-fc-blue">29,000.00</font>元</dd>
+      <dd><font class="ui-fc-blue"><span id="kemoney">29,000.00</span></font>元</dd>
     </dl>
     <dl>
       <dt>账户余额</dt>
-      <dd><font class="ui-fc-blue">1.15</font>元</dd>
+      <dd><font class="ui-fc-blue"><span id="balance">1.15</span></font>元</dd>
     </dl>
     <dl>
       <dt>到期时间</dt>
-      <dd>2016-03-13</dd>
+      <dd id="producttimedate">2016-03-13</dd>
     </dl>
   </div>
  
@@ -99,7 +100,7 @@
   <div class="c-detail">
     <div class="c-tabsmsg">
       <div class="c-tabstit-wrap">
-        <div class="c-tabstit"> <span class="c-xmxqtit on" data-index="0">项目详情</span> <span class="c-bzcstit" data-index="1">风控信息</span> <span class="c-hkjhtit" data-index="2">还款计划</span> <span class="c-tzjltit" data-index="3">投资记录</span> </div>
+        <div class="c-tabstit"> <span class="c-xmxqtit on" data-index="0">项目详情</span> <span class="c-bzcstit" data-index="1">风控信息</span> <span class="c-hkjhtit" data-index="2">还款计划</span> <span class="c-tzjltit" data-index="3" id="in_record">投资记录</span> </div>
       </div>
       <div class="clear"></div>
       <div class="c-tabs-cnt c-xmxqinfo" style="display: none;">
@@ -209,12 +210,13 @@
                 <th width="25%" align="center">金额(元)<span class="tbline" style="margin-top:15px;"></span></th>
                 <th align="right" width="40%" style="padding-right:10px;">投资时间</th>
               </tr>
+                <tbody id="inrecord">
               <tr>
                 <td align="left" width="25%" style="padding-left:10px; color:#4A4A4A;"> x***g <span class="tbline"></span> </td>
                 <td style="color:#0caffe;"><span class="tbline"></span><i style="float:right; margin-right:10px;">1,484</i></td>
                 <td align="right" style="padding-right:10px;">2015-09-17 09:46 </td>
               </tr>
-
+                </tbody>
             </tbody>
           </table>
           <div class="clear"></div>
@@ -261,53 +263,21 @@
 	        })
 	    });
 
-        //获取 url 的 参数方法
-        function UrlSearch() {
-            var name,value;
-            var str=location.href; //取得整个地址栏
-            var num=str.indexOf("#");
-            str=str.substr(num+1); //取得所有参数   stringvar.substr(start [, length ]
-
-            var arr=str.split("&"); //各个参数放到数组里
-            for(var i=0;i < arr.length;i++){
-                num=arr[i].indexOf("=");
-                if(num>0){
-                    name=arr[i].substring(0,num);
-                    value=arr[i].substr(num+1);
-                    this[name]=value;
-                }
-            }
+        //计时器
+        function set_time(){
+            var data=parseInt($("#timesShow").val());
+            var day=Math.floor(data/3600/24)<10?'0'+Math.floor(data/3600/24):Math.floor(data/3600/24);
+            var hours=Math.floor(data/3600%24)<10?'0'+Math.floor(data/3600%24):Math.floor(data/3600%24);
+            var minutes=Math.floor(data%3600/60)<10?'0'+Math.floor(data%3600/60):Math.floor(data%3600/60);
+            var seconds=(data%60)<10?'0'+(data%60):(data%60);
+            $("#producttime").html("剩余日期："+day+"天"+hours+"时"+minutes+"分"+seconds+"秒");
+            data--;
+            $("#timesShow").val(data)
         }
-        var Request=new UrlSearch(); //实例化
-        pid = Request.pid;
-        uid = Request.uid;
-
-        $.ajax({
-            type: "post",
-            url: "http://www.jinrong.com/index.php/index/finance/inFor4",
-            data:{
-                "pid":pid,
-                "uid":uid
-            },
-            dataType: "json",
-            success: function (msg) {
-                console.log(msg);
-
-                $("#yearmoney").html((msg.yearrate)*100);
-                $("#productmonth").html((msg.productlong)/30);
-                $("#productmoney").html(msg.productmoney);
-                if(msg.producttype == 1)
-                {
-                    $("#producttime").html("剩余时间：3天");
-                }else{
-                    $("#producttime").html("剩余时间："+ msg.m +"月 " + msg.d +"天 "+ msg.h +" 小时 "+ msg.i +" 分钟");
-                }
-            }
-        })
  </script>
 
 <!-- 页面底部 -->
-<article class="foot_bottom clearfix pt_10  border_t Js_input">
+<article class="foot_bottom clearfix pt_10  border_t Js_input" id="goumai">
     	<form action="/member/buy.do" method="post" id="investForm">
     	<input type="hidden" name="fpId" id="fpId" value="ADRUNlYyVToFYVRiUDdeawoxVWwCaAJgBT4FNQBjU2Q=">
     	<input type="hidden" id="staticImg" value="http://m.niwodai.com/mobile/2015/images/">
@@ -328,33 +298,11 @@
              </div>
          </div>
          <div class="ft_r fr">
-		    <input id="submit" type="button" value="立即抢购" class="btn btn_orange w_10">
-         </div>
+            <input id="submit" type="button" value="立即抢购" class="btn btn_orange w_10">
+        </div>
        	</form>
 	</article>
-	<script type="text/javascript" src="script/detail.js"></script>
+
 
 </body>
 </html>
-<script>
-    $(function(){
-        $('#submit').on('click',function(){
-            var ordermoney = $("#investmentAmount").val();
-//            alert(ordermoney);
-            $.ajax({
-                type: "post",
-                url: "http://www.jinrong.com/index.php/index/index/goumai",
-                data:{
-                    "pid":pid,
-                    "uid":uid,
-                    "ordermoney":ordermoney
-                },
-                dataType: "json",
-                success: function (msg) {
-                    console.log(msg);
-                }
-            })
-        })
-    })
-</script>
-
