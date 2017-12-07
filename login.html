@@ -90,7 +90,12 @@
                                		dataType:'json',
                                		success:function(data){
                                			if(data.code==1021){
-                               				setCookie('username',data.username);
+                               				if(data.username!=null){
+												setCookie('username',data.username);
+                               				}
+                               				if(data.tel!=null){
+												setCookie('tel',data.tel);
+                               				}
                                				setCookie('user_id',data.id);
                                				location.href='./index.html';
                                			}else{
