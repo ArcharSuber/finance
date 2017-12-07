@@ -147,6 +147,7 @@ function valInvestForm(){
 	$('#investmentAmount').val(amount);
 	return true;
 }
+
 function alertMsg(nodeId,msg){
 	$(nodeId).html('<span>'+msg+'</span>');
 	$(nodeId).fadeIn(0.3,function(){
@@ -175,4 +176,131 @@ function resetStype(){
 		}
 	}
 }
+
+//获取 url 的 参数方法
+function UrlSearch() {
+    var name,value;
+    var str=location.href; //取得整个地址栏
+    var num=str.indexOf("#");
+    str=str.substr(num+1); //取得所有参数   stringvar.substr(start [, length ]
+
+    var arr=str.split("&"); //各个参数放到数组里
+    for(var i=0;i < arr.length;i++){
+        num=arr[i].indexOf("=");
+        if(num>0){
+            name=arr[i].substring(0,num);
+            value=arr[i].substr(num+1);
+            this[name]=value;
+        }
+    }
+}
+var Request=new UrlSearch(); //实例化
+pid = Request.pid;
+uid = Request.uid;
+
+//商品详情
+$.ajax({
+    type: "post",
+    url: "http://www.jinrong.com/index.php/index/finance/inFor4",
+    data:{
+        "pid":pid,
+        "uid":uid
+    },
+    dataType: "json",
+    success: function (msg) {
+        console.log(msg);
+        var expire_time = msg.expire_time;
+        if(expire_time<=0){
+            $("#producttime").html('集资结束');
+        }else{
+            $("#producttime").after("<input type='hidden' value='"+expire_time+"' id='timesShow' />");
+            setInterval("set_time()",1000);
+        }
+
+        var process = Math.ceil(((msg.money)/(msg.productmoney))*100);
+
+        $("#yearmoney").html((msg.yearrate)*100);
+        $("#productmonth").html((msg.productlong)/30);
+        $("#productmoney").html(msg.productmoney);
+        $("#process").html(process);
+        $("#productname").html(msg.productname);
+        $("#kemoney").html((msg.productmoney)-(msg.money));
+        $("#balance").html(msg.balance);
+        $("#producttimedate").html(msg.producttimedate);
+    }
+});
+
+//产品下单
+$('#submit').on('click',function() {
+    ordermoney = $("#investmentAmount").val();
+//            alert(ordermoney);
+    $.ajax({
+        type: "post",
+        url: "http://47.94.215.108/finance_tp5/public/index.php/order/invest/addinvestorder",
+        data: {
+            "productid": pid,
+            "uid": uid,
+            "ordermoney": ordermoney
+        },
+        dataType: "json",
+        success: function (msg) {
+            console.log(msg);
+            if (msg.code == 200) {
+                alert(msg.msg);
+                ordercard = msg.info.ordercard;
+
+                $("#goumai").html('<input id="submitzhifu" type="button" value="立即支付" class="btn btn_orange w_10">');
+
+            } else {
+                alert("下单错误");
+            }
+        }, error: function () {
+            alert("网络错误");
+        }
+    });
+});
+
+//点击支付
+$(document).on("click","#submitzhifu",function(){
+    $.ajax({
+        type: "post",
+        url: "http://47.94.215.108/finance_tp5/public/index.php/index/pay/aly",
+        data:{
+            "pid":pid,
+            "uid":uid,
+            "money":ordermoney,
+            "ordercard":ordercard
+        },
+        dataType: "json",
+        success: function (msg) {
+            window.location.href = msg;
+        }
+    })
+});
+
+//投资记录
+$(document).on("click","#in_record",function(){
+    $.ajax({
+        type:"post",
+        url:"http://www.jinrong.com/index.php/index/finance/investment_records",
+        data:{
+            "uid":uid
+        },
+        dataType:"json",
+        success: function (msg) {
+            console.log(msg);
+            var content = "";
+            $.each(msg,function(ks,vs){
+                content += '<tr>';
+                content += '<td align="left" width="25%" style="padding-left:10px; color:#4A4A4A;">'+ vs.uid +'<span class="tbline"></span> </td>';
+                content += '<td style="color:#0caffe;"><span class="tbline"></span><i style="float:right; margin-right:10px;">'+ vs.ordermoney +'</i></td>';
+                content += '<td align="right" style="padding-right:10px;">'+ vs.inserttime +'</td>';
+                content += '</tr>';
+            });
+            $("#inrecord").html(content);
+        }
+    })
+})
+
+
 });

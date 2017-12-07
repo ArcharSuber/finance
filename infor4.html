@@ -45,9 +45,6 @@
 </section>
 <!-- 中间内容 -->
 <div class="main">
-<<<<<<< HEAD:infor6.html
-  
-=======
   <!--标的进度-->
   <div class="con-circle">
     <aside class="sec_ce">
@@ -170,13 +167,12 @@
 <div class="wwzs_con fr"><h3>信用等级：<em>A</em></h3><h3>总分：<em>92.0</em></h3></div>
 </div>
 </div>
->>>>>>> 8a2380f47dd8e9220002da409e375410a5af273d:infor4.html
 
 <h2>评估结果</h2>
 		<ul>
             <li><p style="font-size: 12px;color:#4a4a4a;font-family:'Microsoft YaHei'"> 经阳光易贷五维指数评估，该标的手续相对比较完善。标的风险可控，预期收益稳健，适合稳健型理财客户投资。此标的由发标机构提供全额本息担保。理财客户需根据自身实际需求，谨慎投资。</p></li>
           </ul>
-</div>
+ </div>
       </div>
       <div class="c-tabs-cnt c-hkjhinfo" style="display: none;">
         <table width="100%">
@@ -230,12 +226,7 @@
     </div>
   </div>
 </div>
-
  <script type="text/javascript">
- var str='#pid=10&uid=1';
- var reg='^#(.*)=(.*)&(.*)=(.*)$'
- alert(str.match(reg)[2])
-  alert(str.match(reg)[4])
 	    //初始化轮播组件
 	    $(document).ready(function(){
 	        //切换菜单
@@ -315,82 +306,3 @@
 
 </body>
 </html>
-<<<<<<< HEAD:infor6.html
-<script>
- 
-    function getCookie(name)//取cookies函数 
-    {
-       var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
-      if(arr != null) 
-        return unescape(arr[2]); 
-      return null;
-    }
-    var username=getCookie('username');
-    var uid=getCookie('uid');
-    var tel=getCookie('tel');
-    if(username==null && tel==null){
-      window.location.href="http://localhost/finances/jr/finance/login.html";
-    }
-   
-   var geturl=window.location.hash;
-   //扩展Jquery获取url参数的方法
-   //通过正则匹配获取当前页面的url中的参数
-  
-   
-   
-
-
-
-
-function getLocalTime(nS) {     
-   return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');     
-}
-
-
-   var pid=7;
-   
-     $.ajax({
-        type:"post",
-        url:"http://localhost/finances/api/finance/finance_tp5/public/index.php/index/financelist/onedata",
-        data:{"pid":pid},
-        dataType:"json",
-        success: function (msg){
-            console.log(msg);
-            var str="";
-            
-            $.each(msg.finance,function(k,v){
-               var prodmoney = (v.productmoney);
-               var productmoney = prodmoney.substring(-1,3);
-               var dtime=getLocalTime(v.producttime);
-                str+=' <div class="con-circle"><aside class="sec_ce"><p class="sec_ce_id">年收益率</p><img src="images/zhuti.png" alt=""><p class="sec_ce_pc ng-binding">'+ (v.yearrate)*100 +'<span class="sec_ce_b">%</span></p><div class="sec_ce_pt"> <span>按月付息，到期还本</span></div></aside></div><div class="project-status"><div class="project-base-info"><div class="col-xs-4 ui-border-right"><p class="text-nowrap"><span class="ui-fc-blue ui-fs-18" id="yearmoney">'+ (v.yearrate)*100 +'</span> %</p><p class="ui-fs-12 text-nowrap">年化收益</p></div><div class="col-xs-4 ui-border-right"><p class="text-nowrap"><span class="ui-fs-18 ui-fc-blue" id="productmonth">6</span>个月</p><p class="ui-fs-12">项目期限</p></div><div class="col-xs-4"><p class="text-nowrap"><span class="ui-fc-blue ui-fs-18"><span class="" id="productmoney">'+productmoney+'</span></span> 万元</p><p class="ui-fs-12">项目金额</p></div></div><div class="project-left-time ui-fs-12 text-center" id="producttime">开始时间：'+dtime+'</div></div>';
-
-                str+='<div class="c-tabs-cnt c-bzcsinfo"><div class="c-bzcsinfo"><h2>产品信息</h2><ul><li><p style="font-size: 12px;color:#4a4a4a;font-family:"> 描述： '+v.productmsg+'</p></li></ul>';
-            });
-            $(".main").html(str);
-        }
-    });
-
-
-    $(function(){
-        $('#submit').on('click',function(){
-            var ordermoney = $("#investmentAmount").val();
-          alert(ordermoney);return false;
-            $.ajax({
-                type:"post",
-                url: "http://www.jinrong.com/index.php/index/index/goumai",
-                data:{
-                    "pid":pid,
-                    "uid":uid,
-                    "ordermoney":ordermoney
-                },
-                dataType: "json",
-                success: function (msg) {
-                    console.log(msg);
-                }
-            })
-        })
-    })
-</script>
-
-=======
->>>>>>> 8a2380f47dd8e9220002da409e375410a5af273d:infor4.html

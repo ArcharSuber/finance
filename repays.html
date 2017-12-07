@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>信富平台</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<link href="css/home.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/css.css" rel="stylesheet" type="text/css" media="all" />
+
+</head>
+
+<body style="background:#fff;">
+
+<!--top-->
+
+<div class="top">
+	<div class="box">
+        <a href="repay.html" class="return"><img src="images/return.png"></a>
+        借款详情    
+    </div>
+</div>
+
+
+
+<div class="rec_record">
+	<div class="box">
+        <ul>
+             <li>
+                    <div class="rec_left" id='contt'>
+                        <span>第N期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本 金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;利 息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额</span>
+                    </div>
+               </li>
+        </ul>
+    	<ul id='cont'>
+        	
+
+              <li>
+                    <div class="rec_left" id='contt'>
+                        <span>第N期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本 金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;利 息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额</span>
+                    </div>
+               </li>
+
+                <li>
+                     <div class="rec_left">
+                     <span>第一期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;355.55&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;456.22&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;546.55</span>
+                     </div>
+               </li>
+               <li>
+                    <div class="rec_left">
+                    <span>总利息 :</span>
+                   </div>
+              </li>
+        </ul>
+    </div>
+
+</div>
+<script type="text/javascript" src="script/jquery.min.js"></script>
+<script>
+
+
+ //$(window).load(function(){
+    var s=location.search.substring(1);//这个就是页面?后面的内容，自己处理一下
+    ss=s.replace('dela=','');
+    id=ss.substr(9,);
+    // alert(id)
+    $.ajax({
+          url:"http://localhost/tp5_finance/finance/finance_tp5/public/index.php/index/ontime/zong",
+          type:'post',
+          dataType:"json",
+          data:{
+                "id":id,
+           },success:function(data){
+                    if(data.error == 200)
+                     {
+                         $("#cont").html(data.data);
+                     }
+                         
+                        
+                }
+
+
+
+           });
+
+
+
+//})
+
+
+</script>
+
+</body>
+</html>

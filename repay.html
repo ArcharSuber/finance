@@ -18,7 +18,7 @@
 <div class="top">
 	<div class="box">
         <a href="loan.html" class="return"><img src="images/return.png"></a>
-        借款记录    
+        我的饥荒    
     </div>
 </div>
 
@@ -51,6 +51,7 @@
                         <span>5022元</span>
                   
                     </div>
+
                 </a>
                 <ul style="display: none">
                     <li style=" overflow:hidden;">
@@ -63,19 +64,45 @@
                     </li>  
                 </ul>
             </li>
+             
      
        
         </ul>
     </div>
 </div>
 
-
-
-
-
-
-
 <script type="text/javascript" src="script/index.js"></script>
+<script type="text/javascript" src="script/jquery.min.js"></script>
+<script>
+               
+                  $(window).load(function(){
+                    // 这里判断cookie是否存在，不存在false;
+
+
+                   $.ajax({
+                    url:"http://localhost/tp5_finance/finance/finance_tp5/public/index.php/index/repay/index",
+                    type:'post',
+                    dataType:"json",
+                    data:{
+                         "xiaoyang":1,
+                    },success:function(data){
+                           var str="";
+                          $.each(data,function(k,v){ 
+
+                              str+='<li><a href="repays.html?id = '+v.lid+'" class="inactive" style="background:none; padding:0;"><div class="box"><span>'+v.loanlendtime+'</span><span>'+v.loanmoney+'元</span><span>'+v.li+'元</span><span>'+v.he+'元</span></div></a></li>';
+
+                          })
+                        $(".yiji").html(str);
+                        
+                    }
+
+
+
+                  });
+
+
+                    });     
+</script>
 
 </body>
 </html>
