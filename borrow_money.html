@@ -55,7 +55,7 @@
              </div>
                
              <!-- <a href="#" class="lo_login" onclick="return validate()">提交</a> -->
-             <input type="submit" class="lo_login" value="提交" onsubmit="return validate()"/>
+             <input type="submit" class="lo_login" btn='1' value="提交" onsubmit="return validate()"/>
 
    
        
@@ -79,8 +79,10 @@
                    $(".yueyue").show();
               })
               
-
+            
               $(".lo_login").click(function(){
+             
+                 
                   if(dj_name()&&dj_address())
                    {
                       
@@ -105,13 +107,16 @@
                          "yue":yue,
                          "xuan":xuan,
                          "miao":miao
-                    },success:function(data){
-                      
+                    },
+                    success:function(data){
                         if(data.success==1)
                         {    
-
+                              // $(".lo_login").show(); 
+                              //
                              alert(data.msg);
+                             
                         }else{
+                           // $(".lo_login").show();
                              alert(data.msg);
                         }
                     },error:function(data){

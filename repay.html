@@ -87,7 +87,8 @@
                          "xiaoyang":1,
                     },success:function(data){
                            var str="";
-                          $.each(data,function(k,v){
+                          $.each(data,function(k,v){ 
+
                               str+='<li><a href="repays.html?id = '+v.lid+'" class="inactive" style="background:none; padding:0;"><div class="box"><span>'+v.loanlendtime+'</span><span>'+v.loanmoney+'元</span><span>'+v.li+'元</span><span>'+v.he+'元</span></div></a></li>';
 
                           })
