@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="css/common.css" />
 <script type="text/javascript" src="script/jquery.js"></script>
 <script type="text/javascript" src="script/column.js"></script>
+<script type="text/javascript" src="script/detail.js"></script>
 </head>
 <body>
 <!--浮动-->
@@ -49,7 +50,7 @@
     <aside class="sec_ce">
       <p class="sec_ce_id">募集进度</p>
       <img src="images/zhuti.png" alt="">
-      <p class="sec_ce_pc ng-binding">12<span class="sec_ce_b">%</span></p>
+      <p class="sec_ce_pc ng-binding"><span id="process">12</span><span class="sec_ce_b">%</span></p>
       <div class="sec_ce_pt"> <span>按月付息，到期还本</span> </div>
     </aside>
   </div>
@@ -57,45 +58,45 @@
   <div class="project-status">
     <div class="project-base-info">
       <div class="col-xs-4 ui-border-right">
-        <p class="text-nowrap"><span class="ui-fc-blue ui-fs-18">12.00</span> %</p>
+        <p class="text-nowrap"><span class="ui-fc-blue ui-fs-18" id="yearmoney">12.00</span> %</p>
         <p class="ui-fs-12 text-nowrap">年化收益</p>
       </div>
       <div class="col-xs-4 ui-border-right">
-        <p class="text-nowrap"><span class="ui-fs-18 ui-fc-blue">6 </span>个月</p>
+        <p class="text-nowrap"><span class="ui-fs-18 ui-fc-blue" id="productmonth">6 </span>个月</p>
         <p class="ui-fs-12">项目期限</p>
       </div>
       <div class="col-xs-4">
-        <p class="text-nowrap"><span class="ui-fc-blue ui-fs-18"><span class="">500,000</span></span> 元</p>
+        <p class="text-nowrap"><span class="ui-fc-blue ui-fs-18"><span class="" id="productmoney">500,000</span></span> 元</p>
         <p class="ui-fs-12">项目金额</p>
       </div>
     </div>
-    <div class="project-left-time ui-fs-12 text-center">剩余时间：2 天 0 小时 25 分钟</div>
+    <div class="project-left-time ui-fs-12 text-center" id="producttime">剩余时间：2 天 0 小时 25 分钟</div>
   </div>
   <!--具体信息-->
-  <div class="c-detailinfo">
-    <dl>
-      <dt>合作机构</dt>
-      <dd>秦皇岛硕丰投资咨询有限公司</dd>
-    </dl>
-    <dl>
-      <dt>项目编码</dt>
-      <dd>车易贷   HBSF-CYD-2015-0022</dd>
-    </dl>
-    <dl>
-      <dt>可投金额</dt>
-      <dd><font class="ui-fc-blue">29,000.00</font>元</dd>
-    </dl>
-    <dl>
-      <dt>到期时间</dt>
-      <dd>2016-03-13 </dd>
-    </dl>
-  </div>
+    <div class="c-detailinfo">
+        <dl>
+            <dt>合作机构</dt>
+            <dd>秦皇岛硕丰投资咨询有限公司</dd>
+        </dl>
+        <dl>
+            <dt>项目编码</dt>
+            <dd id="productname">车易贷   HBSF-CYD-2015-0022</dd>
+        </dl>
+        <dl>
+            <dt>可投金额</dt>
+            <dd><font class="ui-fc-blue"><span id="kemoney">29,000.00</span></font>元</dd>
+        </dl>
+        <dl>
+            <dt>到期时间</dt>
+            <dd id="producttimedate">2016-03-13</dd>
+        </dl>
+    </div>
  
   <!--信息列表-->
   <div class="c-detail">
     <div class="c-tabsmsg">
       <div class="c-tabstit-wrap">
-        <div class="c-tabstit"> <span class="c-xmxqtit on" data-index="0">项目详情</span> <span class="c-bzcstit" data-index="1">风控信息</span> <span class="c-hkjhtit" data-index="2">还款计划</span> <span class="c-tzjltit" data-index="3">投资记录</span> </div>
+        <div class="c-tabstit"> <span class="c-xmxqtit on" data-index="0">项目详情</span> <span class="c-bzcstit" data-index="1">风控信息</span> <span class="c-hkjhtit" data-index="2">还款计划</span> <span class="c-tzjltit" data-index="3" id="in_record">投资记录</span> </div>
       </div>
       <div class="clear"></div>
       <div class="c-tabs-cnt c-xmxqinfo" style="display: none;">
@@ -198,11 +199,13 @@
                 <th width="25%" align="center">金额(元)<span class="tbline" style="margin-top:15px;"></span></th>
                 <th align="right" width="40%" style="padding-right:10px;">投资时间</th>
               </tr>
+              <tbody id="inrecord">
               <tr>
-                <td align="left" width="25%" style="padding-left:10px; color:#4A4A4A;"> d***6 <i class="c-tzjlicon"></i> <span class="tbline"></span> </td>
-                <td style="color:#0caffe;"><span class="tbline"></span><i style="float:right; margin-right:10px;">3,169</i></td>
-                <td align="right" style="padding-right:10px;">2015-09-16 23:48 </td>
+                  <td align="left" width="25%" style="padding-left:10px; color:#4A4A4A;"> x***g <span class="tbline"></span> </td>
+                  <td style="color:#0caffe;"><span class="tbline"></span><i style="float:right; margin-right:10px;">1,484</i></td>
+                  <td align="right" style="padding-right:10px;">2015-09-17 09:46 </td>
               </tr>
+              </tbody>
             </tbody>
           </table>
           <div class="clear"></div>
@@ -249,6 +252,17 @@
 	        })
 
 	    });
+        //计时器
+        function set_time(){
+            var data=parseInt($("#timesShow").val());
+            var day=Math.floor(data/3600/24)<10?'0'+Math.floor(data/3600/24):Math.floor(data/3600/24);
+            var hours=Math.floor(data/3600%24)<10?'0'+Math.floor(data/3600%24):Math.floor(data/3600%24);
+            var minutes=Math.floor(data%3600/60)<10?'0'+Math.floor(data%3600/60):Math.floor(data%3600/60);
+            var seconds=(data%60)<10?'0'+(data%60):(data%60);
+            $("#producttime").html("剩余日期："+day+"天"+hours+"时"+minutes+"分"+seconds+"秒");
+            data--;
+            $("#timesShow").val(data)
+        }
 
 	</script>
 

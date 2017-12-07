@@ -47,46 +47,191 @@
   <div class="invest_menuinfo" id="con_one_1">
     <div class="clear"></div>
     <ul class="term">
-      <li><a href="#">新手</a></li>
-      <li><a href="#">3个月</a></li>
-      <li><a href="#">6个月</a></li>
-      <li><a href="#">12个月</a></li>
+      <li><a href="javascript:;">新手</a></li>
+      <li><a href="javascript:;">3个月</a></li>
+      <li><a href="javascript:;">6个月</a></li>
+      <li><a href="javascript:;">12个月</a></li>
     </ul>
   </div>
   <div class="invest_menuinfo" id="con_one_2" style="display:none">
     <ul class="term">
-      <li><a href="#">即将上线</a></li>
-      <li><a href="#">正在募集</a></li>
-      <li><a href="#">正在回款</a></li>
-      <li><a href="#">回款完毕</a></li>
+      <li><a href="javascript:;">即将上线</a></li>
+      <li><a href="javascript:;">正在募集</a></li>
+      <li><a href="javascript:;">正在回款</a></li>
+      <li><a href="javascript:;">回款完毕</a></li>
     </ul>
   </div>
   <div class="invest_menuinfo" id="con_one_3" style="display:none">
     <ul class="repayments">
-      <li><a href="#">等额本息</a></li>
-      <li><a href="#">按月付息，到期还本</a></li>
-      <li><a href="#">一次性还款</a></li>
+      <li><a href="javascript:;">等额本息</a></li>
+      <li><a href="javascript:;">按月付息，到期还本</a></li>
+      <li><a href="javascript:;">一次性还款</a></li>
     </ul>
   </div>
-  
+  ;
   <div class="index-list-wrap">
     <!--车-->
-    <div class="index-pad"> <a class="index-list index-che" href="#">
-      <div class="list-tit clear"> <span class="fl tit-name"><i></i><strong>HBSF-FFFO-0021</strong></span> <span class="fr tit-site"><i></i> <strong>内蒙古锡林格勒蒙古 </strong> </span> </div>
-      <div class="list-main">
-        <div class="main-l"> <span class="per">10.5<i>%</i></span> <span class="add">A</span> </div>
-        <div class="main-m main-m-1"> <span>500.<em>00</em><i>万</i></span> </div>
-        <div class="main-m main-m-2"> <span class="day">180<i>天</i></span> </div>
-        <div class="main-r"> <span class="circle-blue circle-c57"></span> <span class="val-per">57<i>%</i></span> </div>
-      </div>
-      </a> </div>
+    <div class="index-pad" id="cft_shows">
+        <a class="index-list index-che" href="javascript:void(0);">
+            <div class="list-tit clear"> <span class="fl tit-name"><i></i><strong>HBSF-FFFO-0021</strong></span> <span class="fr tit-site"><i></i> <strong>内蒙古锡林格勒蒙古 </strong> </span> </div>
+            <div class="list-main">
+                <div class="main-l"> <span class="per">10.5<i>%</i></span> <span class="add">A</span> </div>
+                <div class="main-m main-m-1"> <span>500.<em>00</em><i>万</i></span> </div>
+                <div class="main-m main-m-2"> <span class="day">180<i>天</i></span> </div>
+                <div class="main-r"> <span class="circle-blue circle-c57"></span> <span class="val-per">57<i>%</i></span> </div>
+            </div>
+        </a>
+    </div>
 
     <!--end-->
   </div>
-  <div class="UpPage"><ul> <li><a href="/loan/default?pid=1">上一页</a></li><li><span>2/64</span></li><li><a href="#">下一页</a></li></ul><div class="clear"></div></div>
+  <div class="UpPage">
+      <ul>
+          <li><a href="javascript:void(0);" id="prev_page">上一页</a></li>
+          <li><span id="total_page">1/64</span></li>
+          <li><a href="javascript:void(0);" id="next_page">下一页</a></li>
+      </ul>
+      <div class="clear"></div>
+  </div>
 </div>
 <!-- 页面底部 -->
 <nav class="footer border_t" id="footer"> <a href="index.html" class="" id="jx"><span></span>首页</a> <a href="finance.html" id="lc" class="nav_on"><span></span>理财</a> <a href="loan.html" id="jk" class=""><span></span>借款</a> <a href="usercenter.html" id="cf" class=""><span></span>我的账户</a> </nav>
 </body>
 </html>
+<script>
+    function getCookie(name)//取cookies函数
+    {
+        var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+        if(arr != null)
+            return unescape(arr[2]);
+        return null;
+
+    }
+    var uid=getCookie('user_id');//取cookies 的 ID
+    //第一页
+    page = 1;
+    //当前页
+    page_now = 1;
+    //理财产品展示
+    $.ajax({
+        type: "post",
+        url: "http://www.jinrong.com/index.php/index/finance/inFor",
+        data:{
+            "uid":uid
+        },
+        dataType: "json",
+        success: function (msg) {
+            console.log(msg);
+//            uid = msg.uid;
+            var str = '';
+            $.each(msg,function(k,v){
+                var productmoneys = (v.productmoney);
+                var productmoney = productmoneys/10000;
+                var percentage   = Math.ceil(((v.money)/productmoneys)*100);
+                page = v.page;
+                console.log(productmoney);
+                str += '<a id="productcft" class="index-list index-che" href="javascript:void(0);" aid="'+ v.pid +'">';
+                str += '<div class="list-tit clear"><span class="fl tit-name"><i></i><strong>'+ v.productname +'</strong></span> <span class="fr tit-site"><i></i><strong>内蒙古锡林格勒蒙古 </strong></span></div>';
+                str += '<div class="list-main">';
+                str += '<div class="main-l"><span class="per">'+ (v.yearrate)*100 +'<i>%</i></span><span class="add">A</span></div>';
+                str += '<div class="main-m main-m-1"><span>'+ productmoney +'.<em>00</em><i>万</i></span></div>';
+                str += '<div class="main-m main-m-2"><span class="day">'+ v.productlong +'<i>天</i></span></div>';
+                str += '<div class="main-r"><span class="circle-blue circle-c100"></span><span class="val-per">'+percentage +'<i>%</i></span></div>';
+                str += '</div>';
+                str += '</a>';
+            });
+            $('#cft_shows').html(str);
+            $("#total_page").html(p+"/"+page);
+        }
+    });
+
+    //跳转
+    $(document).on("click","#productcft",function(){
+        var pid = $(this).attr('aid');
+        if(uid == null)
+        {
+            location.href="infor.html"+"#pid="+pid+"&uid="+uid;
+        }else{
+            location.href="infor4.html"+"#pid="+pid+"&uid="+uid;
+        }
+    });
+
+    //
+    p = 1;
+    //上一页
+    $(document).on("click","#prev_page",function(){
+        p = p-1;
+        if(p <= page_now)
+        {
+            p = page_now;
+        }
+        $.ajax({
+            type: "post",
+            url: "http://www.jinrong.com/index.php/index/finance/finance_page",
+            data:{
+                "p":p
+            },
+            dataType: "json",
+            success: function (msg) {
+                console.log(msg);
+                var str = '';
+                $.each(msg,function(k,v){
+                    var productmoneys = (v.productmoney);
+                    var productmoney = productmoneys/10000;
+                    console.log(productmoney);
+                    str += '<a id="productcft" class="index-list index-che" href="javascript:void(0);" aid="'+ v.pid +'">';
+                    str += '<div class="list-tit clear"><span class="fl tit-name"><i></i><strong>'+ v.productname +'</strong></span> <span class="fr tit-site"><i></i><strong>内蒙古锡林格勒蒙古 </strong></span></div>';
+                    str += '<div class="list-main">';
+                    str += '<div class="main-l"><span class="per">'+ (v.yearrate)*100 +'<i>%</i></span><span class="add">A</span></div>';
+                    str += '<div class="main-m main-m-1"><span>'+ productmoney +'.<em>00</em><i>万</i></span></div>';
+                    str += '<div class="main-m main-m-2"><span class="day">'+ v.productlong +'<i>天</i></span></div>';
+                    str += '<div class="main-r"><span class="circle-blue circle-c100"></span><span class="val-per">100<i>%</i></span></div>';
+                    str += '</div>';
+                    str += '</a>';
+                });
+                $('#cft_shows').html(str);
+                $("#total_page").html(p+"/"+page);
+            }
+        });
+    });
+
+    //下一页
+    $(document).on("click","#next_page",function(){
+        p = p+1;
+        if(p >= page)
+        {
+            p = page;
+        }
+        $.ajax({
+            type: "post",
+            url: "http://www.jinrong.com/index.php/index/finance/finance_page",
+            data:{
+                "p":p
+            },
+            dataType: "json",
+            success: function (msg) {
+                console.log(msg);
+                var str = '';
+                $.each(msg,function(k,v){
+                    var productmoneys = (v.productmoney);
+                    var productmoney = productmoneys/10000;
+                    console.log(productmoney);
+                    str += '<a id="productcft" class="index-list index-che" href="javascript:void(0);" aid="'+ v.pid +'">';
+                    str += '<div class="list-tit clear"><span class="fl tit-name"><i></i><strong>'+ v.productname +'</strong></span> <span class="fr tit-site"><i></i><strong>内蒙古锡林格勒蒙古 </strong></span></div>';
+                    str += '<div class="list-main">';
+                    str += '<div class="main-l"><span class="per">'+ (v.yearrate)*100 +'<i>%</i></span><span class="add">A</span></div>';
+                    str += '<div class="main-m main-m-1"><span>'+ productmoney +'.<em>00</em><i>万</i></span></div>';
+                    str += '<div class="main-m main-m-2"><span class="day">'+ v.productlong +'<i>天</i></span></div>';
+                    str += '<div class="main-r"><span class="circle-blue circle-c100"></span><span class="val-per">100<i>%</i></span></div>';
+                    str += '</div>';
+                    str += '</a>';
+                });
+                $('#cft_shows').html(str);
+                $("#total_page").html(p+"/"+page);
+            }
+        });
+    });
+
+
+</script>
 

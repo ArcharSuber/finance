@@ -10,6 +10,7 @@
 <script type="text/javascript" src="script/jquery.js"></script>
 <script type="text/javascript" src="script/banner.js"></script>
 <script type="text/javascript" src="script/idangerous.swiper.js"></script>
+<script type="text/javascript" src="script/infor.js"></script>
 </head>
 <body>
 <!--浮动-->
@@ -58,7 +59,7 @@
     <div class="index-pad">
 
         <div id="cft_shows">
-        <a class="index-list index-che" href="infor.html">
+        <a class="index-list index-che" href="javascript:void(0);">
             <div class="list-tit clear"> <span class="fl tit-name"><i></i><strong>HBSF-FFFO-0021</strong></span> <span class="fr tit-site"><i></i> <strong>内蒙古锡林格勒蒙古 </strong> </span> </div>
             <div class="list-main">
                 <div class="main-l"> <span class="per">10.5<i>%</i></span> <span class="add">A</span> </div>
@@ -74,7 +75,7 @@
    
     <!--end-->
   </div>
-  <div class="mx10 pb10"> <a href="#" class="index-more"><i>查看全部项目</i></a> </div>
+  <div class="mx10 pb10"> <a href="finance.html" class="index-more"><i>查看全部项目</i></a> </div>
 </div>
 <!-- 页面底部 -->
 <nav class="footer border_t" id="footer">
@@ -144,55 +145,53 @@ body[0].removeChild(mybg);
 //
 //}
 //var uid=getCookie('user_id');
-//alert(uid);
+//
+//
+////判断登录的人，cookie
+//
+//
+//
+////理财产品展示
+//    $.ajax({
+//        type: "post",
+//        url: "http://www.jinrong.com/index.php/index/finance/inFor",
+//        data:{
+//            "uid":uid
+//        },
+//        dataType: "json",
+//        success: function (msg) {
+//            console.log(msg);
+////            uid = msg.uid;
+//            var str = '';
+//            $.each(msg,function(k,v){
+//                var productmoneys = (v.productmoney);
+//                var productmoney = productmoneys/10000;
+//                var percentage   = Math.ceil(((v.money)/productmoneys)*100);
+////                console.log(percentage);
+////                console.log(productmoney);
+//                str += '<a id="productcft" class="index-list index-che" href="javascript:void(0);" aid="'+ v.pid +'">';
+//                str += '<div class="list-tit clear"><span class="fl tit-name"><i></i><strong>'+ v.productname +'</strong></span> <span class="fr tit-site"><i></i><strong>内蒙古锡林格勒蒙古 </strong></span></div>';
+//                str += '<div class="list-main">';
+//                str += '<div class="main-l"><span class="per">'+ (v.yearrate)*100 +'<i>%</i></span><span class="add">A</span></div>';
+//                str += '<div class="main-m main-m-1"><span>'+ productmoney +'.<em>00</em><i>万</i></span></div>';
+//                str += '<div class="main-m main-m-2"><span class="day">'+ v.productlong +'<i>天</i></span></div>';
+//                str += '<div class="main-r"><span class="circle-blue circle-c'+percentage+'"></span><span class="val-per">'+ percentage +'<i>%</i></span></div>';
+//                str += '</div>';
+//                str += '</a>';
+//            });
+//            $('#cft_shows').html(str);
+//        }
+//    });
 
-
-//判断登录的人，cookie
-
-
-
-//理财产品展示
-
-    $.ajax({
-        type: "post",
-        url: "http://www.jinrong.com/index.php/index/finance/inFor",
-        data:{
-            "uid":1
-        },
-        dataType: "json",
-        success: function (msg) {
-            console.log(msg);
-//            uid = msg.uid;
-            var str = '';
-            $.each(msg,function(k,v){
-                var productmoneys = (v.productmoney);
-                var productmoney = productmoneys.substring(-1,3);
-                console.log(productmoney);
-                str += '<a id="productcft" class="index-list index-che" href="javascript:void(0);" aid="'+ v.pid +'">';
-                str += '<div class="list-tit clear"><span class="fl tit-name"><i></i><strong>'+ v.productname +'</strong></span> <span class="fr tit-site"><i></i><strong>内蒙古锡林格勒蒙古 </strong></span></div>';
-                str += '<div class="list-main">';
-                str += '<div class="main-l"><span class="per">'+ (v.yearrate)*100 +'<i>%</i></span><span class="add">A</span></div>';
-                str += '<div class="main-m main-m-1"><span>'+ productmoney +'.<em>00</em><i>万</i></span></div>';
-                str += '<div class="main-m main-m-2"><span class="day">'+ v.productlong +'<i>天</i></span></div>';
-                str += '<div class="main-r"><span class="circle-blue circle-c100"></span><span class="val-per">100<i>%</i></span></div>';
-                str += '</div>';
-                str += '</a>';
-            });
-            $('#cft_shows').html(str);
-
-        }
-    });
-
-    $(document).on("click","#productcft",function(){
-        var pid = $(this).attr('aid');
-//        if(uid == "")
+//    $(document).on("click","#productcft",function(){
+//        var pid = $(this).attr('aid');
+//        if(uid == null)
 //        {
 //            location.href="infor.html"+"#pid="+pid+"&uid="+uid;
 //        }else{
-            location.href="infor4.html"+"#pid="+pid+"&uid="+1;
+//            location.href="infor4.html"+"#pid="+pid+"&uid="+uid;
 //        }
-    });
-
+//    });
 
 
 </script>
