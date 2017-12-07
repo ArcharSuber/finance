@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no"/>
+<title>首页</title>
+<link rel="stylesheet" type="text/css" href="css/common.css" />
+<link rel="stylesheet" type="text/css" href="css/idangerous.swiper.css" />
+<script type="text/javascript" src="script/jquery.js"></script>
+<script type="text/javascript" src="script/banner.js"></script>
+<script type="text/javascript" src="script/idangerous.swiper.js"></script>
+<script type="text/javascript" src="script/infor.js"></script>
+</head>
+<body>
+<!--浮动-->
+<div class="dropMask"></div>
+<div class="dragBtn"></div>
+<div class="dropBox">
+  
+</div>
+<script src="script/jquery-ui.min.js"></script>
+<script src="script/index.js"></script>
+<!-- 页面头部 -->
+<header class="header"><a href="#" class="logo"><img src="images/logo.png"></a>
+  <!-- 登录和未登录 -->
+  <div class="nav-top-bar" onClick="$(this).next().stop().slideToggle(200,'easeOutQuad')"></div>
+  <div class="header-nav"> <a href="register.html"> <img src="images/register.png" /> 注册 </a> <a href="login.html"> <img src="images/login.png" /> 登录 </a> <a href="finance.html"> <img src="images/invest.png" /> 理财 </a> </div>
+</header>
+<!-- 中间内容 -->
+<div class="main">
+  <!-- Banner -->
+  <div class="swiper-container">
+    <div class="swiper-wrapper" style="width: 2560px; height: 75px; -webkit-transform: translate3d(-1920px, 0px, 0px); transition: 0.3s; -webkit-transition: 0.3s;"><a class="swiper-slide swiper-slide-duplicate" href="#" target="_blank" style="width: 640px; height: 75px;"><img src="images/banner.png" height="75"></a> <a class="swiper-slide" href="#" target="_blank" style="width: 640px; height: 75px;"><img src="images/banner.png" height="75"></a> <a class="swiper-slide" href="#" target="_blank" style="width: 640px; height: 75px;"><img src="images/banner.png" height="75"></a> <a class="swiper-slide swiper-slide-duplicate swiper-slide-visible swiper-slide-active" href="#" target="_blank" style="width: 640px; height: 75px;"><img src="images/banner.png" height="75"></a></div>
+    <div class="pagination"><span class="swiper-pagination-switch swiper-visible-switch swiper-active-switch"></span><span class="swiper-pagination-switch"></span></div>
+  </div>
+  <div class="wgt-login"> <a class="btn btn-regist" href="finance.html">立即投资</a> <a class="btn btn-login" href="usercenter.html">我的账户</a> </div>
+  <div class="clear"></div>
+  <div class="index-list-wrap">
+    <!--车-->
+
+    <div class="index-pad">
+        <div id="cft_shows">
+<<<<<<< HEAD:index1.html
+        <a class="index-list index-che" href="">
+=======
+        <a class="index-list index-che" href="javascript:void(0);">
+>>>>>>> 8a2380f47dd8e9220002da409e375410a5af273d:index.html
+            <div class="list-tit clear"> <span class="fl tit-name"><i></i><strong>HBSF-FFFO-0021</strong></span> <span class="fr tit-site"><i></i> <strong>内蒙古锡林格勒蒙古 </strong> </span> </div>
+            <div class="list-main">
+                <div class="main-l"> <span class="per">10.5<i>%</i></span> <span class="add">A</span> </div>
+                <div class="main-m main-m-1"> <span>500.<em>00</em><i>万</i></span> </div>
+                <div class="main-m main-m-2"> <span class="day">180<i>天</i></span> </div>
+                <div class="main-r"> <span class="circle-blue circle-c100"></span> <span class="val-per">100<i>%</i></span> </div>
+            </div>
+        </a>
+        </div>
+
+    </div>
+
+   
+    <!--end-->
+  </div>
+  <div class="mx10 pb10"> <a href="finance.html" class="index-more"><i>查看全部项目</i></a> </div>
+</div>
+<!-- 页面底部 -->
+<nav class="footer border_t" id="footer">
+    <a href="index.html" class="nav_on" id="jx"><span></span>首页</a>
+    <a href="finance.html" id="lc" class=""><span></span>理财</a>
+    <a href="loan.html" id="jk" class=""><span></span>借款</a>
+    <a href="usercenter.html" id="cf" class=""><span></span>我的账户</a> </nav>
+<script langue="javascript">
+function show(popupdiv)
+{
+var Idiv=document.getElementById(popupdiv);
+Idiv.style.display="block";
+//以下部分使整个页面至灰不可点击
+var procbg = document.createElement("div"); //首先创建一个div
+procbg.setAttribute("id","mybg"); //定义该div的id
+procbg.style.background = "#000000";
+procbg.style.width = "100%";
+procbg.style.height = "100%";
+procbg.style.position = "fixed";
+procbg.style.top = "0";
+procbg.style.left = "0";
+procbg.style.zIndex = "500";
+procbg.style.opacity = "0.6";
+procbg.style.filter = "Alpha(opacity=70)";
+//以上部分也可以用csstext代替
+// procbg.style.cssText="background:#000000;width:100%;height:100%;position:fixed;top:0;left:0;zIndex:500;opacity:0.6;filter:Alpha(opacity=70);";
+//背景层加入页面
+document.body.appendChild(procbg);
+document.body.style.overflow = "auto"; //取消滚动条
+//以下部分实现弹出层的拖拽效果
+var posX;
+var posY;
+Idiv.onmousedown=function(e)
+{
+if(!e) e = window.event; //IE
+posX = e.clientX - parseInt(Idiv.style.left);
+posY = e.clientY - parseInt(Idiv.style.top);
+document.onmousemove = mousemove;
+};
+document.onmouseup = function()
+{
+document.onmousemove = null;
+};
+function mousemove(ev)
+{
+if(ev==null) ev = window.event;//IE
+Idiv.style.left = (ev.clientX - posX) + "px";
+Idiv.style.top = (ev.clientY - posY) + "px";
+}
+}
+function closeDiv(popupdiv) //关闭弹出层
+{
+var Idiv=document.getElementById(popupdiv);
+Idiv.style.display="none";
+document.body.style.overflow = "auto"; //恢复页面滚动条
+var body = document.getElementsByTagName("body");
+var mybg = document.getElementById("mybg");
+body[0].removeChild(mybg);
+}
+
+<<<<<<< HEAD:index1.html
+//判断登录的人，cookie
+ function getCookie(name)//取cookies函数 
+{
+      var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+      if(arr != null) 
+        return unescape(arr[2]); 
+      return null;
+
+}
+
+var uid=getCookie('user_id');
+//console.log(uid);
+//理财产品展示
+
+    $.ajax({
+        type: "post",
+        url: "http://localhost/finances/api/finance/finance_tp5/public/index.php/index/financelist/alldata",
+        
+        dataType: "json",
+        success: function (msg) {
+            console.log(msg);
+//            uid = msg.uid;
+            var str = '';
+            $.each(msg.finance,function(k,v){
+                var productmoneys = (v.productmoney);
+                var productmoney = productmoneys.substring(-1,3);
+                //console.log(productmoney);
+                str += '<a id="productcft" class="index-list index-che" href="javascript:void(0);" aid="'+ v.pid +'">';
+                str += '<div class="list-tit clear"><span class="fl tit-name"><i></i><strong>'+ v.productname +'</strong></span> <span class="fr tit-site"><i></i><strong>内蒙古锡林格勒蒙古 </strong></span></div>';
+                str += '<div class="list-main">';
+                str += '<div class="main-l"><span class="per">'+ (v.yearrate)*100 +'<i>%</i></span><span class="add">A</span></div>';
+                str += '<div class="main-m main-m-1"><span>'+ productmoney +'.<em>00</em><i>万</i></span></div>';
+                str += '<div class="main-m main-m-2"><span class="day">'+ v.productlong +'<i>天</i></span></div>';
+                str += '<div class="main-r"><span class="circle-blue circle-c100"></span><span class="val-per">100<i>%</i></span></div>';
+                str += '</div>';
+                str += '</a>';
+            });
+            $('#cft_shows').html(str);
+
+        }
+    });
+
+
+    $(document).on("click","#productcft",function(){
+       var pid = $(this).attr('aid');
+       if(uid==null)
+       {   
+           //if(uid.length==0){
+             location.href="infor.html"+"#pid="+pid;
+           //}
+            
+       }else{
+            location.href="infor4.html"+"#pid="+pid+"&uid="+uid;
+       }
+
+    });
+
+=======
+//function getCookie(name)//取cookies函数
+//{
+//    var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+//    if(arr != null)
+//        return unescape(arr[2]);
+//    return null;
+//
+//}
+//var uid=getCookie('user_id');
+//
+//
+////判断登录的人，cookie
+//
+//
+//
+////理财产品展示
+//    $.ajax({
+//        type: "post",
+//        url: "http://www.jinrong.com/index.php/index/finance/inFor",
+//        data:{
+//            "uid":uid
+//        },
+//        dataType: "json",
+//        success: function (msg) {
+//            console.log(msg);
+////            uid = msg.uid;
+//            var str = '';
+//            $.each(msg,function(k,v){
+//                var productmoneys = (v.productmoney);
+//                var productmoney = productmoneys/10000;
+//                var percentage   = Math.ceil(((v.money)/productmoneys)*100);
+////                console.log(percentage);
+////                console.log(productmoney);
+//                str += '<a id="productcft" class="index-list index-che" href="javascript:void(0);" aid="'+ v.pid +'">';
+//                str += '<div class="list-tit clear"><span class="fl tit-name"><i></i><strong>'+ v.productname +'</strong></span> <span class="fr tit-site"><i></i><strong>内蒙古锡林格勒蒙古 </strong></span></div>';
+//                str += '<div class="list-main">';
+//                str += '<div class="main-l"><span class="per">'+ (v.yearrate)*100 +'<i>%</i></span><span class="add">A</span></div>';
+//                str += '<div class="main-m main-m-1"><span>'+ productmoney +'.<em>00</em><i>万</i></span></div>';
+//                str += '<div class="main-m main-m-2"><span class="day">'+ v.productlong +'<i>天</i></span></div>';
+//                str += '<div class="main-r"><span class="circle-blue circle-c'+percentage+'"></span><span class="val-per">'+ percentage +'<i>%</i></span></div>';
+//                str += '</div>';
+//                str += '</a>';
+//            });
+//            $('#cft_shows').html(str);
+//        }
+//    });
+
+//    $(document).on("click","#productcft",function(){
+//        var pid = $(this).attr('aid');
+//        if(uid == null)
+//        {
+//            location.href="infor.html"+"#pid="+pid+"&uid="+uid;
+//        }else{
+//            location.href="infor4.html"+"#pid="+pid+"&uid="+uid;
+//        }
+//    });
+>>>>>>> 8a2380f47dd8e9220002da409e375410a5af273d:index.html
+
+
+</script>
+</body>
+</html>
