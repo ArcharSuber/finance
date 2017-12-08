@@ -35,7 +35,7 @@ table{
 <div style="background:#0697da;height:130px;color:#fff;position:relative;border:2px solid;border-radius:25px;margin-left:20px;margin-top:15px;margin-right:20px;">
 	<table>
 	<tr>
-		<td><p class="bank">中国银行</p><p class="bankcard">12345****456</p></td>
+		<td><p class="bank">中国银行</p><p class="bankcard">622848******2350</p></td>
 		<td><p class="update">修改</p></td>
 	</tr>
 </table>
@@ -43,16 +43,18 @@ table{
 <div class="up" style="display:none">
 	<span style="margin-left:50px;font-size:18px;margin-top:20px">请选择</span>
 	<select class="change_bank">
-		<option value="">中国银行</option>
-
+		<option>请选择支付方式</option>
+		<option value="zfb">支付宝</option>
+        <option value="wx">微信</option>
+        <option value="wy">网银支付</option>
 	</select>
 
 </div>
-<p style="margin-top:80px;font-size:18px;margin-left:50px">当前账户余额<span id="balance">999999.00</sapn></p>
-<p style="font-size:18px;margin-left:50px;margin-top:30px">充值金额：<input type="text" style="margin-left:10px;border-style:none;font-size:18px" placeholder="请输入充值金额"></p>
+<p style="margin-top:80px;font-size:18px;margin-left:50px">当前账户余额<span id="balance">0.00</sapn></p>
+<p style="font-size:18px;margin-left:50px;margin-top:30px">充值金额：<input type="text" style="margin-left:10px;border-style:none;font-size:18px" placeholder="请输入充值金额" id="money"></p>
 
 <hr border=1 style="margin-left:30px;margin-right:20px;margin-top:40px;color:#0697da">
-<p style="color:red;margin-left:50px">*<span style="font-size:18px;color:grey">最低充值100元</span></p>
+<!-- <p style="color:red;margin-left:50px">*<span style="font-size:18px;color:grey">最低充值1元</span></p> -->
 
 <div style="width:%80;background:#0697da;height:50px;color:#fff;border-radius:15px;margin-left:20px;margin-top:15px;margin-right:20px;">
 	<p class="pay">充值</p>
@@ -61,9 +63,27 @@ table{
 </script>
 
 <script>
+   
 	$(function(){
 		$(".update").click(function(){
 			$(".up").toggle();
 		});
 	})
+
+
+    $(".pay").click(function(){
+    	pay_type = $(".change_bank").val();
+    	money = $("#money").val();
+        
+        $.ajax({
+        	url: 'http://47.94.215.108/finance_tp5/public/index.php/pay/pay/pay',
+        	type: 'post',
+        	data: {pay_type:pay_type,money:money,uid:1},
+        	success:function(msg){
+               $(".pay").after(msg);
+        	}
+        })
+    })
+    
+
 </script>
