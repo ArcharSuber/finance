@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8152cfc-c6cf-40e5-b7f5-79041d1d66d5" name="默认的" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/script/detail.js" afterPath="$PROJECT_DIR$/script/detail.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/finance.html" afterPath="$PROJECT_DIR$/finance.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/script/infor.js" afterPath="$PROJECT_DIR$/script/infor.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="finance.iws" />
@@ -70,11 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="infor4.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="infor4.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/infor4.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.49579832" vertical-offset="4967" max-vertical-offset="5800">
-              <caret line="293" column="56" selection-start-line="293" selection-start-column="56" selection-end-line="293" selection-end-column="56" />
+            <state vertical-scroll-proportion="-5.1355934" vertical-offset="4797" max-vertical-offset="5800">
+              <caret line="279" column="48" selection-start-line="279" selection-start-column="48" selection-end-line="279" selection-end-column="48" />
               <folding>
                 <element signature="n#style#0;n#div#5;n#div#0;n#div#3;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#form#0;n#div#5;n#div#0;n#div#3;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -105,11 +102,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="detail.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="detail.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/script/detail.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3825">
-              <caret line="203" column="49" selection-start-line="203" selection-start-column="49" selection-end-line="203" selection-end-column="49" />
+            <state vertical-scroll-proportion="0.63265306" vertical-offset="1073" max-vertical-offset="3825">
+              <caret line="223" column="34" selection-start-line="223" selection-start-column="34" selection-end-line="223" selection-end-column="34" />
               <folding>
                 <element signature="e#504#830#0" expanded="false" />
                 <element signature="e#931#1443#0" expanded="false" />
@@ -163,7 +160,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="398" />
     <option name="width" value="1520" />
-    <option name="height" value="1034" />
+    <option name="height" value="1036" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="添加" />
@@ -278,7 +275,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="398" y="0" width="1520" height="1034" extended-state="0" />
+    <frame x="398" y="0" width="1520" height="1036" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="更改" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -908,28 +905,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/script/detail.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3825">
-          <caret line="203" column="49" selection-start-line="203" selection-start-column="49" selection-end-line="203" selection-end-column="49" />
-          <folding>
-            <element signature="e#504#830#0" expanded="false" />
-            <element signature="e#931#1443#0" expanded="false" />
-            <element signature="e#1488#2037#0" expanded="false" />
-            <element signature="e#2081#2685#0" expanded="false" />
-            <element signature="e#2729#2801#0" expanded="false" />
-            <element signature="e#2861#3457#0" expanded="false" />
-            <element signature="e#3488#3654#0" expanded="false" />
-            <element signature="e#3677#4261#0" expanded="false" />
-            <element signature="e#4300#4721#0" expanded="false" />
-            <marker date="1512731854036" expanded="true" signature="7586:7619" placeholder="..." />
-            <marker date="1512731854036" expanded="true" signature="7709:7723" placeholder="..." />
-            <marker date="1512731854036" expanded="true" signature="7763:7794" placeholder="..." />
-            <marker date="1512731854036" expanded="true" signature="7880:7899" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/finance.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-11.823529" vertical-offset="5423" max-vertical-offset="6825">
@@ -979,8 +954,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/infor4.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49579832" vertical-offset="4967" max-vertical-offset="5800">
-          <caret line="293" column="56" selection-start-line="293" selection-start-column="56" selection-end-line="293" selection-end-column="56" />
+        <state vertical-scroll-proportion="-5.1355934" vertical-offset="4797" max-vertical-offset="5800">
+          <caret line="279" column="48" selection-start-line="279" selection-start-column="48" selection-end-line="279" selection-end-column="48" />
           <folding>
             <element signature="n#style#0;n#div#5;n#div#0;n#div#3;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#form#0;n#div#5;n#div#0;n#div#3;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -993,6 +968,28 @@
             <element signature="e#9865#9984#0" expanded="false" />
             <element signature="e#10021#10143#0" expanded="false" />
             <element signature="e#10201#10517#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/script/detail.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.63265306" vertical-offset="1073" max-vertical-offset="3825">
+          <caret line="223" column="34" selection-start-line="223" selection-start-column="34" selection-end-line="223" selection-end-column="34" />
+          <folding>
+            <element signature="e#504#830#0" expanded="false" />
+            <element signature="e#931#1443#0" expanded="false" />
+            <element signature="e#1488#2037#0" expanded="false" />
+            <element signature="e#2081#2685#0" expanded="false" />
+            <element signature="e#2729#2801#0" expanded="false" />
+            <element signature="e#2861#3457#0" expanded="false" />
+            <element signature="e#3488#3654#0" expanded="false" />
+            <element signature="e#3677#4261#0" expanded="false" />
+            <element signature="e#4300#4721#0" expanded="false" />
+            <marker date="1512731854036" expanded="true" signature="7586:7619" placeholder="..." />
+            <marker date="1512731854036" expanded="true" signature="7709:7723" placeholder="..." />
+            <marker date="1512731854036" expanded="true" signature="7763:7794" placeholder="..." />
+            <marker date="1512731854036" expanded="true" signature="7880:7899" placeholder="..." />
           </folding>
         </state>
       </provider>
