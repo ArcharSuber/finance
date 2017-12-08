@@ -88,12 +88,27 @@
 						var oauth=window.location.hash.match(reg)[2];
 						if(oauth){
 							$.ajax({
-				           		url:'http://localhost/month_12/finance/finance_tp5/public/index.php/index/Login/oauthLogin',
+				           		url:'http://47.94.215.108/finance_tp5/public/index.php/index/Login/oauthLogin',
 				           		type:'post',
+				           		async:false,
 				           		data:{oauth:oauth},
 				           		dataType:'json',
 				           		success:function(data){
-				           			window.location.href=data.url;
+				           			location.href=data.url;
+				           		}
+				           });
+							$.ajax({
+				           		url:'http://47.94.215.108/finance_tp5/public/index.php/index/Login/oauthCheckLogin',
+				           		async:false,
+				           		type:'get',
+				           		dataType:'json',
+				           		success:function(data){
+				           			alert(data.msg);
+				           			if(data.code==1021){
+				           				setCookie('user_id',data.user_id);
+				           				setCookie('username',data.username);
+				           				window.location.href='./index.html';
+				           			}
 				           		}
 				           });
 						}
