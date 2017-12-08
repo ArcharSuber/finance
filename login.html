@@ -54,6 +54,11 @@
       </form>
       <div class="m-ljzc"> 没有账号？<a href="register.html">立即注册</a> </div>
     </div>
+    <div>
+    	<div>
+    	<a href="#oauth=2" class="oauth"><img src="images/weibo_login.png" width="100px" height="30px" title="点击进入授权页面" alt="点击进入授权页面" border="0"></a>
+    	</div>
+    </div>
   </div>
 </div>
 <script>
@@ -78,7 +83,21 @@
 				            //alert("验证码错误");
 				        }
 				    }
-				     
+				    $(".oauth").click(function(){
+				    	var reg='^#(.*)=(.*)$';
+						var oauth=window.location.hash.match(reg)[2];
+						if(oauth){
+							$.ajax({
+				           		url:'http://localhost/month_12/finance/finance_tp5/public/index.php/index/Login/oauthLogin',
+				           		type:'post',
+				           		data:{oauth:oauth},
+				           		dataType:'json',
+				           		success:function(data){
+				           			window.location.href=data.url;
+				           		}
+				           });
+						}
+				    }); 
 				    $("#my_button").click(function(){
 				    	if(checkVerify() && checkUsername() && checkPassword()){
                                var username=$("#j_username").val();
