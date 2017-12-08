@@ -13,7 +13,7 @@ $(document).ready(function() {
     //理财产品展示
     $.ajax({
         type: "post",
-        url: "http://www.jinrong.com/index.php/index/finance/inFor",
+        url: "http://47.94.215.108/finance_tp5/public/index.php/index/finance/inFor",
         data:{
             "uid":uid
         },
