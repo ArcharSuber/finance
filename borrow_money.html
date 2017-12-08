@@ -7,6 +7,8 @@
 <link href="css/home.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/css.css" rel="stylesheet" type="text/css" media="all" />
 
+
+
 </head>
 
 <body style="background:#fff;">
@@ -23,26 +25,190 @@
 
 <div class="login_lo" style="margin-top:56px;">
 	<div class="box">
-        <form action="">
+        
+           <div class="lo_1 lo_2">
+            <span>借款描述</span>
+            <input type="text" name="miao" size="60" maxlength="60" onblur="dj_name()" style="color:#ccc" id='miaoo' placeholder="请输入借款用途" onfocus="if(this.value=='请输入借款用途'){this.value=''};this.style.color='black';" onblur="if(this.value==''||this.value=='请输入借款用途'){this.value='请输入借款用途';this.style.color='#ccc';}"><br>
+            
+        </div>
+        <span id="spname" ></span>
+
     	<div class="lo_1 lo_2">
         	<span>借多少</span>
-            <input type="text" name="address" size="60" maxlength="60" style="color:#ccc" value="请输入借款金额" onfocus="if(this.value=='请输入借款金额'){this.value=''};this.style.color='black';" onblur="if(this.value==''||this.value=='请输入借款金额'){this.value='请输入借款金额';this.style.color='#ccc';}">
+            <input type="text" name="address" id="address"  onblur="dj_address()" size="60" maxlength="60" style="color:#ccc" placeholder="最多金额不能超过亿/单位:元" value="" onfocus="if(this.value=='最多金额不能超过亿/单位:元'){this.value=''};this.style.color='black';" onblur="if(this.value==''||this.value=='最多金额不能超过亿/单位:元'){this.value='最多金额不能超过亿/单位:元';this.style.color='#ccc';}">
+            
         </div>
-      <!--   <div class="lo_1 lo_2">
-        	<span>身份证号</span>
-            <input type="text" name="address" size="60" maxlength="60" style="color:#ccc" value="请输入身份证号" onfocus="if(this.value=='请输入身份证号'){this.value=''};this.style.color='black';" onblur="if(this.value==''||this.value=='请输入身份证号'){this.value='请输入身份证号';this.style.color='#ccc';}">
-          
-        </div>  --> 
-            <input type="radio" value='3' name='yue'>3个月&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="radio" value='6' name='yue'>6个月&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="radio" value='12' name='yue'>12个月
-        
-                    
-        <a href="#" class="lo_login">提交</a>
-        </form>
+        <span id="spaddress" ></span>
+           
+            <div style="height:85px; width:100%; border-bottom:1px solid #29a7e2; margin-top:12px;">
+                  
+             <span>选择还款方式：</span><br><br>
+            <input type="radio" value='3' name='xuan' id='xuan' class="yi" checked='checked'>一次性还清&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" value='2' name='xuan' id='xuan' class="jin">等额本金&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" value='1' name='xuan' id='xuan' class="xi">等额本息
+             </div>
+               <div style="height:85px; width:100%; border-bottom:1px solid #29a7e2; margin-top:12px; display:none" class="yueyue">
+             <span>选择还款时间：</span><br><br>
+            <input type="radio" value='1' name='yue' id='yue'> 1年&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" value='2' name='yue' id='yue'> 2年&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" value='3' name='yue' id='yue'> 3年
+             </div>
+               
+             <!-- <a href="#" class="lo_login" onclick="return validate()">提交</a> -->
+             <input type="submit" class="lo_login" btn='1' value="提交" onsubmit="return validate()"/>
+
+   
+       
     </div>
 </div>
 
 
 </body>
 </html>
+<script type="text/javascript" src="script/jquery.min.js"></script>
+<script>   
+             // function getCookie(name)//取cookies函数 
+             //  {
+             //      var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+             //        if(arr != null) 
+             //          return unescape(arr[2]); 
+             //        return null;
+
+             //  }
+             //  function setCookie(name,value)//两个参数，一个是cookie的名，一个是值
+             //  {
+             //    var Days = 30; //此 cookie 将被保存 30 天
+             //    var exp   = new Date(); //new Date("December 31, 9998");
+             //    exp.setTime(exp.getTime() + Days*24*60*60*1000);
+             //    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+             //  }
+            
+           $(function(){
+
+
+              
+              // if(id == null)
+              // {
+              //    location.href="login.html";
+              // }
+              $(".yi").click(function(){
+                    $(".yueyue").hide();
+               })
+              $(".jin").click(function(){
+                   $(".yueyue").show();
+              })
+              $(".xi").click(function(){
+                   $(".yueyue").show();
+              })
+              
+            
+              $(".lo_login").click(function(){
+                 
+                 
+
+                  if(dj_name()&&dj_address())
+                   { 
+                   var qian = $("#address").val();
+                   var yue = parseInt($("#yue:checked").val());
+                   var xuan = parseInt($("#xuan:checked").val());
+
+                   if(xuan == 3)
+                   {
+                       yue = 0;
+                   }
+                   var miao = $("#miaoo").val();
+                   $.ajax({
+                    url:"http://localhost/tp5_finance/finance/finance_tp5/public/index.php/index/borrow/index",
+                    type:'post',
+                    dataType:"json",
+                    data:{
+                         "qian":qian,
+                         "yue":yue,
+                         "xuan":xuan,
+                         "miao":miao
+                    },
+                    success:function(data){
+                        if(data.success==1)
+                        {    
+                             alert(data.msg);
+                             
+                        }else{
+                             alert(data.msg);
+                        }
+                    },error:function(data){
+
+                        if(data.error==1)
+                        {
+                             alert(123);
+                        }else{
+                             alert(456);
+                        }
+                    }
+
+
+
+                  });
+               
+                 }
+              });
+           });
+        
+
+         function dj_name()
+            {
+                var name=document.getElementById("miaoo").value;
+                // alert(name);
+                var zz=/^[\u4e00-\u9fa5]{5,}$/;
+                    if(zz.test(name))
+                    {
+                        document.getElementById("spname").innerHTML="<font color='green' style='padding-right:60px;'>正确√</font>";
+                        return true;
+                    }
+                    else if(name=="")
+                    {
+                        document.getElementById("spname").innerHTML="<font color='red'>不得为空！</font>";
+                        return false;
+                    }
+
+                    else
+                    {
+                        document.getElementById("spname").innerHTML="<font color='red'>请输入5位以上汉字的描述！</font>";
+                        return false;
+                    }
+
+
+            }
+            function dj_address()
+            {
+              var name=document.getElementById("address").value;
+
+                // var zz=/^\[1-9]\d{2,}00$/;
+                var zz=/^\d{1,4}0000$/;
+                if(zz.test(name))
+                {
+                  document.getElementById("spaddress").innerHTML="<font color='green'>正确√</font>";
+                  return true;
+                }
+                else if(name=="")
+                {
+                  document.getElementById("spaddress").innerHTML="<font color='red'>不得为空！</font>";
+                  return false;
+                }
+                else
+                {
+                  document.getElementById("spaddress").innerHTML="<font color='red'>请输入数字,最多金额不能超过亿,必须是10000的倍数</font>";
+                  return false;
+                }
+
+
+
+            }
+              
+             
+            
+     
+
+
+
+
+</script>
