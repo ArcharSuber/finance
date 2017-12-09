@@ -16,6 +16,14 @@
 		<div class="ui-content" data-role="content"> 
 			<section class="self-header">
 				<p>当前帐户：<script>
+				function getCookie(name)//取cookies函数 
+		              {
+		                  var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+		                    if(arr != null) 
+		                      return unescape(arr[2]); 
+		                    return null;
+
+		              }
 					    document.write(getCookie("username"));
 
 				</script></p>
@@ -50,14 +58,7 @@
 					$(window).load(function(){
 						$(".loading").fadeOut();
 					})
-					  function getCookie(name)//取cookies函数 
-		              {
-		                  var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
-		                    if(arr != null) 
-		                      return unescape(arr[2]); 
-		                    return null;
-
-		              }
+					  
 	    </script>
 	</div>
 	
