@@ -24,27 +24,23 @@
 
 <div class="rec_record">
 	<div class="box">
-        <ul>
+  <!--       <ul>
              <li>
                     <div class="rec_left" id='contt'>
                         <span>第N期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本 金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;利 息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额</span>
                     </div>
                </li>
-        </ul>
+        </ul> -->
     	<ul id='cont'>
         	
 
               <li>
-                    <div class="rec_left" id='contt'>
+                    <div class="rec_left" id='dt'>
                         <span>第N期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本 金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;利 息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额</span>
                     </div>
                </li>
 
-                <li>
-                     <div class="rec_left">
-                     <span>第一期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;355.55&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;456.22&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;546.55</span>
-                     </div>
-               </li>
+              
                <li>
                     <div class="rec_left">
                     <span>总利息 :</span>
@@ -62,9 +58,9 @@
     var s=location.search.substring(1);//这个就是页面?后面的内容，自己处理一下
     ss=s.replace('dela=','');
     id=ss.substr(9,);
-      // alert(id)
+      
     $.ajax({
-          url:"http://localhost/tp5_finance/finance/finance_tp5/public/index.php/index/ontime/zong",
+          url:"http://47.94.215.108/finance_tp5/public/index.php/index/ontime/zong",
           type:'post',
           dataType:"json",
           data:{
