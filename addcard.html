@@ -16,23 +16,19 @@
 			<h3>添加新卡</h3>
 		</header>
 		<div class="ui-content" data-role="content">
-			<form action="infor4.html" data-ajax="false">
+			<form action="javascript:void(0)">
 				<small>仅支持储蓄卡，不支持信用卡</small>
 				<ul>
 					<li>
 						<label>开户行：</label>
-						<input type="text" />
+						<input type="text" id="bankname"/>
 					</li>
 					<li>
 						<label>账号：</label>
-						<input type="text"/>
-					</li>
-					<li>
-						<label>预留手机号：</label>
-						<input type="tel"/>
+						<input type="text" id="banknum" onblur="checknum()"/>
 					</li>
 				</ul>
-				<input type="submit" value="确认" data-role="none"/>
+				<input type="submit" value="确认" onclick="checkall()" data-role="none"/>
 			</form>
 		</div>
 		<script src="script/jquery.min.js"></script>
@@ -45,3 +41,63 @@
 	</div>
 </body>
 </html>
+<script>
+	  function getCookie(name){
+  		   var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+           if(arr != null) 
+        	 return unescape(arr[2]); 
+           return null;
+	  }
+	  var uid=getCookie("user_id");
+	  if(uid==null){
+           location.href="login.html";
+	  }
+      
+      function checknum(){
+      	    var bankcard=$("#banknum").val();
+      	    if(bankcard.length==0){
+               return false;
+      	    }
+            $.ajax({
+              url:'http://47.94.215.108/finance_tp5/public/index.php/index/bank/index',
+              type:'post',
+              data:{"bankcard":bankcard},
+              dataType:'json',
+              success:function(data){
+                console.log(data)
+                $("#bankname").val(data.result.bankname);
+                return true;
+              }
+              
+            });
+      }
+      
+      function checkall(){
+      	  var bankcard=$("#banknum").val();
+      	  var bankname=$("#bankname").val();
+      	  uid=parseInt(uid);
+      	  // alert(bankcard)
+      	  // alert(bankname)
+      	  // alert(uid)
+      	  if(bankcard.length==0){
+               return false;
+      	  }
+      	   
+      	   $.ajax({
+              url:'http://47.94.215.108/finance_tp5/public/index.php/index/userinfoadd/index',
+              type:'post',
+              data:{"bankcard":bankcard,"bname":bankname,"uid":uid},
+              dataType:'json',
+              success:function(msg){
+                console.log(msg)
+                if(msg.error==2000){
+                    location.href="card.html";
+                }else{
+                	location.href="card.html";
+                }
+              }
+
+           });
+      }
+
+</script>
