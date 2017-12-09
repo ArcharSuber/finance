@@ -66,7 +66,16 @@
 </body>
 </html>
 <script type="text/javascript" src="script/jquery.min.js"></script>
-<script>   
+
+<script> 
+ $(function(){
+              
+               id = getCookie('user_id');
+               if(id == null)
+              {
+                 location.href="login.html";
+              }
+ 
              // function getCookie(name)//取cookies函数 
              //  {
              //      var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
@@ -82,15 +91,7 @@
              //    exp.setTime(exp.getTime() + Days*24*60*60*1000);
              //    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
              //  }
-            
-           $(function(){
-
-
-              
-              // if(id == null)
-              // {
-              //    location.href="login.html";
-              // }
+   
               $(".yi").click(function(){
                     $(".yueyue").hide();
                })
@@ -100,7 +101,6 @@
               $(".xi").click(function(){
                    $(".yueyue").show();
               })
-              
             
               $(".lo_login").click(function(){
                  
@@ -118,10 +118,11 @@
                    }
                    var miao = $("#miaoo").val();
                    $.ajax({
-                    url:"http://localhost/tp5_finance/finance/finance_tp5/public/index.php/index/borrow/index",
+                    url:"http://47.94.215.108/finance_tp5/public/index.php/index/borrow/index",
                     type:'post',
                     dataType:"json",
                     data:{
+                         "id":id,
                          "qian":qian,
                          "yue":yue,
                          "xuan":xuan,
@@ -133,6 +134,7 @@
                              alert(data.msg);
                              
                         }else{
+
                              alert(data.msg);
                         }
                     },error:function(data){
@@ -200,9 +202,29 @@
                   return false;
                 }
 
+              }
+
+              function getCookie(name)//取cookies函数 
+              {
+                  var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+                    if(arr != null) 
+                      return unescape(arr[2]); 
+                    return null;
+
+              }
+              function setCookie(name,value)//两个参数，一个是cookie的名，一个是值
+              {
+                var Days = 30; //此 cookie 将被保存 30 天
+                var exp   = new Date(); //new Date("December 31, 9998");
+                exp.setTime(exp.getTime() + Days*24*60*60*1000);
+                document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+              }
 
 
-            }
+
+
+            
+
               
              
             
