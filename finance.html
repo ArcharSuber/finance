@@ -47,27 +47,29 @@
   <div class="invest_menuinfo" id="con_one_1">
     <div class="clear"></div>
     <ul class="term">
-      <li><a href="javascript:;">新手</a></li>
-      <li><a href="javascript:;">3个月</a></li>
-      <li><a href="javascript:;">6个月</a></li>
-      <li><a href="javascript:;">12个月</a></li>
+      <li><a href="javascript:;" class="month">3个月</a></li>
+      <li><a href="javascript:;" class="month">6个月</a></li>
+      <li><a href="javascript:;" class="month">12个月</a></li>
     </ul>
   </div>
   <div class="invest_menuinfo" id="con_one_2" style="display:none">
     <ul class="term">
-      <li><a href="javascript:;">即将上线</a></li>
-      <li><a href="javascript:;">正在募集</a></li>
-      <li><a href="javascript:;">正在回款</a></li>
-      <li><a href="javascript:;">回款完毕</a></li>
+        <li><a href="javascript:void(0)" class="month">即将上线</a></li>
+        <li><a href="javascript:void(0)" class="month">正在销售</a></li>
+        <li><a href="javascript:void(0)" class="month">产品下架</a></li>
+      <!--<li><a href="javascript:;">即将上线</a></li>-->
+      <!--<li><a href="javascript:;">正在募集</a></li>-->
+      <!--<li><a href="javascript:;">正在回款</a></li>-->
+      <!--<li><a href="javascript:;">回款完毕</a></li>-->
     </ul>
   </div>
-  <div class="invest_menuinfo" id="con_one_3" style="display:none">
-    <ul class="repayments">
-      <li><a href="javascript:;">等额本息</a></li>
-      <li><a href="javascript:;">按月付息，到期还本</a></li>
-      <li><a href="javascript:;">一次性还款</a></li>
-    </ul>
-  </div>
+  <!--<div class="invest_menuinfo" id="con_one_3" style="display:none">-->
+    <!--<ul class="repayments">-->
+      <!--<li><a href="javascript:;">等额本息</a></li>-->
+      <!--<li><a href="javascript:;">按月付息，到期还本</a></li>-->
+      <!--<li><a href="javascript:;">一次性还款</a></li>-->
+    <!--</ul>-->
+  <!--</div>-->
   ;
   <div class="index-list-wrap">
     <!--车-->
@@ -115,7 +117,7 @@
     //理财产品展示
     $.ajax({
         type: "post",
-        url: "http://www.jinrong.com/index.php/index/finance/inFor",
+        url: "http://47.94.215.108/finance_tp5/public/index.php/index/finance/inFor",
         data:{
             "uid":uid
         },
@@ -131,12 +133,12 @@
                 page = v.page;
                 console.log(productmoney);
                 str += '<a id="productcft" class="index-list index-che" href="javascript:void(0);" aid="'+ v.pid +'">';
-                str += '<div class="list-tit clear"><span class="fl tit-name"><i></i><strong>'+ v.productname +'</strong></span> <span class="fr tit-site"><i></i><strong>内蒙古锡林格勒蒙古 </strong></span></div>';
+                str += '<div class="list-tit clear"><span class="fl tit-name"><i></i><strong>'+ v.productname +'</strong></span> <span class="fr tit-site"><i></i><strong>'+ v.productaddress +'</strong></span></div>';
                 str += '<div class="list-main">';
                 str += '<div class="main-l"><span class="per">'+ (v.yearrate)*100 +'<i>%</i></span><span class="add">A</span></div>';
                 str += '<div class="main-m main-m-1"><span>'+ productmoney +'.<em>00</em><i>万</i></span></div>';
                 str += '<div class="main-m main-m-2"><span class="day">'+ v.productlong +'<i>天</i></span></div>';
-                str += '<div class="main-r"><span class="circle-blue circle-c100"></span><span class="val-per">'+percentage +'<i>%</i></span></div>';
+                str += '<div class="main-r"><span class="circle-blue circle-c'+percentage+'"></span><span class="val-per">'+percentage +'<i>%</i></span></div>';
                 str += '</div>';
                 str += '</a>';
             });
@@ -167,7 +169,7 @@
         }
         $.ajax({
             type: "post",
-            url: "http://www.jinrong.com/index.php/index/finance/finance_page",
+            url: "http://47.94.215.108/finance_tp5/public/index.php/index/finance/finance_page",
             data:{
                 "p":p
             },
@@ -204,7 +206,7 @@
         }
         $.ajax({
             type: "post",
-            url: "http://www.jinrong.com/index.php/index/finance/finance_page",
+            url: "http://47.94.215.108/finance_tp5/public/index.php/index/finance/finance_page",
             data:{
                 "p":p
             },
@@ -228,6 +230,42 @@
                 });
                 $('#cft_shows').html(str);
                 $("#total_page").html(p+"/"+page);
+            }
+        });
+    });
+
+    //发送ajax请求数据
+    $(document).on("click",".month",function(){
+        producttype=$(this).html();
+        $.ajax({
+            type:"post",
+            url:"http://47.94.215.108/finance_tp5/public/index.php/index/financelist/lists",
+            dataType:"json",
+            data:{'producttype':producttype},
+            success: function(msg){
+                console.log(msg);
+                var str="";
+                if(msg.error==6666){
+                    $.each(msg.finance,function(k,v){
+//                        console.log(v);
+                        var productmoneys = (v.productmoney);
+                        var productmoney = productmoneys/10000;
+                        var percentage   = Math.ceil(((v.money)/productmoneys)*100);
+                        page = v.page;
+//                        console.log(productmoney);
+                        str += '<a id="productcft" class="index-list index-che" href="javascript:void(0);" aid="'+ v.pid +'">';
+                        str += '<div class="list-tit clear"><span class="fl tit-name"><i></i><strong>'+ v.productname +'</strong></span> <span class="fr tit-site"><i></i><strong>'+ v.productaddress +'</strong></span></div>';
+                        str += '<div class="list-main">';
+                        str += '<div class="main-l"><span class="per">'+ (v.yearrate)*100 +'<i>%</i></span><span class="add">A</span></div>';
+                        str += '<div class="main-m main-m-1"><span>'+ productmoney +'.<em>00</em><i>万</i></span></div>';
+                        str += '<div class="main-m main-m-2"><span class="day">'+ v.productlong +'<i>天</i></span></div>';
+                        str += '<div class="main-r"><span class="circle-blue circle-c'+percentage+'"></span><span class="val-per">'+percentage +'<i>%</i></span></div>';
+                        str += '</div>';
+                        str += '</a>';
+                    });
+                    $('#cft_shows').html(str);
+                    $("#total_page").html(p+"/"+page);
+                }
             }
         });
     });

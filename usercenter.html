@@ -53,6 +53,7 @@ $(function(){
   }
 
   $("#logout").click(function(){
+
       $.ajax({
               url:'http://47.94.215.108/finance_tp5/public/index.php/index/Login/oauthOut',
               dataType:'json',
@@ -66,6 +67,7 @@ $(function(){
                   }
               }
            });
+
   });
   var uid=getCookie('user_id');
   $.ajax({
