@@ -30,23 +30,22 @@ table{
 <body>
 <!-- 页面头部 -->
 <section>
-  <div class="navigation-bar"> <a class="z-01" href="#" onclick="javascript:history.back(-1);"></a> <span>充值</span> <a style="position:absolute; right:10px; top:30%;margin-top:-30px;" href="充值记录.html"><h3>充值记录</h3></a> </div>
+  <div class="navigation-bar"> <a class="z-01" href="usercenter.html" onclick=""></a> <span>充值</span> <a style="position:absolute; right:10px; top:30%;margin-top:-30px;" href="充值记录.html"><h3>充值记录</h3></a> </div>
 </section>
-<div style="background:#0697da;height:130px;color:#fff;position:relative;border:2px solid;border-radius:25px;margin-left:20px;margin-top:15px;margin-right:20px;">
+<!-- <div style="background:#0697da;height:130px;color:#fff;position:relative;border:2px solid;border-radius:25px;margin-left:20px;margin-top:15px;margin-right:20px;">
 	<table>
 	<tr>
 		<td><p class="bank">中国银行</p><p class="bankcard">622848******2350</p></td>
 		<td><p class="update">修改</p></td>
 	</tr>
 </table>
-</div>
-<div class="up" style="display:none">
+</div> -->
+<div class="up" style="display:block;">
 	<span style="margin-left:50px;font-size:18px;margin-top:20px">请选择</span>
 	<select class="change_bank">
 		<option>请选择支付方式</option>
 		<option value="zfb">支付宝</option>
-        <option value="wx">微信</option>
-        <option value="wy">网银支付</option>
+        <!-- <option value="wx">微信</option> -->
 	</select>
 
 </div>
@@ -63,7 +62,21 @@ table{
 </script>
 
 <script>
-   
+    function getCookie(name)//取cookies函数
+	{
+	   var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+	   if(arr != null){
+	       return unescape(arr[2]);
+	   }
+	   return null;
+	}
+
+	var uid=getCookie('user_id');
+
+    if(uid == null){
+    	location.href='login.html';
+    }
+
 	$(function(){
 		$(".update").click(function(){
 			$(".up").toggle();
@@ -72,13 +85,13 @@ table{
 
 
     $(".pay").click(function(){
-    	pay_type = $(".change_bank").val();
-    	money = $("#money").val();
-        
+    	var pay_type = $(".change_bank").val();
+    	var money = $("#money").val();
+
         $.ajax({
         	url: 'http://47.94.215.108/finance_tp5/public/index.php/pay/pay/pay',
         	type: 'post',
-        	data: {pay_type:pay_type,money:money,uid:1},
+        	data: {pay_type:pay_type,money:money,uid:uid},
         	success:function(msg){
                $(".pay").after(msg);
         	}
