@@ -73,18 +73,36 @@
 
 <script type="text/javascript" src="script/index.js"></script>
 <script type="text/javascript" src="script/jquery.min.js"></script>
-<script>
+<script>   
+              function getCookie(name)//取cookies函数 
+              {
+                  var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+                    if(arr != null) 
+                      return unescape(arr[2]); 
+                    return null;
+
+              }
+              function setCookie(name,value)//两个参数，一个是cookie的名，一个是值
+              {
+                var Days = 30; //此 cookie 将被保存 30 天
+                var exp   = new Date(); //new Date("December 31, 9998");
+                exp.setTime(exp.getTime() + Days*24*60*60*1000);
+                document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+              }
                
                   $(window).load(function(){
                     // 这里判断cookie是否存在，不存在false;
-
-
+                      id = getCookie('user_id');
+                      if(id == null)
+                      {
+                         location.href="login.html";
+                      }
                    $.ajax({
-                    url:"http://47.94.215.108/finance_tp5/public/index.php/index/repay/index",
+                    url:"http://localhost/tp5_finance/finance/finance_tp5/public/index.php/index/repay/index",
                     type:'post',
                     dataType:"json",
                     data:{
-                         "xiaoyang":1,
+                         "id":id,
                     },success:function(data){
                            var str="";
                           $.each(data,function(k,v){ 

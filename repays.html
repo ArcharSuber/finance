@@ -62,9 +62,9 @@
     var s=location.search.substring(1);//这个就是页面?后面的内容，自己处理一下
     ss=s.replace('dela=','');
     id=ss.substr(9,);
-    // alert(id)
+     // alert(id)
     $.ajax({
-          url:"http://47.94.215.108/finance_tp5/public/index.php/index/ontime/zong",
+          url:"http://localhost/tp5_finance/finance/finance_tp5/public/index.php/index/ontime/zong",
           type:'post',
           dataType:"json",
           data:{
@@ -73,6 +73,7 @@
                     if(data.error == 200)
                      {
                          $("#cont").html(data.data);
+                         // alert(123)
                      }
                          
                         

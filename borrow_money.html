@@ -66,13 +66,11 @@
 </body>
 </html>
 <script type="text/javascript" src="script/jquery.min.js"></script>
-<script>   
-           $(function(){
-
-
-              id = getCookie('user_id');
-              alert(id)
-              if(id == null)
+<script> 
+ $(function(){
+              
+               id = getCookie('user_id');
+               if(id == null)
               {
                  location.href="login.html";
               }
@@ -85,7 +83,6 @@
               $(".xi").click(function(){
                    $(".yueyue").show();
               })
-              
             
               $(".lo_login").click(function(){
                  
@@ -107,6 +104,7 @@
                     type:'post',
                     dataType:"json",
                     data:{
+                         "id":id,
                          "qian":qian,
                          "yue":yue,
                          "xuan":xuan,
@@ -115,12 +113,10 @@
                     success:function(data){
                         if(data.success==1)
                         {    
-                              // $(".lo_login").show(); 
-                              //
                              alert(data.msg);
                              
                         }else{
-                           // $(".lo_login").show();
+
                              alert(data.msg);
                         }
                     },error:function(data){
@@ -187,17 +183,8 @@
                   document.getElementById("spaddress").innerHTML="<font color='red'>请输入数字,最多金额不能超过亿,必须是10000的倍数</font>";
                   return false;
                 }
-
-
-
-            }
-              function setCookie(name,value)//两个参数，一个是cookie的名，一个是值
-              {
-                var Days = 30; //此 cookie 将被保存 30 天
-                var exp   = new Date(); //new Date("December 31, 9998");
-                exp.setTime(exp.getTime() + Days*24*60*60*1000);
-                document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
               }
+
               function getCookie(name)//取cookies函数 
               {
                   var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
@@ -206,6 +193,15 @@
                     return null;
 
               }
+              function setCookie(name,value)//两个参数，一个是cookie的名，一个是值
+              {
+                var Days = 30; //此 cookie 将被保存 30 天
+                var exp   = new Date(); //new Date("December 31, 9998");
+                exp.setTime(exp.getTime() + Days*24*60*60*1000);
+                document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+              }
+              
+             
             
      
 
