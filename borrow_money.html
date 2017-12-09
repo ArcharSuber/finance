@@ -66,6 +66,7 @@
 </body>
 </html>
 <script type="text/javascript" src="script/jquery.min.js"></script>
+
 <script> 
  $(function(){
               
@@ -74,6 +75,23 @@
               {
                  location.href="login.html";
               }
+ 
+             // function getCookie(name)//取cookies函数 
+             //  {
+             //      var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+             //        if(arr != null) 
+             //          return unescape(arr[2]); 
+             //        return null;
+
+             //  }
+             //  function setCookie(name,value)//两个参数，一个是cookie的名，一个是值
+             //  {
+             //    var Days = 30; //此 cookie 将被保存 30 天
+             //    var exp   = new Date(); //new Date("December 31, 9998");
+             //    exp.setTime(exp.getTime() + Days*24*60*60*1000);
+             //    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+             //  }
+   
               $(".yi").click(function(){
                     $(".yueyue").hide();
                })
@@ -100,7 +118,7 @@
                    }
                    var miao = $("#miaoo").val();
                    $.ajax({
-                    url:"http://47.94.215.108/finance_tp5/public/index.php/index/borrow/index",
+                    url:"http://localhost/tp5_finance/finance/finance_tp5/public/index.php/index/borrow/index",
                     type:'post',
                     dataType:"json",
                     data:{
@@ -183,6 +201,7 @@
                   document.getElementById("spaddress").innerHTML="<font color='red'>请输入数字,最多金额不能超过亿,必须是10000的倍数</font>";
                   return false;
                 }
+
               }
 
               function getCookie(name)//取cookies函数 
@@ -200,6 +219,12 @@
                 exp.setTime(exp.getTime() + Days*24*60*60*1000);
                 document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
               }
+
+
+
+
+            
+
               
              
             

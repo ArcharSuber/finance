@@ -53,11 +53,21 @@ $(function(){
   }
 
   $("#logout").click(function(){
-      delCookie('username');
-      delCookie('user_id');
-      delCookie('tel');
-      delCookie('yzm');
-      location.href='./login.html';
+
+      $.ajax({
+              url:'http://47.94.215.108/finance_tp5/public/index.php/index/Login/oauthOut',
+              dataType:'json',
+              success:function(data){
+                  if(data.code==1038){
+                    delCookie('username');
+                    delCookie('user_id');
+                    delCookie('tel');
+                    delCookie('yzm');
+                    location.href='./login.html';
+                  }
+              }
+           });
+
   });
   var uid=getCookie('user_id');
   $.ajax({

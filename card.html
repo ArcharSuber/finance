@@ -16,15 +16,8 @@
 			<h3>银行卡</h3>
 		</header>
 		<div class="ui-content" data-role="content">
-			<ul>
-				<li>
-					<small>开户行</small>
-					<span>招商银行</span>
-				</li>
-				<li>
-					<small>账号</small>
-					<span>62215461654513461</span>
-				</li>
+			<ul id="info">
+				
 			</ul>
 			<a href="addcard.html" data-transition="slide">添加新卡</a>
 		</div>
@@ -39,3 +32,31 @@
 	</div>
 </body>
 </html>
+<script>
+	  function getCookie(name){
+  		   var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+           if(arr != null) 
+        	 return unescape(arr[2]); 
+           return null;
+	  }
+	  var uid=getCookie("user_id");
+	  if(uid==null){
+           location.href="login.html";
+	  }
+      $.ajax({
+              url:'http://47.94.215.108/finance_tp5/public/index.php/index/userinfo/index',
+              type:'post',
+              data:{uid:uid},
+              dataType:'json',
+              success:function(data){
+                var str='';
+                $.each(data.data,function(k,v){
+                    str+='<li><small>开户行</small><span>'+v.bname+'</span></li><li><small>账号</small><span>'+v.bankcard+'</span></li>';
+                });
+                $("#info").html(str);
+              }
+
+      });
+     
+
+</script>
