@@ -299,7 +299,6 @@ $(document).on("click","#in_record",function(){
                 content += '</tr>';
             });
             $("#inrecord").html(content);
-
         }
     })
 });
