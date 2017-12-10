@@ -201,7 +201,7 @@ uid = Request.uid;
 //商品详情
 $.ajax({
     type: "post",
-    url: "http://47.94.215.108/finance_tp5/public/index.php/index/finance/inFor4",
+    url: "http://www.jinrong.com/index.php/index/finance/inFor4",
     data:{
         "pid":pid,
         "uid":uid
@@ -227,6 +227,7 @@ $.ajax({
         $("#kemoney").html((msg.productmoney)-(msg.money));
         $("#balance").html(msg.balance);
         $("#producttimedate").html(msg.producttimedate);
+        $("#xiangmomiaoshu").html(msg.productmsg);
     }
 });
 
