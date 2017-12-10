@@ -227,6 +227,7 @@ $.ajax({
         $("#kemoney").html((msg.productmoney)-(msg.money));
         $("#balance").html(msg.balance);
         $("#producttimedate").html(msg.producttimedate);
+        $("#xiangmomiaoshu").html(msg.productmsg);
     }
 });
 
@@ -284,7 +285,6 @@ $(document).on("click","#in_record",function(){
         type:"post",
         url:"http://47.94.215.108/finance_tp5/public/index.php/index/finance/investment_records",
         data:{
-            "uid":uid,
             "pid":pid
         },
         dataType:"json",
@@ -299,9 +299,43 @@ $(document).on("click","#in_record",function(){
                 content += '</tr>';
             });
             $("#inrecord").html(content);
+
         }
     })
-})
+});
+
+p = 1;
+//点击加载更多
+$(document).on("click",".yh-ckgd",function(){
+    p = p + 1;
+    $.ajax({
+        type:"post",
+        url:"http://47.94.215.108/finance_tp5/public/index.php/index/finance/get_more",
+        data:{
+            "pid":pid,
+            "p":p
+        },
+        dataType:"json",
+        success: function (msg) {
+            console.log(msg);
+            if(msg!= "")
+            {
+                var content = "";
+                $.each(msg,function(ks,vs){
+                    content += '<tr>';
+                    content += '<td align="left" width="25%" style="padding-left:10px; color:#4A4A4A;">'+ vs.username +'<span class="tbline"></span> </td>';
+                    content += '<td style="color:#0caffe;"><span class="tbline"></span><i style="float:right; margin-right:10px;">'+ vs.ordermoney +'</i></td>';
+                    content += '<td align="right" style="padding-right:10px;">'+ vs.inserttime +'</td>';
+                    content += '</tr>';
+                });
+                $("#inrecord").append(content);
+            }else{
+                var str = '<a href="javascript:;" class="btn-ckgd">没有更多了</a>';
+                $(".yh-ckgd").html(str);
+            }
+        }
+    })
+});
 
 
 });
