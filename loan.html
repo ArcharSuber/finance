@@ -24,7 +24,12 @@
 		                    return null;
 
 		              }
-					    document.write(getCookie("username"));
+					    if(!getCookie("username")==null){
+					    	document.write(getCookie("username"));
+					    }else
+					    {
+					    	document.write(getCookie("tel").substr(0, 3)+'****'+getCookie("tel").substr(7));
+					    }
 
 				</script></p>
 			<!-- 	<h5>总资产</h5>
