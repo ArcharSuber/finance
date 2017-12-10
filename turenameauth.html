@@ -242,6 +242,8 @@
         $("#btn-real-name").click(function(){
             $(":input[name='real-name']").trigger('blur');
             $(":input[name='card-id']").trigger('blur');
+            //alert(validata.checkTruename)
+            //alert(validata.checkIdCard)
             if(validata.checkTruename && validata.checkIdCard){
               var code=$(":input[name='card-id']").val();
                var truename=$(":input[name='real-name']").val();
