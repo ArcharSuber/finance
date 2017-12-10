@@ -284,7 +284,8 @@ $(document).on("click","#in_record",function(){
         type:"post",
         url:"http://47.94.215.108/finance_tp5/public/index.php/index/finance/investment_records",
         data:{
-            "uid":uid
+            "uid":uid,
+            "pid":pid
         },
         dataType:"json",
         success: function (msg) {
@@ -292,7 +293,7 @@ $(document).on("click","#in_record",function(){
             var content = "";
             $.each(msg,function(ks,vs){
                 content += '<tr>';
-                content += '<td align="left" width="25%" style="padding-left:10px; color:#4A4A4A;">'+ vs.uid +'<span class="tbline"></span> </td>';
+                content += '<td align="left" width="25%" style="padding-left:10px; color:#4A4A4A;">'+ vs.username +'<span class="tbline"></span> </td>';
                 content += '<td style="color:#0caffe;"><span class="tbline"></span><i style="float:right; margin-right:10px;">'+ vs.ordermoney +'</i></td>';
                 content += '<td align="right" style="padding-right:10px;">'+ vs.inserttime +'</td>';
                 content += '</tr>';
