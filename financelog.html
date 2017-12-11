@@ -18,9 +18,8 @@
   <div class="personalform">
       <div class="tzjl-tabs">
          <div class="tab-border">
-             <a id="form:j_idt39" href="#" title="投标中" class="active">投资中 </a> 
-             <a id="form:j_idt49" href="#" title="回款中">回款中 </a> 
-             <a id="form:j_idt56" href="#" title="已结束">已完成 </a> 
+             <a id="form:j_idt39" href="javascript:;" title="投标中" class="active">投资中 </a>
+             <a id="form:j_idt56" class="over_all" href="javascript:;" title="已结束">已完成 </a>
          </div>
       </div>
     <div class="content">
@@ -34,11 +33,11 @@
                   </tr>
 
                   <tbody id="user_cord">
-                      <tr>
-                        <td align="left" width="40%" style="padding-left:10px; color:#4A4A4A;"> 2015-09-17 09:46 <span class="tbline"></span> </td>
-                        <td style="color:#0caffe;" align="center"><span class="tbline"></span><i>1,484</i></td>
-                        <td align="right" style="padding-right:10px;"><a href="#">查看详细</a><a href="#">查看协议</a> </td>
-                      </tr>
+                      <!--<tr>-->
+                        <!--<td align="left" width="40%" style="padding-left:10px; color:#4A4A4A;"> 2015-09-17 09:46 <span class="tbline"></span> </td>-->
+                        <!--<td style="color:#0caffe;" align="center"><span class="tbline"></span><i>1,484</i></td>-->
+                        <!--<td align="right" style="padding-right:10px;"><a href="#">查看详细</a><a href="#">查看协议</a> </td>-->
+                      <!--</tr>-->
     			  </tbody>
 
                 </tbody>
@@ -46,8 +45,30 @@
               <div class="clear"></div>
               <div class="addmore"><a href="javascript:;" title="查看更多" class="btn-ckgd yh-ckgd">查看更多↓</a> </div>
         </div>
-        <div class="tzjl-con1" style="min-height:150px;padding-top:100px;text-align:center;background-color:#fff; display:none">您最近还没有投资记录！ </div>
-        <div class="tzjl-con1" style="min-height:150px;padding-top:100px;text-align:center;background-color:#fff; display:none">您最近还没有投资记录！ </div>
+        <div class="tzjl-con1" style="text-align:center;background-color:#fff; display:none">
+            <div class="c-tabs-cnt c-tzjlinfo" style=" padding-bottom:60px;">
+                <table style="width: 100%">
+                    <tbody>
+                    <tr>
+                        <th align="left" width="40%" style="padding-left:10px;">投资时间<span class="tbline" style="margin-top:15px;"></span></th>
+                        <th width="25%" align="center">金额(元)<span class="tbline" style="margin-top:15px;"></span></th>
+                        <th align="right" width="25%" style="padding-right:10px;">操作</th>
+                    </tr>
+
+                    <tbody id="user_over">
+                    <!--<tr>-->
+                        <!--<td align="left" width="40%" style="padding-left:10px; color:#4A4A4A;"> 2015-09-17 09:46 <span class="tbline"></span> </td>-->
+                        <!--<td style="color:#0caffe;" align="center"><span class="tbline"></span><i>1,484</i></td>-->
+                        <!--<td align="right" style="padding-right:10px;"><a href="#">查看详细</a><a href="#">查看协议</a> </td>-->
+                    <!--</tr>-->
+                    </tbody>
+
+                    </tbody>
+                </table>
+                <div class="clear"></div>
+                <div class="addmore"></div>
+            </div>
+        </div>
      </div>
   </div>
   <div class="clear"></div>
@@ -79,21 +100,24 @@
         //投资记录展示
         $.ajax({
             type:"post",
-            url:"http://www.jinrong.com/index.php/index/finance/user_records",
+            url:"http://47.94.215.108/finance_tp5/public/index.php/index/finance/user_records",
             data:{
                 "uid":uid
             },
             dataType:"json",
             success: function (msg) {
-                console.log(msg);
+                console.log(msg.londing);
                 var content = "";
-                $.each(msg,function(ks,vs){
-                    content += '<tr>';
-                    content += '<td align="left" width="40%" style="padding-left:10px; color:#4A4A4A;"> '+ vs.inserttime +' <span class="tbline"></span> </td>';
-                    content += '<td style="color:#0caffe;" align="center"><span class="tbline"></span><i>'+ vs.ordermoney +'</i></td>';
-                    content += '<td align="right" style="padding-right:10px;"><a href="javascript:;">查看详细</a><a href="javascript:;">查看协议</a> </td>';
-                    content += '</tr>';
-                });
+                if(msg.londing != undefined)
+                {
+                    $.each(msg.londing,function(ks,vs){
+                        content += '<tr>';
+                        content += '<td align="left" width="40%" style="padding-left:10px; color:#4A4A4A;"> '+ vs.inserttime +' <span class="tbline"></span> </td>';
+                        content += '<td style="color:#0caffe;" align="center"><span class="tbline"></span><i>'+ vs.ordermoney +'</i></td>';
+                        content += '<td align="right" style="padding-right:10px;">无操作</td>';
+                        content += '</tr>';
+                    });
+                }
                 $("#user_cord").html(content);
             }
         });
@@ -105,7 +129,7 @@
             p = p + 1;
             $.ajax({
                 type:"post",
-                url:"http://www.jinrong.com/index.php/index/finance/get_log_more",
+                url:"http://47.94.215.108/finance_tp5/public/index.php/index/finance/get_log_more",
                 data:{
                     "uid":uid,
                     "p":p
@@ -120,7 +144,7 @@
                             content += '<tr>';
                             content += '<td align="left" width="40%" style="padding-left:10px; color:#4A4A4A;"> '+ vs.inserttime +' <span class="tbline"></span> </td>';
                             content += '<td style="color:#0caffe;" align="center"><span class="tbline"></span><i>'+ vs.ordermoney +'</i></td>';
-                            content += '<td align="right" style="padding-right:10px;"><a href="javascript:;">查看详细</a><a href="javascript:;">查看协议</a> </td>';
+                            content += '<td align="right" style="padding-right:10px;">无操作</td>';
                             content += '</tr>';
                         });
                         $("#user_cord").append(content);
@@ -131,7 +155,39 @@
                 }
             })
         });
+        $(".active").click(function(){
+            $(".addmore").html('<a href="javascript:;" title="查看更多" class="btn-ckgd yh-ckgd">查看更多↓</a>');
+        });
 
+        $(".over_all").click(function(){
+            $.ajax({
+                type:"post",
+                url:"http://47.94.215.108/finance_tp5/public/index.php/index/finance/user_records",
+                data:{
+                    "uid":uid,
+                    "overs":1
+                },
+                dataType:"json",
+                success: function (msg) {
+                    console.log(msg.over);
+                    if(msg.over == undefined)
+                    {
+                        $(".addmore").html('<a href="javascript:;" class="btn-ckgd">当前没有记录</a> ');
+                    }else{
+                        var content = "";
+                        $.each(msg.over,function(ks,vs){
+                            content += '<tr>';
+                            content += '<td align="left" width="40%" style="padding-left:10px; color:#4A4A4A;"> '+ vs.inserttime +' <span class="tbline"></span> </td>';
+                            content += '<td style="color:#0caffe;" align="center"><span class="tbline"></span><i>'+ vs.ordermoney +'</i></td>';
+                            content += '<td align="right" style="padding-right:10px;"><a href="javascript:;">已完成</a></td>';
+                            content += '</tr>';
+                        });
+                        $("#user_over").html(content);
+                    }
+
+                }
+            });
+        })
 
 
     }
