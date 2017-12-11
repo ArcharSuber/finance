@@ -33,16 +33,18 @@
                     <th align="right" width="25%" style="padding-right:10px;">操作</th>
                   </tr>
 
-                  <tr>
-                    <td align="left" width="40%" style="padding-left:10px; color:#4A4A4A;"> 2015-09-17 09:46 <span class="tbline"></span> </td>
-                    <td style="color:#0caffe;" align="center"><span class="tbline"></span><i>1,484</i></td>
-                    <td align="right" style="padding-right:10px;"><a href="#">查看详细</a><a href="#">查看协议</a> </td>
-                  </tr>
-    			  
+                  <tbody id="user_cord">
+                      <tr>
+                        <td align="left" width="40%" style="padding-left:10px; color:#4A4A4A;"> 2015-09-17 09:46 <span class="tbline"></span> </td>
+                        <td style="color:#0caffe;" align="center"><span class="tbline"></span><i>1,484</i></td>
+                        <td align="right" style="padding-right:10px;"><a href="#">查看详细</a><a href="#">查看协议</a> </td>
+                      </tr>
+    			  </tbody>
+
                 </tbody>
               </table>
               <div class="clear"></div>
-              <div class="addmore"><a href="#" title="查看更多" class="btn-ckgd">查看更多↓</a> </div>
+              <div class="addmore"><a href="javascript:;" title="查看更多" class="btn-ckgd yh-ckgd">查看更多↓</a> </div>
         </div>
         <div class="tzjl-con1" style="min-height:150px;padding-top:100px;text-align:center;background-color:#fff; display:none">您最近还没有投资记录！ </div>
         <div class="tzjl-con1" style="min-height:150px;padding-top:100px;text-align:center;background-color:#fff; display:none">您最近还没有投资记录！ </div>
@@ -61,6 +63,80 @@
             $(this).addClass('active').siblings().removeClass('active');
             $('.content').children('div').eq(index).show().siblings().hide();
         })
-    })
+    });
+
+    function getCookie(name)//取cookies函数
+    {
+        var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+        if(arr != null)
+            return unescape(arr[2]);
+        return null;
+    }
+    var uid=getCookie('user_id');//登录的人cookie取ID
+
+    if(uid != null)
+    {
+        //投资记录展示
+        $.ajax({
+            type:"post",
+            url:"http://www.jinrong.com/index.php/index/finance/user_records",
+            data:{
+                "uid":uid
+            },
+            dataType:"json",
+            success: function (msg) {
+                console.log(msg);
+                var content = "";
+                $.each(msg,function(ks,vs){
+                    content += '<tr>';
+                    content += '<td align="left" width="40%" style="padding-left:10px; color:#4A4A4A;"> '+ vs.inserttime +' <span class="tbline"></span> </td>';
+                    content += '<td style="color:#0caffe;" align="center"><span class="tbline"></span><i>'+ vs.ordermoney +'</i></td>';
+                    content += '<td align="right" style="padding-right:10px;"><a href="javascript:;">查看详细</a><a href="javascript:;">查看协议</a> </td>';
+                    content += '</tr>';
+                });
+                $("#user_cord").html(content);
+            }
+        });
+
+
+        p = 1;
+        //点击加载更多
+        $(document).on("click",".yh-ckgd",function(){
+            p = p + 1;
+            $.ajax({
+                type:"post",
+                url:"http://www.jinrong.com/index.php/index/finance/get_log_more",
+                data:{
+                    "uid":uid,
+                    "p":p
+                },
+                dataType:"json",
+                success: function (msg) {
+                    console.log(msg);
+                    if(msg!= "")
+                    {
+                        var content = "";
+                        $.each(msg,function(ks,vs){
+                            content += '<tr>';
+                            content += '<td align="left" width="40%" style="padding-left:10px; color:#4A4A4A;"> '+ vs.inserttime +' <span class="tbline"></span> </td>';
+                            content += '<td style="color:#0caffe;" align="center"><span class="tbline"></span><i>'+ vs.ordermoney +'</i></td>';
+                            content += '<td align="right" style="padding-right:10px;"><a href="javascript:;">查看详细</a><a href="javascript:;">查看协议</a> </td>';
+                            content += '</tr>';
+                        });
+                        $("#user_cord").append(content);
+                    }else{
+                        var str = '没有更多了';
+                        $(".yh-ckgd").html(str);
+                    }
+                }
+            })
+        });
+
+
+
+    }
+
+
+
 </script>
 
