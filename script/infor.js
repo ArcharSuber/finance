@@ -64,6 +64,41 @@ $(document).ready(function() {
 
 
 
+    //首页的全部项目
+    $(".show_all").click(function() {
+        $.ajax({
+            type: "post",
+            url: "http://47.94.215.108/finance_tp5/public/index.php/index/finance/inFor",
+            data:{
+                "uid":uid,
+                "show":'all'
+            },
+            dataType: "json",
+            success: function (msg) {
+                //console.log(msg);
+                var str = '';
+                $.each(msg,function(k,v){
+                    var productmoneys = (v.productmoney);
+                    var productmoney = productmoneys/10000;
+                    var percentage   = Math.ceil(((v.money)/productmoneys)*100);
+                    str += '<a id="productcft" class="index-list index-che" href="javascript:void(0);" aid="'+ v.pid +'">';
+                    str += '<div class="list-tit clear"><span class="fl tit-name"><i></i><strong>'+ v.productname +'</strong></span> <span class="fr tit-site"><i></i><strong>'+ v.productaddress+'</strong></span></div>';
+                    str += '<div class="list-main">';
+                    str += '<div class="main-l"><span class="per">'+ (v.yearrate)*100 +'<i>%</i></span><span class="add">A</span></div>';
+                    str += '<div class="main-m main-m-1"><span>'+ productmoney +'.<em>00</em><i>万</i></span></div>';
+                    str += '<div class="main-m main-m-2"><span class="day">'+ v.productlong +'<i>天</i></span></div>';
+                    str += '<div class="main-r"><span class="circle-blue circle-c'+percentage+'"></span><span class="val-per">'+ percentage +'<i>%</i></span></div>';
+                    str += '</div>';
+                    str += '</a>';
+                });
+                $('#cft_shows').html(str);
+                $('#quanbu').html("");
+
+            }
+        });
+    });
+
+
 
 
 });

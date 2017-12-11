@@ -259,25 +259,80 @@ $('#submit').on('click',function() {
             alert("网络错误");
         }
     });
+    //$("#goumai").html('<input id="submitzhifu" type="button" value="立即支付" class="btn btn_orange w_10">');
 });
 
-//点击支付
+//点击选择支付方式,遮罩层
 $(document).on("click","#submitzhifu",function(){
-    $.ajax({
-        type: "post",
-        url: "http://47.94.215.108/finance_tp5/public/index.php/index/pay/aly",
-        data:{
-            "pid":pid,
-            "uid":uid,
-            "money":ordermoney,
-            "ordercard":ordercard
-        },
-        dataType: "json",
-        success: function (msg) {
-            window.location.href = msg;
-        }
-    })
+    $('#mark').show();
 });
+$("#closezc a").click(function(){
+    $("#mark").hide();
+});
+
+// 支付
+$(document).on('click','#ljzf',function(){
+    var zffs = $("input[name='zf']:checked").val();
+    if(zffs == undefined)
+    {
+        alert("请选择一种支付方式");
+    }
+    if(zffs == '余额')
+    {
+        $.ajax({
+            type: "post",
+            url: "http://47.94.215.108/finance_tp5/public/index.php/index/login/balanceUp",
+            data:{
+                "uid":uid,
+                "money":ordermoney,
+                "ordercard":ordercard
+            },
+            dataType: "json",
+            success: function (msg) {
+                if(msg.code == 1025)
+                {
+                    alert("支付成功!");
+                    //成功修改订单状态
+                    $.ajax({
+                        type: "post",
+                        url: "http://47.94.215.108/finance_tp5/public/index.php/index/login/orderstatusUp",
+                        data:{
+                            "uid":uid,
+                            "ordercard":ordercard
+                        },
+                        dataType: "json",
+                        success: function (msg) {
+                            console.log(msg);
+                            if(msg.code==1025)
+                            {
+                                location.reload();
+                            }
+                        }
+                    });
+                }else{
+                    alert("余额不足,请进行充值!");
+                }
+            }
+        })
+    }
+    if(zffs == '支付宝')
+    {
+        $.ajax({
+            type: "post",
+            url: "http://47.94.215.108/finance_tp5/public/index.php/index/pay/aly",
+            data:{
+                "uid":uid,
+                "money":ordermoney,
+                "ordercard":ordercard
+            },
+            dataType: "json",
+            success: function (msg) {
+                window.location.href = msg;
+            }
+        })
+    }
+});
+
 
 //投资记录
 $(document).on("click","#in_record",function(){
@@ -299,7 +354,6 @@ $(document).on("click","#in_record",function(){
                 content += '</tr>';
             });
             $("#inrecord").html(content);
-
         }
     })
 });
