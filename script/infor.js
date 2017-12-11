@@ -63,6 +63,7 @@ $(document).ready(function() {
     });
 
 
+
     //首页的全部项目
     $(".show_all").click(function() {
         $.ajax({
@@ -96,6 +97,7 @@ $(document).ready(function() {
             }
         });
     });
+
 
 
 
