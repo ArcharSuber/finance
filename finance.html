@@ -43,7 +43,7 @@
 <div class="main">
   <div class="cre-tabs">
     <div class="tab-border"></div>
-    <a id="one1" onClick="setTab('one',1,4)" class="hover">项目期限</a> <span class="split-line ">|</span><a id="one2" onClick="setTab('one',2,4)">项目状态</a> <span class="split-line ">|</span><a id="one3" onClick="setTab('one',3,4)">还款方式</a>  </div>
+    <a id="one1" onClick="setTab('one',1,4)" class="hover">项目期限</a> <span class="split-line ">|</span><a id="one2" onClick="setTab('one',2,4)">项目状态</a> <span class="split-line ">|</span></div>
   <div class="invest_menuinfo" id="con_one_1">
     <div class="clear"></div>
     <ul class="term">
@@ -90,7 +90,7 @@
   <div class="UpPage">
       <ul>
           <li><a href="javascript:void(0);" id="prev_page">上一页</a></li>
-          <li><span id="total_page">1/64</span></li>
+          <li><span id="total_page">0/0</span></li>
           <li><a href="javascript:void(0);" id="next_page">下一页</a></li>
       </ul>
       <div class="clear"></div>
@@ -107,7 +107,6 @@
         if(arr != null)
             return unescape(arr[2]);
         return null;
-
     }
     var uid=getCookie('user_id');//取cookies 的 ID
     //第一页
@@ -117,7 +116,7 @@
     //理财产品展示
     $.ajax({
         type: "post",
-        url: "http://47.94.215.108/finance_tp5/public/index.php/index/finance/inFor",
+        url: "http://www.jinrong.com/index.php/index/finance/inFor",
         data:{
             "uid":uid
         },
@@ -169,7 +168,7 @@
         }
         $.ajax({
             type: "post",
-            url: "http://47.94.215.108/finance_tp5/public/index.php/index/finance/finance_page",
+            url: "http://www.jinrong.com/index.php/index/finance/finance_page",
             data:{
                 "p":p
             },
@@ -180,6 +179,7 @@
                 $.each(msg,function(k,v){
                     var productmoneys = (v.productmoney);
                     var productmoney = productmoneys/10000;
+                    var percentage   = Math.ceil(((v.money)/productmoneys)*100);
                     console.log(productmoney);
                     str += '<a id="productcft" class="index-list index-che" href="javascript:void(0);" aid="'+ v.pid +'">';
                     str += '<div class="list-tit clear"><span class="fl tit-name"><i></i><strong>'+ v.productname +'</strong></span> <span class="fr tit-site"><i></i><strong>内蒙古锡林格勒蒙古 </strong></span></div>';
@@ -187,7 +187,7 @@
                     str += '<div class="main-l"><span class="per">'+ (v.yearrate)*100 +'<i>%</i></span><span class="add">A</span></div>';
                     str += '<div class="main-m main-m-1"><span>'+ productmoney +'.<em>00</em><i>万</i></span></div>';
                     str += '<div class="main-m main-m-2"><span class="day">'+ v.productlong +'<i>天</i></span></div>';
-                    str += '<div class="main-r"><span class="circle-blue circle-c100"></span><span class="val-per">100<i>%</i></span></div>';
+                    str += '<div class="main-r"><span class="circle-blue circle-c'+percentage+'"></span><span class="val-per">'+percentage+'<i>%</i></span></div>';
                     str += '</div>';
                     str += '</a>';
                 });
@@ -206,7 +206,7 @@
         }
         $.ajax({
             type: "post",
-            url: "http://47.94.215.108/finance_tp5/public/index.php/index/finance/finance_page",
+            url: "http://www.jinrong.com/index.php/index/finance/finance_page",
             data:{
                 "p":p
             },
@@ -217,6 +217,7 @@
                 $.each(msg,function(k,v){
                     var productmoneys = (v.productmoney);
                     var productmoney = productmoneys/10000;
+                    var percentage   = Math.ceil(((v.money)/productmoneys)*100);
                     console.log(productmoney);
                     str += '<a id="productcft" class="index-list index-che" href="javascript:void(0);" aid="'+ v.pid +'">';
                     str += '<div class="list-tit clear"><span class="fl tit-name"><i></i><strong>'+ v.productname +'</strong></span> <span class="fr tit-site"><i></i><strong>内蒙古锡林格勒蒙古 </strong></span></div>';
@@ -224,7 +225,7 @@
                     str += '<div class="main-l"><span class="per">'+ (v.yearrate)*100 +'<i>%</i></span><span class="add">A</span></div>';
                     str += '<div class="main-m main-m-1"><span>'+ productmoney +'.<em>00</em><i>万</i></span></div>';
                     str += '<div class="main-m main-m-2"><span class="day">'+ v.productlong +'<i>天</i></span></div>';
-                    str += '<div class="main-r"><span class="circle-blue circle-c100"></span><span class="val-per">100<i>%</i></span></div>';
+                    str += '<div class="main-r"><span class="circle-blue circle-c'+percentage+'"></span><span class="val-per">'+percentage+'<i>%</i></span></div>';
                     str += '</div>';
                     str += '</a>';
                 });
@@ -264,7 +265,7 @@
                         str += '</a>';
                     });
                     $('#cft_shows').html(str);
-                    $("#total_page").html(p+"/"+page);
+                    $(".UpPage").addClass().hide();
                 }
             }
         });
