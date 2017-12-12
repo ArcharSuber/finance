@@ -54,11 +54,28 @@ $(document).ready(function() {
 
     $(document).on("click","#productcft",function(){
         var pid = $(this).attr('aid');
+
         if(uid == null)
         {
             location.href="infor.html"+"#pid="+pid+"&uid="+uid;
         }else{
-            location.href="infor4.html"+"#pid="+pid+"&uid="+uid;
+            //实名认证
+            $.ajax({
+                type: "post",
+                url: "http://47.94.215.108/finance_tp5/public/index.php/index/Login/checkTrue",
+                data:{
+                    "uid":uid
+                },
+                dataType: "json",
+                success: function (msg) {
+                    if(msg.code==1027)
+                    {
+                        location.href="infor4.html"+"#pid="+pid+"&uid="+uid;
+                    }else{
+                        location.href="infor5.html"+"#pid="+pid+"&uid="+uid;
+                    }
+                }
+            });
         }
     });
 
