@@ -54,7 +54,7 @@ $(document).ready(function() {
 
     $(document).on("click","#productcft",function(){
         var pid = $(this).attr('aid');
-//是否/认证
+        //是否/认证
         $.ajax({
             type: "post",
             url: "http://47.94.215.108/finance_tp5/public/index.php/index/Login/checkTrue",
@@ -87,7 +87,7 @@ $(document).ready(function() {
                     {
                         location.href="infor4.html"+"#pid="+pid+"&uid="+uid;
                     }else{
-                        location.href="turenameauth.html"+"#uid="+uid;
+                        location.href="infor5.html"+"#pid="+pid+"&uid="+uid;
                     }
                 }
             });
