@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<title>首页</title>
+<link rel="stylesheet" type="text/css" href="css/common.css" />
+<script type="text/javascript" src="script/jquery.js"></script>
+<script type="text/javascript" src="script/column.js"></script>
+<script type="text/javascript" src="script/detail.js"></script>
+</head>
+<body>
+<!--浮动-->
+<div class="dropMask"></div>
+<div class="dragBtn"></div>
+<div class="dropBox">
+  <div class="dropSkin"></div>
+  <ul class="dropList">
+    <li class="nth-child_1"> <a href="index.html" class="dropIco"></a>
+      <p>首页</p>
+    </li>
+    <li class="nth-child_2"> <a href="#" class="dropIco"></a>
+      <p>投资</p>
+    </li>
+    <li class="nth-child_3"> <a href="usercenter.html" class="dropIco"></a>
+      <p>个人中心</p>
+    </li>
+    <li class="nth-child_4"> <a href="register.html" class="dropIco"></a>
+      <p>注册</p>
+    </li>
+    <li class="nth-child_5"> <a href="login.html" class="dropIco"></a>
+      <p>登录</p>
+    </li>
+  </ul>
+</div>
+<script src="script/index.js"></script>
+<script src="script/jquery-ui.min.js"></script>
+<!-- 页面头部 -->
+<section>
+  <div class="navigation-bar"> <a onclick="javascript:history.go(-1)" class="z-01"></a> <span>项目列表</span> <a href="index.html" class="z-02"></a> </div>
+</section>
+<!-- 中间内容 -->
+<div class="main">
+  <!--标的进度-->
+
+  <div class="con-circle">
+    <aside class="sec_ce">
+      <p class="sec_ce_id">募集进度</p>
+      <img src="images/zhuti.png" alt="">
+      <p class="sec_ce_pc ng-binding"><span id="process"></span><span class="sec_ce_b">%</span></p>
+      <div class="sec_ce_pt"> <span>到期还本</span> </div>
+    </aside>
+  </div>
+  
+  <!--标的详细-->
+
+  <div class="project-status">
+    <div class="project-base-info">
+      <div class="col-xs-4 ui-border-right">
+        <p class="text-nowrap"><span class="ui-fc-blue ui-fs-18" id="yearmoney"></span> %</p>
+        <p class="ui-fs-12 text-nowrap">年化收益</p>
+      </div>
+      <div class="col-xs-4 ui-border-right">
+        <p class="text-nowrap"><span class="ui-fs-18 ui-fc-blue" id="productmonth"></span>个月</p>
+        <p class="ui-fs-12">项目期限</p>
+      </div>
+      <div class="col-xs-4">
+        <p class="text-nowrap"><span class="ui-fc-blue ui-fs-18"><span class="" id="productmoney"></span></span> 元</p>
+        <p class="ui-fs-12">项目金额</p>
+      </div>
+    </div>
+    <div class="project-left-time ui-fs-12 text-center" id="producttime">剩余时间：0 天 0 小时 0 分钟</div>
+  </div>
+
+  <!--具体信息-->
+    <div class="c-detailinfo">
+        <dl>
+            <dt>合作机构</dt>
+            <dd>秦皇岛硕丰投资咨询有限公司</dd>
+        </dl>
+        <dl>
+            <dt>项目编码</dt>
+            <dd id="productname"></dd>
+        </dl>
+        <dl>
+            <dt>可投金额</dt>
+            <dd><font class="ui-fc-blue"><span id="kemoney"></span></font>元</dd>
+        </dl>
+        <dl>
+            <dt>到期时间</dt>
+            <dd id="producttimedate"></dd>
+        </dl>
+    </div>
+ 
+  <!--信息列表-->
+  <div class="c-detail">
+    <div class="c-tabsmsg">
+      <div class="c-tabstit-wrap">
+        <div class="c-tabstit"> <span class="c-xmxqtit on" data-index="0">项目详情</span> <span class="c-bzcstit" data-index="1">风控信息</span> <span class="c-hkjhtit" data-index="2">还款计划</span> <span class="c-tzjltit" data-index="3" id="in_record">投资记录</span> </div>
+      </div>
+      <div class="clear"></div>
+      <div class="c-tabs-cnt c-xmxqinfo" style="display: none;">
+        <h2>项目描述</h2>
+        <div class="c-xmxqcon">
+          <dl>
+            <dd id="xiangmomiaoshu"></dd>
+          </dl>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="c-tabs-cnt c-bzcsinfo" style=" display:none;">
+      </div>
+      <div class="c-tabs-cnt c-hkjhinfo" style="display: none;">
+        <table width="100%">
+          <tbody>
+            <tr>
+              <th align="left" width="32%" style="padding-left:10px;">计划还款时间<span class="tbline" style="margin-top:15px;"></span></th>
+              <th align="center" width="20%">类型<span class="tbline" style="margin-top:15px;"></span></th>
+              <th align="right" width="38%" style="padding-right:10px;">还款金额(元)</th>
+            </tr>
+            <tr>
+              <td align="left" width="32%" style="padding-left:10px;">2016-03-14 <span class="tbline"></span><br>
+                <span class="tbline"></span> </td>
+              <td width="20%" align="center">利息<span class="tbline"></span><br>
+                本金<span class="tbline"></span> </td>
+              <td align="right" width="38%" style="padding-right:10px; color:#0caffe;">3068.49<em class="whuan">未还</em><br>
+                250000.00<em class="whuan">未还</em> </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="clear"></div>
+      </div>
+      <div class="c-tabs-cnt c-tzjlinfo" style="display: none;">
+        <form id="" name="" method="post" action=""  style="width: 100%">
+          <table style="width: 100%">
+            <tbody>
+              <tr>
+                <th align="left" width="25%" style="padding-left:10px;">用户名<span class="tbline" style="margin-top:15px;"></span></th>
+                <th width="25%" align="center">金额(元)<span class="tbline" style="margin-top:15px;"></span></th>
+                <th align="right" width="40%" style="padding-right:10px;">投资时间</th>
+              </tr>
+              <tbody id="inrecord">
+              <tr>
+                  <td align="left" width="25%" style="padding-left:10px; color:#4A4A4A;"> x***g <span class="tbline"></span> </td>
+                  <td style="color:#0caffe;"><span class="tbline"></span><i style="float:right; margin-right:10px;">1,484</i></td>
+                  <td align="right" style="padding-right:10px;">2015-09-17 09:46 </td>
+              </tr>
+              </tbody>
+            </tbody>
+          </table>
+          <div class="clear"></div>
+          <div class="addmore"><a href="#" title="查看更多" class="btn-ckgd yh-ckgd">查看更多↓</a> </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+ <script type="text/javascript">
+	    //初始化轮播组件
+	    $(document).ready(function(){
+	        //切换菜单
+	        $(window).on('scroll', function() {
+	            var scrollTop = document.body.scrollTop;            //网页被卷去的高
+	            var offsetTop = $('.c-tabstit-wrap').offset().top;  //元素离文档顶部的高
+	            if (scrollTop > offsetTop - 55) {
+	                $('.c-tabstit').addClass('fixed');
+	            } else {
+	                $('.c-tabstit').removeClass('fixed');
+	            }
+	        });
+	
+	        //tab切换
+	        var tabMap = [
+	            'c-xmxqinfo',
+	            'c-bzcsinfo',
+	            'c-hkjhinfo',
+	            'c-tzjlinfo'
+	        ];
+	        //初始化
+	        (function(){
+	            var index = $('.c-tabstit').find('.on').data('index');
+	            $('.'+tabMap[index]).show();
+	        })();
+	        $('.c-tabstit span').on('click', function() {
+	            $('.c-tabstit span').removeClass('on');
+	            $(this).addClass('on');
+	            $('.c-tabs-cnt').hide();
+	            var index = $(this).data('index');
+	            $('.'+tabMap[index]).show();
+	            $(window).scrollTop($('.c-tabstit-wrap').offset().top-55);
+	            
+	        })
+
+	    });
+        //计时器
+        function set_time(){
+            var data=parseInt($("#timesShow").val());
+            var day=Math.floor(data/3600/24)<10?'0'+Math.floor(data/3600/24):Math.floor(data/3600/24);
+            var hours=Math.floor(data/3600%24)<10?'0'+Math.floor(data/3600%24):Math.floor(data/3600%24);
+            var minutes=Math.floor(data%3600/60)<10?'0'+Math.floor(data%3600/60):Math.floor(data%3600/60);
+            var seconds=(data%60)<10?'0'+(data%60):(data%60);
+            $("#producttime").html("剩余日期："+day+"天"+hours+"时"+minutes+"分"+seconds+"秒");
+            data--;
+            $("#timesShow").val(data)
+        }
+
+	</script>
+
+<!-- 页面底部 -->
+<div class="btn-invest"><a class="fsize" href="turenameauth.html" style="display: block;">我要实名</a></div>
+</body>
+</html>
