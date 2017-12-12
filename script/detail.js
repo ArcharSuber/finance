@@ -292,26 +292,13 @@ $(document).on('click','#ljzf',function(){
                 if(msg.code == 1025)
                 {
                     alert("支付成功!");
-                    //成功修改订单状态
-                    $.ajax({
-                        type: "post",
-                        url: "http://47.94.215.108/finance_tp5/public/index.php/index/login/orderstatusUp",
-                        data:{
-                            "uid":uid,
-                            "ordercard":ordercard
-                        },
-                        dataType: "json",
-                        success: function (msg) {
-                            console.log(msg);
-                            if(msg.code==1025)
-                            {
-                                location.reload();
-                            }
-                        }
-                    });
+                    window.location.reload(true);
                 }else{
                     alert("余额不足,请进行充值!");
                 }
+            },
+            error:function(mssg){
+                alert("支付失败");
             }
         })
     }
