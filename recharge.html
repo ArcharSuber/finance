@@ -30,7 +30,7 @@ table{
 <body>
 <!-- 页面头部 -->
 <section>
-  <div class="navigation-bar"> <a class="z-01" href="usercenter.html" onclick=""></a> <span>充值</span> <a style="position:absolute; right:10px; top:30%;margin-top:-30px;" href="充值记录.html"><h3>充值记录</h3></a> </div>
+  <div class="navigation-bar"> <a class="z-01" href="usercenter.html" onclick=""></a> <span>充值</span> <a style="position:absolute; right:10px; top:30%;margin-top:-30px;" href="rechargelog.html"><h3>充值记录</h3></a> </div>
 </section>
 <!-- <div style="background:#0697da;height:130px;color:#fff;position:relative;border:2px solid;border-radius:25px;margin-left:20px;margin-top:15px;margin-right:20px;">
 	<table>
@@ -82,7 +82,16 @@ table{
 			$(".up").toggle();
 		});
 	})
-
+    $.ajax({
+        	url: 'http://47.94.215.108/finance_tp5/public/index.php/index/userinfo/show',
+        	type: 'post',
+        	data: {'uid':uid},
+        	success:function(msg){
+                console.log(msg);
+                console.log(msg.data[0].balance)
+               $("#balance").html(msg.data[0].balance);
+        	}
+        })
 
     $(".pay").click(function(){
     	var pay_type = $(".change_bank").val();

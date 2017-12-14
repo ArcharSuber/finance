@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>充值记录</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<link href="css/home.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/css.css" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" type="text/css" href="css/common.css" />
+
+<script type="text/javascript" src="script/jquery.js"></script>
+</head>
+
+<body>
+
+<!--top-->
+
+<div class="top">
+<section>
+  <div class="navigation-bar"> <a onclick="javascript:history.go(-1)" class="z-01"></a> <span>我的充值记录</span> <a href="index.html" class="z-02"></a> </div>
+</section>
+</div>
+ 
+<div class="cl_list cl_l1">
+	<div class="con_title">
+        <div class="box">
+        	<span style="width:50%;">充值日期</span>
+            <span style="width:10%;"></span>
+            <span style="width:10%;"></span>
+            <span style="width:30%;">充值金额</span>
+           
+        </div>
+    </div>
+    <div class="list" style="margin-top:0;">
+        <ul id="conts">
+            <li>
+                <a href="#" class="inactive" style="background:none; padding:0;">
+                    <div class="box">
+                        <span>2018年1月1日</span>
+                        <span>5022元</span>                 
+                    </div>
+                </a>
+            </li>
+            
+
+        </ul>
+    </div>
+</div>
+
+<script>
+    function getCookie(name)//取cookies函数 
+  {
+      var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+        if(arr != null) 
+          return unescape(arr[2]); 
+        return null;
+
+  }
+  uid = getCookie('user_id');
+  if(uid == null)
+  {
+     location.href="login.html";
+  }
+    $.ajax({
+          url:"http://47.94.215.108/finance_tp5/public/index.php/index/userinfo/rechargelog",
+          type:'post',
+          dataType:"json",
+          data:{"uid":uid,},
+          success:function(data){
+             var str="";
+             console.log(data)
+              $.each(data.data,function(k,v){
+
+                  str+='<li><a href="#"style="background:none; padding:0;"><div class="box"><span>'+v.addtime+'</span><span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span><span></span><span>'+v.money+'元</span></div></a></li>';
+              });
+              $("#conts").html(str);
+          }
+
+    });
+    
+</script>
